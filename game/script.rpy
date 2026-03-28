@@ -1,0 +1,31 @@
+﻿# Вы можете расположить сценарий своей игры в этом файле.
+
+# Определение персонажей игры.
+define helen = Character('Хэлен')
+define narrator = Character(None)
+define swan = Character('Профессор Свэн')
+define bismarck = Character('Стэнли Фон Бисмарк')
+define lilian = Character('Лилиана')
+define john = Character('Джон')
+# Вместо использования оператора image можете просто
+# складывать все ваши файлы изображений в папку images.
+# Например, сцену bg room можно вызвать файлом "bg room.png",
+# а eileen happy — "eileen happy.webp", и тогда они появятся в игре.
+
+# Игра начинается здесь:
+label start:
+
+    scene bg the_last_lesson:
+        xsize 1920 ysize 1080
+
+    narrator "Был обычный, безоблачный майский день."
+
+    narrator "Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
+
+    # show eileen happy
+
+    # e "Вы создали новую игру Ren'Py."
+
+    # e "Добавьте сюжет, изображения и музыку и отправьте её в мир!"
+
+    return
