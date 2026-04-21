@@ -1,12 +1,6 @@
 ﻿# Вы можете расположить сценарий своей игры в этом файле.
 
 # Определение персонажей игры.
-define helen = Character('Хэлен')
-define narrator = Character(None)
-define swan = Character('Профессор Свэн')
-define bismarck = Character('Стэнли Фон Бисмарк')
-define lilian = Character('Лилиана')
-define john = Character('Джон')
 # Вместо использования оператора image можете просто
 # складывать все ваши файлы изображений в папку images.
 # Например, сцену bg room можно вызвать файлом "bg room.png",
