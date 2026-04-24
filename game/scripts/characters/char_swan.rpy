@@ -1,0 +1,1 @@
+define swan = Character('Профессор Свэн')

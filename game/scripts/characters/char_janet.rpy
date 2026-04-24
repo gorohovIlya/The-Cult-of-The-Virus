@@ -1,0 +1,1 @@
+define janet = Character('Джанет')

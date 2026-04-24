@@ -1,0 +1,1 @@
+define narrator = Character(None)

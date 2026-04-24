@@ -1,0 +1,1 @@
+define lilian = Character('Лилиана')

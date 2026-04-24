@@ -1,0 +1,1 @@
+define bismarck = Character('Стэнли Фон Бисмарк')
