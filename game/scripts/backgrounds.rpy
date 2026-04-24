@@ -1,3 +1,11 @@
-image bg_dark_deformed_hallway = Movie(play='/images/backgrounds/bg dark_deformed_hallway.webm')
-image bg_deformed_hallway_1 = Movie(play='/images/backgrounds/bg deformed_hallway_1.webm')
-image bg_deformed_hallway_2 = Movie(play='/images/backgrounds/bg deformed_hallway_2.webm')
+image dark_deformed_hallway = Movie(play='images/backgrounds/bg_dark_deformed_hallway.webm')
+image deformed_hallway_1 = Movie(play='images/backgrounds/bg_deformed_hallway_1.webm')
+image deformed_hallway_2 = Movie(play='images/backgrounds/bg_deformed_hallway_2.webm')
+image street = Movie(play='images/backgrounds/bg_street.webm')
+image university = Movie(play='images/backgrounds/bg_university.webm')
+image archway_day = 'images/backgrounds/bg_archway_day.png'
+image archway_evening = 'images/backgrounds/bg_archway_evening.png'
+image archway_night = 'images/backgrounds/bg_archway_night.png'
+image street_static = 'images/backgrounds/bg_street.png'
+image world_between_worlds = 'images/backgrounds/bg_world_between_worlds.png'
+image hallway = 'images/backgrounds/bg_hallway.png'
