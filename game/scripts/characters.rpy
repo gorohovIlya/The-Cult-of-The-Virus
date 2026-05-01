@@ -1,5 +1,0 @@
-default helen = Character('Хэлен')
-default narrator = Character(None)
-default swan = Character('Профессор Свэн')
-default bismarck = Character('Стэнли Фон Бисмарк')
-default lilian = Character('Лилиана')
