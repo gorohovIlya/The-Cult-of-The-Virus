@@ -1,5 +1,5 @@
-CHARS := bismarck.rpy helen.rpy janet.rpy john.rpy lilian.rpy narrator.rpy swan.rpy
-DIR := characters2
+CHARS := bismarck.rpy helen.rpy janet.rpy john.rpy lilian.rpy narrator.rpy swan.rpy virus.rpy friend.rpy cultist.rpy unknown.rpy
+DIR := characters
 PRE := char_
 
 FILES := $(addprefix $(DIR)/$(PRE), $(CHARS))
@@ -12,6 +12,10 @@ ru_john.rpy := Джон
 ru_lilian.rpy := Лилиана
 ru_narrator.rpy := None
 ru_swan.rpy := Профессор Свэн
+ru_virus.rpy := Вирус
+ru_friend.rpy := Подруга
+ru_cultist.rpy := Культист
+ru_unknown.rpy := Неизвестный
 
 # Шаблон текста файла
 define BODY_TEXT
