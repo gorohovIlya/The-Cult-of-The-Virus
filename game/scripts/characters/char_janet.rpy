@@ -1,21 +1,21 @@
-define janet = Character('Джанет')
+define janet = Character(_("Джанет"))
 
 layeredimage janet:
     group head:
-        attribute head_a default:
+        attribute head_a default: 
             "characters/janet/janet_head_a.png"
-        attribute head_b:
+        attribute head_b: 
             "characters/janet/janet_head_b.png"
-        attribute head_c:
+        attribute head_c: 
             "characters/janet/janet_head_c.png"
-        attribute head_d:
+        attribute head_d: 
             "characters/janet/janet_head_d.png"
-        attribute head_e:
+        attribute head_e: 
             "characters/janet/janet_head_e.png"
     group body:
         attribute body_aa default:
             "characters/janet/janet_body_aa.png"
-        attribute body_ab:
+        attribute body_ab: 
             "characters/janet/janet_body_ab.png"
         attribute body_ac:
             "characters/janet/janet_body_ac.png"

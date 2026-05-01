@@ -1,4 +1,4 @@
-define john = Character('Джон')
+define john = Character(_("Джон"))
 
 layeredimage john:
     group body:
@@ -26,5 +26,5 @@ layeredimage john:
             "characters/john/john_head_d.png"
         attribute head_e: 
             "characters/john/john_head_e.png"
-        attribute head_b: 
+        attribute head_f: 
             "characters/john/john_head_f.png"
