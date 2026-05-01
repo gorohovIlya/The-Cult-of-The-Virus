@@ -21,10 +21,10 @@ layeredimage john:
         attribute head_b: 
             "characters/john/john_head_b.png"
         attribute head_c: 
-            "characters/john/john_head_b.png"
+            "characters/john/john_head_c.png"
         attribute head_d: 
-            "characters/john/john_head_b.png"
+            "characters/john/john_head_d.png"
         attribute head_e: 
-            "characters/john/john_head_b.png"
+            "characters/john/john_head_e.png"
         attribute head_b: 
             "characters/john/john_head_f.png"
