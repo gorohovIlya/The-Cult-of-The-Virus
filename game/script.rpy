@@ -228,34 +228,38 @@
 
 screen chess_board_view(game):
     modal True
-    add Solid("#000000cc") # Темный фон
+    add Solid("#000000cc") # Темный полупрозрачный фон на весь экран
 
-    # Основной контейнер, который держит доску и сетку вместе
+    # Используем fixed — он ГАРАНТИРУЕТ жесткий размер 720x720 и не сжимается!
     fixed:
         align (0.5, 0.5)
         xsize 720 
         ysize 720
 
-        # 1. Слой подложки: цельная доска
+        # Слой 1: Декоративная доска. 
+        # Она просто рисуется на заднем плане и не мешает кликам.
         add "images/chess_puzzle/chessboard.svg":
             xsize 720
             ysize 720
 
-        # 2. Слой взаимодействия: сетка поверх доски
+        # Слой 2: Интерактивная сетка кнопок поверх доски
         grid 8 8:
+            xsize 720
+            ysize 720
             spacing 0
+            
             # Рендерим от y=7 до y=0 (белые внизу)
             for y in range(7, -1, -1):
                 for x in range(8):
                     
-                    # ГАРАНТИРУЕМ ИНИЦИАЛИЗАЦИЮ ВСЕХ ПЕРЕМЕННЫХ НА КАЖДОМ ШАГЕ:
+                    # Инициализируем переменные для каждого шага цикла:
                     $ is_highlighted = False
                     $ current_piece = None
                     $ can_interact = False
                     $ button_action = None
-                    $ piece_image_path = "" # Сюда мы запишем готовый путь к файлу фигуры
+                    $ piece_image_path = ""
                     
-                    # Теперь безопасно пересчитываем их значения:
+                    # Рассчитываем логику:
                     $ is_highlighted = (x, y) in game.allowed_moves
                     $ current_piece = next((p for p in game.board.pieces if p.pos_x == x and p.pos_y == y), None)
                     $ can_interact = not game.is_success and not game.is_failure
@@ -267,49 +271,49 @@ screen chess_board_view(game):
                     else:
                         $ button_action = Function(game.select_piece, x, y)
 
-                    # Если фигура есть — собираем путь к файлу НАПРЯМУЮ в Python
                     if current_piece is not None:
-                        # Обратите внимание на слэш: "images/chess_puzzle/pieces/wpawn.svg" 
-                        # (подставьте вашу точную папку, если они лежат в подпапке pieces)
                         $ piece_image_path = "images/chess_puzzle/" + current_piece.char + ".svg"
 
-                    # 3. Кнопка-клетка
+                    # Кнопка-клетка
                     button:
-                        background None 
+                        # Заливаем кнопку почти невидимым цветом (альфа-канал "01" — прозрачность 99.6%).
+                        # Это делает кнопку осязаемой для кликов мыши на площади 90x90 пикселей!
+                        background Solid("#00000001") 
                         xsize 90
                         ysize 90
                         padding (0, 0)
+                        margin (0, 0)
                         action button_action
 
-                        # Эффект подсветки клетки
+                        # Эффект подсветки клетки (накладывается поверх)
                         if is_highlighted:
                             foreground Solid("#baca4466")
 
-                        # Безопасное отображение фигуры
+                        # Отображение фигуры
                         if current_piece is not None:
-                            # Передаем уже готовую строковую переменную. Никаких скобок внутри кавычек!
                             add Transform(piece_image_path, xsize=80, ysize=80) align (0.5, 0.5)
                         
-                        # Точка-подсказка
+                        # Точка-подсказка для пустых подсвеченных клеток
                         elif is_highlighted:
                             text "•" align (0.5, 0.5) color "#ffffffaa" size 50
 
-    # Боковая панель
+    # Боковая панель информации и управления (смещена чуть дальше, чтобы не наезжать на доску)
     vbox:
         align (0.95, 0.5)
-        spacing 15
+        spacing 20
+        
         if game.turn:
             text "Ход БЕЛЫХ" color "#fff" size 30
         else:
             text "Ход ЧЕРНЫХ" color "#ff5555" size 30
         
-        text "Ход [game.current_move_num] из [game.moves_count]" color "#ccc"
+        text "Ход [game.current_move_num] из [game.moves_count]" color "#ccc" size 22
         
         if game.is_success:
             text "МАТ!" color "#0f0" size 40
             textbutton "Завершить" action Return(True)
         elif game.is_failure:
-            text "ПРОВАЛ" color "#f00"
+            text "ПРОВАЛ" color "#f00" size 40
             textbutton "Заново" action Return(False)
 
 define voice_behind_door = Character(_('Голос за дверью'))
