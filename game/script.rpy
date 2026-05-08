@@ -1,4 +1,318 @@
-﻿define voice_behind_door = Character(_('Голос за дверью'))
+﻿init python:
+    class ChessPiece:
+        def __init__(self, x, y, color, piece_type):
+            self.pos_x = x
+            self.pos_y = y
+            self.color = color  # True - белые, False - черные
+            self.char = ("w_" + piece_type) if color else ("b_" + piece_type)
+
+        def _check_out_of_bounds(self, x, y):
+            return x < 0 or x > 7 or y < 0 or y > 7
+
+    class ChessBoard:
+        def __init__(self, pieces):
+            self.pieces = pieces
+            self.body = []
+            for y in range(8):
+                row = []
+                for x in range(8):
+                    row.append(' ' if (x + y) % 2 == 0 else '*')
+                self.body.append(row)
+            
+            self.history = []
+            self.update_board_representation()
+
+        def update_board_representation(self):
+            for y in range(8):
+                for x in range(8):
+                    self.body[y][x] = ' ' if (x + y) % 2 == 0 else '*'
+            for piece in self.pieces:
+                # Записываем на доску тип фигуры без цвета (например, 'king', 'pawn')
+                # чтобы логике было проще ориентироваться
+                piece_type = piece.char[2:] # отрезаем 'w_' или 'b_'
+                self.body[piece.pos_y][piece.pos_x] = piece_type
+
+        def _check_out_of_bounds(self, x, y):
+            return x < 0 or x > 7 or y < 0 or y > 7
+
+        def _get_cell_status(self, piece, x, y):
+            if self._check_out_of_bounds(x, y):
+                return 'block'
+                
+            # Ищем, стоит ли кто-то на клетке
+            target_piece = next((p for p in self.pieces if p.pos_x == x and p.pos_y == y), None)
+            if target_piece is None:
+                return 'empty'
+                
+            if piece.color != target_piece.color:
+                return 'capture'
+                
+            return 'block'
+
+        # --- Методы ходов ---
+        def get_king_moves(self, piece):
+            moves = []
+            for dx in range(-1, 2):
+                for dy in range(-1, 2):
+                    if dx == 0 and dy == 0:
+                        continue
+                    x, y = piece.pos_x + dx, piece.pos_y + dy
+                    status = self._get_cell_status(piece, x, y)
+                    if status in ['empty', 'capture']:
+                        moves.append((x, y))
+            return moves
+
+        def get_knight_moves(self, piece):
+            moves = []
+            directions = [(-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2)]
+            for dx, dy in directions:
+                x, y = piece.pos_x + dx, piece.pos_y + dy
+                status = self._get_cell_status(piece, x, y)
+                if status in ['empty', 'capture']:
+                    moves.append((x, y))
+            return moves
+
+        def get_sliding_moves(self, piece, directions):
+            moves = []
+            for dx, dy in directions:
+                x, y = piece.pos_x, piece.pos_y
+                while True:
+                    x += dx
+                    y += dy
+                    status = self._get_cell_status(piece, x, y)
+                    if status == 'empty':
+                        moves.append((x, y))
+                    elif status == 'capture':
+                        moves.append((x, y))
+                        break
+                    else:
+                        break
+            return moves
+
+        def get_rook_moves(self, piece):
+            return self.get_sliding_moves(piece, [(0, 1), (0, -1), (1, 0), (-1, 0)])
+
+        def get_bishop_moves(self, piece):
+            return self.get_sliding_moves(piece, [(1, 1), (1, -1), (-1, 1), (-1, -1)])
+
+        def get_queen_moves(self, piece):
+            directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
+            return self.get_sliding_moves(piece, directions)
+
+        def get_pawn_moves(self, piece):
+            moves = []
+            direction = 1 if piece.color else -1
+            start_row = 1 if piece.color else 6
+            
+            # Ход вперед
+            next_y = piece.pos_y + direction
+            if not self._check_out_of_bounds(piece.pos_x, next_y):
+                target_piece = next((p for p in self.pieces if p.pos_x == piece.pos_x and p.pos_y == next_y), None)
+                if target_piece is None:
+                    moves.append((piece.pos_x, next_y))
+                    
+                    # Двойной ход
+                    two_steps_y = piece.pos_y + (2 * direction)
+                    if piece.pos_y == start_row and not self._check_out_of_bounds(piece.pos_x, two_steps_y):
+                        double_target = next((p for p in self.pieces if p.pos_x == piece.pos_x and p.pos_y == two_steps_y), None)
+                        if double_target is None:
+                            moves.append((piece.pos_x, two_steps_y))
+
+            # Взятия по диагонали
+            for dx in [-1, 1]:
+                target_x = piece.pos_x + dx
+                target_y = piece.pos_y + direction
+                if not self._check_out_of_bounds(target_x, target_y):
+                    target_piece = next((p for p in self.pieces if p.pos_x == target_x and p.pos_y == target_y), None)
+                    if target_piece is not None and target_piece.color != piece.color:
+                        moves.append((target_x, target_y))
+            return moves
+
+        def get_all_pieces_moves(self, piece):
+            piece_type = piece.char[2:] # Отрезаем "w_" или "b_"
+            
+            if piece_type in ['king']:
+                return self.get_king_moves(piece)
+            elif piece_type in ['knight']:
+                return self.get_knight_moves(piece)
+            elif piece_type in ['rook']:
+                return self.get_rook_moves(piece)
+            elif piece_type in ['bishop']:
+                return self.get_bishop_moves(piece)
+            elif piece_type in ['queen']:
+                return self.get_queen_moves(piece)
+            elif piece_type in ['pawn']:
+                return self.get_pawn_moves(piece)
+            return []
+
+        def get_kings(self):
+            white_king = next((p for p in self.pieces if p.char == 'w_king'), None)
+            black_king = next((p for p in self.pieces if p.char == 'b_king'), None)
+            return white_king, black_king
+
+        def is_under_attack(self, x, y, defender_color):
+            for piece in self.pieces:
+                if piece.color != defender_color:
+                    enemy_moves = self.get_all_pieces_moves(piece)
+                    if (x, y) in enemy_moves:
+                        return True
+            return False
+
+        def move_piece(self, piece, x, y):
+            self.history.append([row[:] for row in self.body])
+            # Удаляем срубленную фигуру, если она была на этой клетке
+            self.pieces = [p for p in self.pieces if not (p.pos_x == x and p.pos_y == y)]
+            piece.pos_x = x
+            piece.pos_y = y
+            self.update_board_representation()
+
+
+    class ChessGame:
+        def __init__(self, board, turn, moves_count):
+            self.board = board
+            self.turn = turn
+            self.selected_piece = None
+            self.allowed_moves = []
+            self.moves_count = moves_count
+            self.current_move_num = 0
+            self.is_failure = False
+            self.is_success = False
+
+        def select_piece(self, px, py):
+            # Ищем фигуру игрока, чей сейчас ход
+            for piece in self.board.pieces:
+                if piece.pos_x == px and piece.pos_y == py and piece.color == self.turn:
+                    self.selected_piece = piece
+                    self.allowed_moves = self.board.get_all_pieces_moves(piece)
+                    renpy.restart_interaction() # Инициализируем перерисовку экрана!
+                    return
+            
+            # Если кликнули мимо или на чужую фигуру — сбрасываем выбор
+            self.selected_piece = None
+            self.allowed_moves = []
+            renpy.restart_interaction()
+
+        def is_checkmate(self, turn):
+            white_king, black_king = self.board.get_kings()
+            king = white_king if turn else black_king
+            
+            if not king:
+                return False
+                
+            if not self.board.is_under_attack(king.pos_x, king.pos_y, king.color):
+                return False
+                
+            king_moves = self.board.get_all_pieces_moves(king)
+            for move in king_moves:
+                if not self.board.is_under_attack(move[0], move[1], king.color):
+                    return False
+            return True
+
+        def make_move(self, to_x, to_y):
+            if self.selected_piece and (to_x, to_y) in self.allowed_moves:
+                self.board.move_piece(self.selected_piece, to_x, to_y)
+                self.selected_piece = None
+                self.allowed_moves = []
+                self.current_move_num += 1
+                self.turn = not self.turn
+                self.check_game_status()
+                renpy.restart_interaction() # Обновляем экран после хода!
+
+        def check_game_status(self):
+            # Проверяем, победили ли белые (поставили мат черным, turn=False)
+            if self.is_checkmate(turn=False):
+                self.is_success = True
+                return
+            if self.current_move_num >= self.moves_count:
+                self.is_failure = True
+
+screen chess_board_view(game):
+    modal True
+    add Solid("#000000cc") # Темный фон
+
+    # Основной контейнер, который держит доску и сетку вместе
+    fixed:
+        align (0.5, 0.5)
+        xsize 720 
+        ysize 720
+
+        # 1. Слой подложки: цельная доска
+        add "images/chess_puzzle/chessboard.svg":
+            xsize 720
+            ysize 720
+
+        # 2. Слой взаимодействия: сетка поверх доски
+        grid 8 8:
+            spacing 0
+            # Рендерим от y=7 до y=0 (белые внизу)
+            for y in range(7, -1, -1):
+                for x in range(8):
+                    
+                    # ГАРАНТИРУЕМ ИНИЦИАЛИЗАЦИЮ ВСЕХ ПЕРЕМЕННЫХ НА КАЖДОМ ШАГЕ:
+                    $ is_highlighted = False
+                    $ current_piece = None
+                    $ can_interact = False
+                    $ button_action = None
+                    $ piece_image_path = "" # Сюда мы запишем готовый путь к файлу фигуры
+                    
+                    # Теперь безопасно пересчитываем их значения:
+                    $ is_highlighted = (x, y) in game.allowed_moves
+                    $ current_piece = next((p for p in game.board.pieces if p.pos_x == x and p.pos_y == y), None)
+                    $ can_interact = not game.is_success and not game.is_failure
+                    
+                    if not can_interact:
+                        $ button_action = None
+                    elif is_highlighted:
+                        $ button_action = Function(game.make_move, x, y)
+                    else:
+                        $ button_action = Function(game.select_piece, x, y)
+
+                    # Если фигура есть — собираем путь к файлу НАПРЯМУЮ в Python
+                    if current_piece is not None:
+                        # Обратите внимание на слэш: "images/chess_puzzle/pieces/wpawn.svg" 
+                        # (подставьте вашу точную папку, если они лежат в подпапке pieces)
+                        $ piece_image_path = "images/chess_puzzle/" + current_piece.char + ".svg"
+
+                    # 3. Кнопка-клетка
+                    button:
+                        background None 
+                        xsize 90
+                        ysize 90
+                        padding (0, 0)
+                        action button_action
+
+                        # Эффект подсветки клетки
+                        if is_highlighted:
+                            foreground Solid("#baca4466")
+
+                        # Безопасное отображение фигуры
+                        if current_piece is not None:
+                            # Передаем уже готовую строковую переменную. Никаких скобок внутри кавычек!
+                            add Transform(piece_image_path, xsize=80, ysize=80) align (0.5, 0.5)
+                        
+                        # Точка-подсказка
+                        elif is_highlighted:
+                            text "•" align (0.5, 0.5) color "#ffffffaa" size 50
+
+    # Боковая панель
+    vbox:
+        align (0.95, 0.5)
+        spacing 15
+        if game.turn:
+            text "Ход БЕЛЫХ" color "#fff" size 30
+        else:
+            text "Ход ЧЕРНЫХ" color "#ff5555" size 30
+        
+        text "Ход [game.current_move_num] из [game.moves_count]" color "#ccc"
+        
+        if game.is_success:
+            text "МАТ!" color "#0f0" size 40
+            textbutton "Завершить" action Return(True)
+        elif game.is_failure:
+            text "ПРОВАЛ" color "#f00"
+            textbutton "Заново" action Return(False)
+
+define voice_behind_door = Character(_('Голос за дверью'))
 define man = Character(_('Мужчина'))
 define girl = Character(_('Девушка'))
 
@@ -402,17 +716,19 @@ label a55:
 label a56:
     narrator "Я начала поиски. Сначала я осмотрела стол. Он был массивным. На нём горела небольшая свечка. Я осмотрела все ножки и нижнюю часть стола, но так ничего и не нашла."
     narrator "Осмотр стульев тоже не дал результатов. После я осмотрела «спальное место». Я смотрела практически под каждой соломинкой, но безуспешно. Затем я подошла к двери."
-    narrator "Я попыталась что-то с ней сделать, но не получилось. Все эти действия заняли у меня час. Вымотавшись из сил, я села в дальнем углу подвала."
+    narrator "Я попыталась что-то с ней сделать, но не получилось. Все эти действия заняли у меня час. Выбившись из сил, я села в дальнем углу подвала."
     narrator "Неужели здесь правда ничего не было? Я повернула голову влево, чтобы оглядеть стены, и неожиданно увидела какой-то рисунок."
     narrator "Присмотревшись, я поняла, что это шахматная доска с крохотными фигурками, которые как-то расставлены на доске."
     narrator "Когда я напрягла мозги, я вспомнила о шахматной задаче, которую нам объяснял профессор Свэн."
-    menu:   # Заглушка на время пока нет головоломки
-        'Выполнить':
-            narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
-            narrator "— Неужели культист не врал?"
-            narrator "— Чего мы ждём? Пойдемте."
-            narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца. Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
-            jump a57
+    jump start_chess
+    # menu:   # Заглушка на время пока нет головоломки
+    #     'Выполнить':
+    #         narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
+    #         narrator "— Неужели культист не врал?"
+    #         narrator "— Чего мы ждём? Пойдемте."
+    #         narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца. Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
+    #         jump a57
+
 
 label a57:
     narrator "Мы очутились в коридорах какого-то здания. Коридоры были максимально странными. Они менялись, искривлялись, искажались."
@@ -592,4 +908,53 @@ label a23:
     virus "— Убейте её!"
     jump a24
 
+label start_chess:
+    "Смогу ли я сама решить эту задачу?"
+    python:
+        pieces = [
+            ChessPiece(0, 0, False, 'r'),
+            ChessPiece(7, 0, False, 'r'),
+            ChessPiece(1, 0, False, 'n'),
+            ChessPiece(6, 0, False, 'n'),
+            ChessPiece(3, 7, False, 'b'),
+            ChessPiece(5, 0, False, 'b'),
+            ChessPiece(3, 0, False, 'q'),
+            ChessPiece(4, 0, False, 'k'),
+            ChessPiece(0, 1, False, 'p'),
+            ChessPiece(1, 1, False, 'p'),
+            ChessPiece(2, 1, False, 'p'),
+            ChessPiece(3, 2, False, 'p'),
+            ChessPiece(5, 1, False, 'p'),
+            ChessPiece(6, 1, False, 'p'),
+            ChessPiece(7, 2, False, 'p'),
+            ChessPiece(0, 6, True, 'p'),
+            ChessPiece(1, 6, True, 'p'),
+            ChessPiece(2, 6, True, 'p'),
+            ChessPiece(3, 6, True, 'p'),
+            ChessPiece(4, 4, True, 'p'),
+            ChessPiece(5, 6, True, 'p'),
+            ChessPiece(6, 6, True, 'p'),
+            ChessPiece(7, 6, True, 'p'),
+            ChessPiece(7, 7, True, 'r'),
+            ChessPiece(0, 7, True, 'r'),
+            ChessPiece(2, 7, True, 'b'),
+            ChessPiece(4, 7, True, 'k'),
+            ChessPiece(2, 5, True, 'n'),
+            ChessPiece(2, 4, True, 'b'),
+            ChessPiece(4, 3, True, 'n')
+        ]
 
+        board = ChessBoard(pieces)
+        active_game = ChessGame(board, turn=True, moves_count=2)
+call screen chess_board_view(active_game)
+$ game_result = _return
+if game_result:
+    narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
+    narrator "— Неужели культист не врал?"
+    narrator "— Чего мы ждём? Пойдемте."
+    narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца. Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
+    jump a57
+else:
+    "Похоже в той задаче расстановка фигур была иной"
+    "Надо попробовать ещё раз"
+    jump start_chess
