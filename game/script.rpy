@@ -1,319 +1,138 @@
 ﻿init python:
-    class ChessPiece:
-        def __init__(self, x, y, color, piece_type):
-            self.pos_x = x
-            self.pos_y = y
-            self.color = color  # True - белые, False - черные
-            self.char = ("w_" + piece_type) if color else ("b_" + piece_type)
+    # Chess puzzle
+    import chess
 
-        def _check_out_of_bounds(self, x, y):
-            return x < 0 or x > 7 or y < 0 or y > 7
-
-    class ChessBoard:
-        def __init__(self, pieces):
-            self.pieces = pieces
-            self.body = []
-            for y in range(8):
-                row = []
-                for x in range(8):
-                    row.append(' ' if (x + y) % 2 == 0 else '*')
-                self.body.append(row)
+    class ChessManager:
+        def __init__(self, fen=None, moves_limit=10):
+            self.board = chess.Board(fen) if fen else chess.Board()
             
-            self.history = []
-            self.update_board_representation()
-
-        def update_board_representation(self):
-            for y in range(8):
-                for x in range(8):
-                    self.body[y][x] = ' ' if (x + y) % 2 == 0 else '*'
-            for piece in self.pieces:
-                # Записываем на доску тип фигуры без цвета (например, 'king', 'pawn')
-                # чтобы логике было проще ориентироваться
-                piece_type = piece.char[2:] # отрезаем 'w_' или 'b_'
-                self.body[piece.pos_y][piece.pos_x] = piece_type
-
-        def _check_out_of_bounds(self, x, y):
-            return x < 0 or x > 7 or y < 0 or y > 7
-
-        def _get_cell_status(self, piece, x, y):
-            if self._check_out_of_bounds(x, y):
-                return 'block'
-                
-            # Ищем, стоит ли кто-то на клетке
-            target_piece = next((p for p in self.pieces if p.pos_x == x and p.pos_y == y), None)
-            if target_piece is None:
-                return 'empty'
-                
-            if piece.color != target_piece.color:
-                return 'capture'
-                
-            return 'block'
-
-        # --- Методы ходов ---
-        def get_king_moves(self, piece):
-            moves = []
-            for dx in range(-1, 2):
-                for dy in range(-1, 2):
-                    if dx == 0 and dy == 0:
-                        continue
-                    x, y = piece.pos_x + dx, piece.pos_y + dy
-                    status = self._get_cell_status(piece, x, y)
-                    if status in ['empty', 'capture']:
-                        moves.append((x, y))
-            return moves
-
-        def get_knight_moves(self, piece):
-            moves = []
-            directions = [(-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2)]
-            for dx, dy in directions:
-                x, y = piece.pos_x + dx, piece.pos_y + dy
-                status = self._get_cell_status(piece, x, y)
-                if status in ['empty', 'capture']:
-                    moves.append((x, y))
-            return moves
-
-        def get_sliding_moves(self, piece, directions):
-            moves = []
-            for dx, dy in directions:
-                x, y = piece.pos_x, piece.pos_y
-                while True:
-                    x += dx
-                    y += dy
-                    status = self._get_cell_status(piece, x, y)
-                    if status == 'empty':
-                        moves.append((x, y))
-                    elif status == 'capture':
-                        moves.append((x, y))
-                        break
-                    else:
-                        break
-            return moves
-
-        def get_rook_moves(self, piece):
-            return self.get_sliding_moves(piece, [(0, 1), (0, -1), (1, 0), (-1, 0)])
-
-        def get_bishop_moves(self, piece):
-            return self.get_sliding_moves(piece, [(1, 1), (1, -1), (-1, 1), (-1, -1)])
-
-        def get_queen_moves(self, piece):
-            directions = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]
-            return self.get_sliding_moves(piece, directions)
-
-        def get_pawn_moves(self, piece):
-            moves = []
-            direction = 1 if piece.color else -1
-            start_row = 1 if piece.color else 6
+            self.selected_square = None
+            self.legal_targets = []
             
-            # Ход вперед
-            next_y = piece.pos_y + direction
-            if not self._check_out_of_bounds(piece.pos_x, next_y):
-                target_piece = next((p for p in self.pieces if p.pos_x == piece.pos_x and p.pos_y == next_y), None)
-                if target_piece is None:
-                    moves.append((piece.pos_x, next_y))
-                    
-                    # Двойной ход
-                    two_steps_y = piece.pos_y + (2 * direction)
-                    if piece.pos_y == start_row and not self._check_out_of_bounds(piece.pos_x, two_steps_y):
-                        double_target = next((p for p in self.pieces if p.pos_x == piece.pos_x and p.pos_y == two_steps_y), None)
-                        if double_target is None:
-                            moves.append((piece.pos_x, two_steps_y))
+            self.moves_limit = moves_limit
+            self.moves_made = 0
 
-            # Взятия по диагонали
-            for dx in [-1, 1]:
-                target_x = piece.pos_x + dx
-                target_y = piece.pos_y + direction
-                if not self._check_out_of_bounds(target_x, target_y):
-                    target_piece = next((p for p in self.pieces if p.pos_x == target_x and p.pos_y == target_y), None)
-                    if target_piece is not None and target_piece.color != piece.color:
-                        moves.append((target_x, target_y))
-            return moves
+        @property
+        def is_white_turn(self):
+            return self.board.turn == chess.WHITE
 
-        def get_all_pieces_moves(self, piece):
-            piece_type = piece.char[2:] # Отрезаем "w_" или "b_"
+        @property
+        def is_success(self):
+            return self.board.is_checkmate() and self.board.turn == chess.BLACK
+
+        @property
+        def is_failure(self):
+            if self.moves_made >= self.moves_limit and not self.is_success:
+                return True
+            return self.board.is_game_over() and not self.is_success
+
+        def get_piece_at(self, x, y):
+            """Возвращает имя файла фигуры для клетки (x, y)"""
+            square = chess.square(x, y)
+            piece = self.board.piece_at(square)
+            if not piece:
+                return None
             
-            if piece_type in ['king']:
-                return self.get_king_moves(piece)
-            elif piece_type in ['knight']:
-                return self.get_knight_moves(piece)
-            elif piece_type in ['rook']:
-                return self.get_rook_moves(piece)
-            elif piece_type in ['bishop']:
-                return self.get_bishop_moves(piece)
-            elif piece_type in ['queen']:
-                return self.get_queen_moves(piece)
-            elif piece_type in ['pawn']:
-                return self.get_pawn_moves(piece)
-            return []
+            color_prefix = "w" if piece.color == chess.WHITE else "b"
+            piece_names = {
+                'p': 'pawn', 'n': 'knight', 'b': 'bishop',
+                'r': 'rook', 'q': 'queen', 'k': 'king'
+            }
+            return f"{color_prefix}_{piece_names[piece.symbol().lower()]}"
 
-        def get_kings(self):
-            white_king = next((p for p in self.pieces if p.char == 'w_king'), None)
-            black_king = next((p for p in self.pieces if p.char == 'b_king'), None)
-            return white_king, black_king
-
-        def is_under_attack(self, x, y, defender_color):
-            for piece in self.pieces:
-                if piece.color != defender_color:
-                    enemy_moves = self.get_all_pieces_moves(piece)
-                    if (x, y) in enemy_moves:
-                        return True
-            return False
-
-        def move_piece(self, piece, x, y):
-            self.history.append([row[:] for row in self.body])
-            # Удаляем срубленную фигуру, если она была на этой клетке
-            self.pieces = [p for p in self.pieces if not (p.pos_x == x and p.pos_y == y)]
-            piece.pos_x = x
-            piece.pos_y = y
-            self.update_board_representation()
-
-
-    class ChessGame:
-        def __init__(self, board, turn, moves_count):
-            self.board = board
-            self.turn = turn
-            self.selected_piece = None
-            self.allowed_moves = []
-            self.moves_count = moves_count
-            self.current_move_num = 0
-            self.is_failure = False
-            self.is_success = False
-
-        def select_piece(self, px, py):
-            # Ищем фигуру игрока, чей сейчас ход
-            for piece in self.board.pieces:
-                if piece.pos_x == px and piece.pos_y == py and piece.color == self.turn:
-                    self.selected_piece = piece
-                    self.allowed_moves = self.board.get_all_pieces_moves(piece)
-                    renpy.restart_interaction() # Инициализируем перерисовку экрана!
-                    return
+        def select_square(self, x, y):
+            """Логика клика по клетке"""
+            square = chess.square(x, y)
             
-            # Если кликнули мимо или на чужую фигуру — сбрасываем выбор
-            self.selected_piece = None
-            self.allowed_moves = []
+            if square in self.legal_targets:
+                self.make_move(self.selected_square, square)
+                return
+
+            piece = self.board.piece_at(square)
+            if piece and piece.color == self.board.turn:
+                self.selected_square = square
+                self.legal_targets = [m.to_square for m in self.board.legal_moves if m.from_square == square]
+            else:
+                self.selected_square = None
+                self.legal_targets = []
+            
             renpy.restart_interaction()
 
-        def is_checkmate(self, turn):
-            white_king, black_king = self.board.get_kings()
-            king = white_king if turn else black_king
+        def make_move(self, from_sq, to_sq):
+            move = chess.Move(from_sq, to_sq)
             
-            if not king:
-                return False
-                
-            if not self.board.is_under_attack(king.pos_x, king.pos_y, king.color):
-                return False
-                
-            king_moves = self.board.get_all_pieces_moves(king)
-            for move in king_moves:
-                if not self.board.is_under_attack(move[0], move[1], king.color):
-                    return False
-            return True
+            piece = self.board.piece_at(from_sq)
+            if piece and piece.piece_type == chess.PAWN:
+                if chess.square_rank(to_sq) in [0, 7]:
+                    move.promotion = chess.QUEEN
 
-        def make_move(self, to_x, to_y):
-            if self.selected_piece and (to_x, to_y) in self.allowed_moves:
-                self.board.move_piece(self.selected_piece, to_x, to_y)
-                self.selected_piece = None
-                self.allowed_moves = []
-                self.current_move_num += 1
-                self.turn = not self.turn
-                self.check_game_status()
-                renpy.restart_interaction() # Обновляем экран после хода!
+            if move in self.board.legal_moves:
+                self.board.push(move)
+                self.moves_made += 1
+                self.selected_square = None
+                self.legal_targets = []
+                renpy.restart_interaction()
 
-        def check_game_status(self):
-            # Проверяем, победили ли белые (поставили мат черным, turn=False)
-            if self.is_checkmate(turn=False):
-                self.is_success = True
-                return
-            if self.current_move_num >= self.moves_count:
-                self.is_failure = True
+    # Git puzzle
+    win_order = ['pbw branch', 'pbw switch helen_alive', 
+        'pbw restore --staged helen.life', 'pbw restore helen.life']
 
-screen chess_board_view(game):
+    all_items = ['pbw branch', 'pbw switch helen_alive', 
+        'pbw restore --staged helen.life', 'pbw restore helen.life', 'pbw add .', 
+            'pbw push origin main', 'pbw reset HEAD emma.life']
+
+    player_results = []
+
+screen chess_board_view(mgr):
     modal True
-    add Solid("#000000cc") # Темный полупрозрачный фон на весь экран
+    add Solid("#000000cc")
 
-    # Используем fixed — он ГАРАНТИРУЕТ жесткий размер 720x720 и не сжимается!
     fixed:
         align (0.5, 0.5)
-        xsize 720 
-        ysize 720
+        xsize 720 ysize 720
 
-        # Слой 1: Декоративная доска. 
-        # Она просто рисуется на заднем плане и не мешает кликам.
         add "images/chess_puzzle/chessboard.svg":
-            xsize 720
-            ysize 720
+            xsize 720 ysize 720
 
-        # Слой 2: Интерактивная сетка кнопок поверх доски
         grid 8 8:
-            xsize 720
-            ysize 720
+            xsize 720 ysize 720
             spacing 0
             
-            # Рендерим от y=7 до y=0 (белые внизу)
             for y in range(7, -1, -1):
                 for x in range(8):
-                    
-                    # Инициализируем переменные для каждого шага цикла:
-                    $ is_highlighted = False
-                    $ current_piece = None
-                    $ can_interact = False
-                    $ button_action = None
-                    $ piece_image_path = ""
-                    
-                    # Рассчитываем логику:
-                    $ is_highlighted = (x, y) in game.allowed_moves
-                    $ current_piece = next((p for p in game.board.pieces if p.pos_x == x and p.pos_y == y), None)
-                    $ can_interact = not game.is_success and not game.is_failure
-                    
-                    if not can_interact:
-                        $ button_action = None
-                    elif is_highlighted:
-                        $ button_action = Function(game.make_move, x, y)
-                    else:
-                        $ button_action = Function(game.select_piece, x, y)
+                    $ current_sq = chess.square(x, y)
+                    $ piece_name = mgr.get_piece_at(x, y)
+                    $ is_target = current_sq in mgr.legal_targets
+                    $ is_sel = (current_sq == mgr.selected_square)
 
-                    if current_piece is not None:
-                        $ piece_image_path = "images/chess_puzzle/" + current_piece.char + ".svg"
-
-                    # Кнопка-клетка
                     button:
-                        # Заливаем кнопку почти невидимым цветом (альфа-канал "01" — прозрачность 99.6%).
-                        # Это делает кнопку осязаемой для кликов мыши на площади 90x90 пикселей!
-                        background Solid("#00000001") 
-                        xsize 90
-                        ysize 90
+                        xsize 90 ysize 90
+                        background Solid("#00000001")
                         padding (0, 0)
                         margin (0, 0)
-                        action button_action
-
-                        # Эффект подсветки клетки (накладывается поверх)
-                        if is_highlighted:
-                            foreground Solid("#baca4466")
-
-                        # Отображение фигуры
-                        if current_piece is not None:
-                            add Transform(piece_image_path, xsize=80, ysize=80) align (0.5, 0.5)
+                        action Function(mgr.select_square, x, y)
                         
-                        # Точка-подсказка для пустых подсвеченных клеток
-                        elif is_highlighted:
-                            text "•" align (0.5, 0.5) color "#ffffffaa" size 50
+                        if is_sel:
+                            add Solid("#44ff4444") xsize 90 ysize 90
+                        
+                        if piece_name:
+                            add f"images/chess_puzzle/{piece_name}.svg":
+                                xsize 70 ysize 70 
+                                align (0.5, 0.5)
+                        elif is_target:
+                            add Solid("#1c631486") xsize 20 ysize 20 align(0.5, 0.5)
 
-    # Боковая панель информации и управления (смещена чуть дальше, чтобы не наезжать на доску)
     vbox:
-        align (0.95, 0.5)
-        spacing 20
+        xpos 0.85 yalign 0.5
+        spacing 15
+        text f"Ход {'БЕЛЫЕ' if mgr.is_white_turn else 'ЧЕРНЫЕ'}" size 24 color "#fff"
+        text f"Ходов: {mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
         
-        if game.turn:
-            text "Ход БЕЛЫХ" color "#fff" size 30
-        else:
-            text "Ход ЧЕРНЫХ" color "#ff5555" size 30
-        
-        text "Ход [game.current_move_num] из [game.moves_count]" color "#ccc" size 22
-        
-        if game.is_success:
+        if mgr.is_success:   # было is_win
             text "МАТ!" color "#0f0" size 40
-            textbutton "Завершить" action Return(True)
-        elif game.is_failure:
-            text "ПРОВАЛ" color "#f00" size 40
+            textbutton "Далее" action Return(True)
+        elif mgr.is_failure: # было is_loss
+            text "ПРОВАЛ" color "#f00" size 30
             textbutton "Заново" action Return(False)
 
 define voice_behind_door = Character(_('Голос за дверью'))
@@ -725,14 +544,6 @@ label a56:
     narrator "Присмотревшись, я поняла, что это шахматная доска с крохотными фигурками, которые как-то расставлены на доске."
     narrator "Когда я напрягла мозги, я вспомнила о шахматной задаче, которую нам объяснял профессор Свэн."
     jump start_chess
-    # menu:   # Заглушка на время пока нет головоломки
-    #     'Выполнить':
-    #         narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
-    #         narrator "— Неужели культист не врал?"
-    #         narrator "— Чего мы ждём? Пойдемте."
-    #         narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца. Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
-    #         jump a57
-
 
 label a57:
     narrator "Мы очутились в коридорах какого-то здания. Коридоры были максимально странными. Они менялись, искривлялись, искажались."
@@ -835,14 +646,16 @@ label a64:
 label a65:
     narrator "Тут я заметила какой-то рисунок на краю стола. Я решила посмотреть на этот рисунок."
     narrator "Он напоминал направленный граф со стрелками разного цвета: одни были зелёные, а другие красные. Вершины этого графа были чёрными."
-    narrator "Лишь по краям были красные и одна зелёная точки. Чуть выше было написано: «Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо и вы найдете выход из лабиринта»."
+    narrator "Лишь по краям были красные и одна зелёная точки." 
+    narrator "Чуть выше было написано: «Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо и вы найдете выход из лабиринта»."
     narrator "Интересно, что это значит?"
     jump a66
 
 label a66:
     narrator "Когда я изучала рисунок, я краем глаза заметила в открытой полке стола какие-то бумаги."
     narrator "Знаю-знаю, нехорошо смотреть чужие документы, но внутренний голос подсказывал мне посмотреть их, а я привыкла доверять ему. Я потянула руку и вытащила пару листов."
-    narrator "Осмотрев их, я поняла, что не могу разобрать ни слова. Этот язык не был похож ни на один из иностранных, не говоря уже об английском. Эти изгибы, эти линии… Если это и придумал человек, то только безумный."
+    narrator "Осмотрев их, я поняла, что не могу разобрать ни слова. Этот язык не был похож ни на один из иностранных, не говоря уже об английском." 
+    narrator "Эти изгибы, эти линии… Если это и придумал человек, то только безумный."
     narrator "Не знаю почему, но в голову мне пришла идея забрать документы и изучить их дома. Но возник вопрос: стоит ли так делать?"
     menu:
         "Забрать документы":
@@ -880,14 +693,16 @@ label a51:
     swan "— Хорошо. Тогда удачных вам каникул."
     narrator "Он протянул мне зачётку. Я поблагодарила его, забрала зачётку и пошла домой."
     narrator "Когда я пришла домой, я вздохнула с облегчением. Еще один тяжелый семестр позади, и мне предстояли 3 месяца каникул!"
-    narrator "Я переоделась, поела, сделала себе попкорн и включила свой любимый сериал. Я подумала, как же давно я его не смотрела. Всё из-за домашек, лабораторных, проектов и так далее."
+    narrator "Я переоделась, поела, сделала себе попкорн и включила свой любимый сериал." 
+    narrator "Я подумала, как же давно я его не смотрела. Всё из-за домашек, лабораторных, проектов и так далее."
     narrator "Как всё-таки хорошо расслабиться! Я просидела перед телевизором до поздней ночи. Уснула я только во втором часу."
     jump a53
 
 label a21:
     narrator "Я повернула направо. Когда я шла, я читала таблички на дверях. Некоторые аудитории были открыты и пусты, но в основном двери были закрыты."
     narrator "Я заметила на одной из дверей надпись: «Кафедра программирования»."
-    narrator "Под надписью висела табличка с именами преподавателей. Посмотрев на имена и увидев среди них имя профессора Свэна, я решила зайти и спросить, когда он вернётся. Когда я подошла к двери, я увидела, что она приоткрыта. Я заглянула туда."
+    narrator "Под надписью висела табличка с именами преподавателей. Посмотрев на имена и увидев среди них имя профессора Свэна, я решила зайти и спросить, когда он вернётся." 
+    narrator "Когда я подошла к двери, я увидела, что она приоткрыта. Я заглянула туда."
     jump a23
 
 label a23:
@@ -903,7 +718,8 @@ label a23:
     virus "— Вернёмся к нашему разговору. Свэн, ты говоришь, что привел новую кандидатуру?"
     swan "— Вы правы, мой повелитель. Она идеально подходит нам."
     narrator "После этих слов существо закрыло глаз. Вдруг я почувствовала, что на меня кто-то смотрит. Я обернулась, но никого сзади не было."
-    narrator "Я чувствовала, что что-то смотрело всё пристальней и пристальней. Мне казалось, что оно видит меня насквозь. Казалось, оно читает мои мысли, видит мои воспоминания и смеется над моими секретами."
+    narrator "Я чувствовала, что что-то смотрело всё пристальней и пристальней." 
+    narrator "Мне казалось, что оно видит меня насквозь. Казалось, оно читает мои мысли, видит мои воспоминания и смеется над моими секретами."
     narrator "Это чувство прекратилось, когда существо открыло глаз."
     virus "— Ты прав, она идеальна. Но она не подходит нам."
     swan "— Почему? Она умна и достаточно хорошо разбирается в программировании. Мы должны попробовать завербовать её."
@@ -913,52 +729,20 @@ label a23:
     jump a24
 
 label start_chess:
-    "Смогу ли я сама решить эту задачу?"
+    narrator "Ход белых. Нужно поставить мат в 2 хода чёрному королю"
     python:
-        pieces = [
-            ChessPiece(0, 0, False, 'r'),
-            ChessPiece(7, 0, False, 'r'),
-            ChessPiece(1, 0, False, 'n'),
-            ChessPiece(6, 0, False, 'n'),
-            ChessPiece(3, 7, False, 'b'),
-            ChessPiece(5, 0, False, 'b'),
-            ChessPiece(3, 0, False, 'q'),
-            ChessPiece(4, 0, False, 'k'),
-            ChessPiece(0, 1, False, 'p'),
-            ChessPiece(1, 1, False, 'p'),
-            ChessPiece(2, 1, False, 'p'),
-            ChessPiece(3, 2, False, 'p'),
-            ChessPiece(5, 1, False, 'p'),
-            ChessPiece(6, 1, False, 'p'),
-            ChessPiece(7, 2, False, 'p'),
-            ChessPiece(0, 6, True, 'p'),
-            ChessPiece(1, 6, True, 'p'),
-            ChessPiece(2, 6, True, 'p'),
-            ChessPiece(3, 6, True, 'p'),
-            ChessPiece(4, 4, True, 'p'),
-            ChessPiece(5, 6, True, 'p'),
-            ChessPiece(6, 6, True, 'p'),
-            ChessPiece(7, 6, True, 'p'),
-            ChessPiece(7, 7, True, 'r'),
-            ChessPiece(0, 7, True, 'r'),
-            ChessPiece(2, 7, True, 'b'),
-            ChessPiece(4, 7, True, 'k'),
-            ChessPiece(2, 5, True, 'n'),
-            ChessPiece(2, 4, True, 'b'),
-            ChessPiece(4, 3, True, 'n')
-        ]
+        custom_fen = "rn1qkbnr/ppp2pp1/3p3p/4N3/2B1P3/2N5/PPPP1PPP/R1BbK2R w KQ - 0 1"
+        chess_game = ChessManager(fen=custom_fen, moves_limit=3)
 
-        board = ChessBoard(pieces)
-        active_game = ChessGame(board, turn=True, moves_count=2)
-call screen chess_board_view(active_game)
-$ game_result = _return
-if game_result:
-    narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
-    narrator "— Неужели культист не врал?"
-    narrator "— Чего мы ждём? Пойдемте."
-    narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца. Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
-    jump a57
-else:
-    "Похоже в той задаче расстановка фигур была иной"
-    "Надо попробовать ещё раз"
-    jump start_chess
+    call screen chess_board_view(chess_game)
+    
+    if _return:
+                narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
+                janet "— Неужели культист не врал?"
+                john "— Чего мы ждём? Пойдемте."
+                narrator "Мы направились в тёмный тоннель, которому, казалось, не было конца." 
+                narrator "Минут через пятнадцать я ощутила ручку двери. Когда я немного толкнула её, она открылась."
+                jump a57
+    else:
+        "Попробуем еще раз?"
+        jump start_chess
