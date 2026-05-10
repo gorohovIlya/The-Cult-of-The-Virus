@@ -81,7 +81,44 @@
         'pbw restore --staged helen.life', 'pbw restore helen.life', 'pbw add .', 
             'pbw push origin main', 'pbw reset HEAD emma.life']
 
-    player_results = []
+    player_results = [None, None, None, None]
+
+    def item_dragged(drags, drop):
+        drag = drags[0]
+        drag_id = drag.drag_name
+        
+        # Определяем, лежал ли блок в каком-то слоте до этого
+        source_slot_index = -1
+        if drag_id in player_results:
+            source_slot_index = player_results.index(drag_id)
+
+        # Если бросили в пустоту (не в слот)
+        if not drop:
+            if source_slot_index != -1:
+                player_results[source_slot_index] = None
+                renpy.restart_interaction()
+            return
+
+        # Если бросили в один из слотов
+        if drop.drag_name.startswith("slot_"):
+            target_slot_index = int(drop.drag_name.split("_")[1])
+            occupant_id = player_results[target_slot_index]
+
+            # Если слот уже кем-то занят
+            if occupant_id is not None:
+                # Меняем их местами, если перетаскивали из другого слота
+                if source_slot_index != -1:
+                    player_results[source_slot_index] = occupant_id
+            else:
+                # Если перетаскивали из слота в пустой слот — освобождаем старый
+                if source_slot_index != -1:
+                    player_results[source_slot_index] = None
+
+            # Помещаем элемент в целевой слот
+            player_results[target_slot_index] = drag_id
+            renpy.restart_interaction()
+            
+
 
 screen chess_board_view(mgr):
     modal True
@@ -134,6 +171,95 @@ screen chess_board_view(mgr):
         elif mgr.is_failure: # было is_loss
             text "ПРОВАЛ" color "#f00" size 30
             textbutton "Заново" action Return(False)
+
+screen git_puzzle():
+    modal True
+    add Solid("#370d2b") # Темный фон
+    
+    # Главный контейнер
+    draggroup:
+        id "git_draggroup"
+        
+        # Генерируем 4 слота в один горизонтальный ряд на ypos = 200
+        for i in range(4):
+            $ slot_y = 150 + i * 100 # Шаг по горизонтали
+
+            drag:
+                drag_name "desc_{}".format(i)
+                droppable False
+                draggable False
+                xpos 50
+                ypos slot_y
+                frame:
+                    xsize 600 ysize 80
+                    background Frame(Solid("#370d2b"), 4, 4)
+                    padding (5, 5)
+                    text "{b}helen@place-between-worlds:~{/b}" align (0.5, 0.5) color "#379b09" size 30 
+
+            drag:
+                drag_name "slot_{}".format(i) 
+                droppable True
+                draggable False
+                xpos 625
+                ypos slot_y
+                
+                # Визуальное оформление пустого слота
+                frame:
+                    xsize 440 ysize 80
+                    background Frame(Solid("#9e4887"), 4, 4)
+                    padding (5, 5)
+                    text "Команда [i]" align (0.5, 0.5) color "#ccc" size 30
+
+        for index, item in enumerate(all_items):
+            
+            if item in player_results:
+                $ slot_idx = player_results.index(item)
+                $ my_x = 605 + 30
+                $ my_y = 150 + slot_idx * 100 + 10
+            else:
+                $ col = index % 3
+                $ row = index // 3
+                $ my_x = 500 + col * 450
+                $ my_y = 600 + row * 100
+
+            drag:
+                drag_name item
+                droppable False
+                draggable True
+                dragged item_dragged
+                xpos my_x
+                ypos my_y
+                
+                # Внешний вид команды
+                frame:
+                    xsize 420 ysize 60
+                    background Frame(Solid("#6a2f5a"), 4, 4)
+                    hover_background Solid("#672556")
+                    padding (5, 5)
+                    
+                    text item:
+                        align (0.5, 0.5)
+                        color "#ffffff"
+                        size 20
+                        text_align 0.5
+
+    if None not in player_results:
+        button:
+            align (0.5, 0.85)
+            xysize (240, 60)
+            background Frame(Solid("#27ae60"), 6, 6)
+            hover_background Frame(Solid("#2ecc71"), 6, 6)
+            
+            if player_results == win_order:
+                action Jump("git_puzzle_success")
+            else:
+                action Show("git_puzzle_failure_msg")
+            
+            text "Выполнить" align (0.5, 0.5) color "#fff" size 22 bold True
+
+screen git_puzzle_failure_msg():
+    timer 2.0 action Hide("git_puzzle_failure_msg")
+    text "Неверная последовательность команд! Попробуй еще раз." align(0.5, 0.05) color "#e74c3c"
 
 define voice_behind_door = Character(_('Голос за дверью'))
 define man = Character(_('Мужчина'))
@@ -485,10 +611,15 @@ label a49:
     narrator "Мне стоит посмотреть, в какой ветке я нахожусь, затем поменять её на другую, которая выведет меня в настоящий мир."
     narrator "Как только я ввела первую команду, экран начал моргать. Вскоре на нём появилась надпись: «Введите свой ID и пароль». Но где мне взять их?"
     narrator "Вспомнив про устройство на руке, я подняла его поближе, чтобы рассмотреть символы."
-    menu:
-        'Выполнить':    # Заглушка на время пока нет головоломки
-            narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать. Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
-            jump a53
+    # сall screen git_puzzle
+    # python:
+    #     player_results = [None, None, None, None]
+    # call screen git_puzzle
+    # menu:
+    #     'Выполнить':    # Заглушка на время пока нет головоломки
+    #         narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать. Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
+    #         jump a53
+    call screen git_puzzle
 
 label a53:
     narrator "Разбудил меня звук капающей откуда-то воды. Я открыла глаза и поняла, что нахожусь в тёмном помещении. Как я сюда попала?"
@@ -746,3 +877,11 @@ label start_chess:
     else:
         "Попробуем еще раз?"
         jump start_chess
+
+label start_git_puzzle:
+    
+
+label git_puzzle_success:
+    narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать." 
+    narrator "Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
+    jump a53
