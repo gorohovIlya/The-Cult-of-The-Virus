@@ -87,38 +87,29 @@
         drag = drags[0]
         drag_id = drag.drag_name
         
-        # Определяем, лежал ли блок в каком-то слоте до этого
         source_slot_index = -1
         if drag_id in player_results:
             source_slot_index = player_results.index(drag_id)
 
-        # Если бросили в пустоту (не в слот)
         if not drop:
             if source_slot_index != -1:
                 player_results[source_slot_index] = None
                 renpy.restart_interaction()
             return
 
-        # Если бросили в один из слотов
         if drop.drag_name.startswith("slot_"):
             target_slot_index = int(drop.drag_name.split("_")[1])
             occupant_id = player_results[target_slot_index]
 
-            # Если слот уже кем-то занят
             if occupant_id is not None:
-                # Меняем их местами, если перетаскивали из другого слота
                 if source_slot_index != -1:
                     player_results[source_slot_index] = occupant_id
             else:
-                # Если перетаскивали из слота в пустой слот — освобождаем старый
                 if source_slot_index != -1:
                     player_results[source_slot_index] = None
 
-            # Помещаем элемент в целевой слот
             player_results[target_slot_index] = drag_id
             renpy.restart_interaction()
-            
-
 
 screen chess_board_view(mgr):
     modal True
@@ -165,10 +156,10 @@ screen chess_board_view(mgr):
         text f"Ход {'БЕЛЫЕ' if mgr.is_white_turn else 'ЧЕРНЫЕ'}" size 24 color "#fff"
         text f"Ходов: {mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
         
-        if mgr.is_success:   # было is_win
+        if mgr.is_success:   
             text "МАТ!" color "#0f0" size 40
             textbutton "Далее" action Return(True)
-        elif mgr.is_failure: # было is_loss
+        elif mgr.is_failure: 
             text "ПРОВАЛ" color "#f00" size 30
             textbutton "Заново" action Return(False)
 
@@ -180,9 +171,8 @@ screen git_puzzle():
     draggroup:
         id "git_draggroup"
         
-        # Генерируем 4 слота в один горизонтальный ряд на ypos = 200
         for i in range(4):
-            $ slot_y = 150 + i * 100 # Шаг по горизонтали
+            $ slot_y = 150 + i * 100 
 
             drag:
                 drag_name "desc_{}".format(i)
@@ -255,11 +245,11 @@ screen git_puzzle():
             else:
                 action Show("git_puzzle_failure_msg")
             
-            text "Выполнить" align (0.5, 0.5) color "#fff" size 22 bold True
+            text "Enter" align (0.5, 0.5) color "#fff" size 22 bold True
 
 screen git_puzzle_failure_msg():
     timer 2.0 action Hide("git_puzzle_failure_msg")
-    text "Неверная последовательность команд! Попробуй еще раз." align(0.5, 0.05) color "#e74c3c"
+    text "Неверная последовательность команд!" align(0.5, 0.05) color "#e74c3c"
 
 define voice_behind_door = Character(_('Голос за дверью'))
 define man = Character(_('Мужчина'))
@@ -619,7 +609,7 @@ label a49:
     #     'Выполнить':    # Заглушка на время пока нет головоломки
     #         narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать. Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
     #         jump a53
-    call screen git_puzzle
+    jump start_git_puzzle
 
 label a53:
     narrator "Разбудил меня звук капающей откуда-то воды. Я открыла глаза и поняла, что нахожусь в тёмном помещении. Как я сюда попала?"
@@ -879,7 +869,15 @@ label start_chess:
         jump start_chess
 
 label start_git_puzzle:
-    
+    # 'pbw branch', 'pbw switch helen_alive', 
+    #     'pbw restore --staged helen.life', 'pbw restore helen.life'
+    narrator "Я ввела данные с устройства и вошла в систему."
+    narrator "Судя по информации из книги, чтобы вернуться в реальный мир, мне нужно выполнить следующие действия:"
+    narrator "Первое. Нужно посмотреть список веток с помощью команды {b}pbw branch{/b}"
+    narrator "Второе. Нужно переключиться на ветку моего жизненного пути (Должно быть что-то вроде {b}helen_alive{/b}) с помощью команды {b}pbw switch{/b}"
+    narrator "Третье. Нужно убрать файл {b}helen.life{/b} из «индекса» с помощью {b}pbw restore --staged{/b}"
+    narrator "Четвёртое. Нужно отменить изменения в файле {b}helen.life{/b} с помощью {b}pbw restore{/b}"
+    call screen git_puzzle
 
 label git_puzzle_success:
     narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать." 
