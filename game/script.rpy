@@ -110,6 +110,37 @@
 
             player_results[target_slot_index] = drag_id
             renpy.restart_interaction()
+    
+    # AntColonyAlgorithm puzzle
+
+    #Find the correct way puzzle
+
+    all_directions = {'left': _('Налево'),
+                        'left45deg': _('Налево под 45°'), 
+                        'straight': _('Прямо'), 
+                        'right45deg': _('Направо под 45°'),
+                        'right': _('Направо')}
+
+    winning_sequence = ['left', 'straight', 'left', 'right', 
+                            'right45deg', 'straight']
+    player_sequence = []
+
+    def button_clicked(btn_name):
+        global player_sequence
+        player_sequence.append(btn_name)
+        store.clicks_made += 1
+        if store.clicks_made == 6:
+            renpy.hide_screen("find_the_correct_way_puzzle")
+            if player_sequence == winning_sequence:
+                renpy.jump("a31")
+            else:
+                renpy.jump("a47")
+        else:
+            renpy.restart_interaction()
+            
+default time_left = 60
+default clicks_made = 0
+    
 
 screen chess_board_view(mgr):
     modal True
@@ -257,7 +288,7 @@ define girl = Character(_('Девушка'))
 
 label start:
     "Начинаем"
-    jump a1
+    jump start_find_way_puzzle
 
 label a1:
     narrator "Был обычный, безоблачный майский день. Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
@@ -883,3 +914,6 @@ label git_puzzle_success:
     narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать." 
     narrator "Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
     jump a53
+
+label start_find_way_puzzle:
+    call screen find_the_correct_way_puzzle
