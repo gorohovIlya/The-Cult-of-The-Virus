@@ -140,7 +140,29 @@
             
 default time_left = 60
 default clicks_made = 0
-    
+
+screen find_the_correct_way_puzzle():
+    modal True
+    add Solid("#cccccc00")
+
+    timer 1.0 repeat True action If(time_left > 1, SetVariable("time_left", time_left - 1),
+                        [Hide("find_the_correct_way_puzzle"), Jump("a47")])
+    hbox:
+        align (0.5, 0.2)
+        spacing 15
+        text "Осталось времени 00:[time_left]" size 30 color "#e74c3c" bold True align (0.5, 0.5)
+        text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True align (0.5, 0.5)
+       
+    for idx, (name, lbl) in enumerate(all_directions.items()):
+        $ btn_x = 340 + idx * 210
+        button:
+            xpos btn_x
+            ypos 500
+            xsize 180 ysize 80
+            background "#347c1e"
+            hover_background "#45a02a"
+            action Function(button_clicked, name)
+            text lbl align (0.5, 0.5) color "#fff" size 16 bold True    
 
 screen chess_board_view(mgr):
     modal True
