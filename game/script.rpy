@@ -129,6 +129,7 @@
         global player_sequence
         player_sequence.append(btn_name)
         store.clicks_made += 1
+
         if store.clicks_made == 6:
             renpy.hide_screen("find_the_correct_way_puzzle")
             if player_sequence == winning_sequence:
@@ -137,32 +138,55 @@
                 renpy.jump("a47")
         else:
             renpy.restart_interaction()
-            
+    
+    def format_time():
+        t = str(store.clicks_made)
+        if len(t) == 2:
+            return t
+        else:
+            return '0' + t
+
 default time_left = 60
 default clicks_made = 0
 
 screen find_the_correct_way_puzzle():
     modal True
-    add Solid("#cccccc00")
+    add Solid("#1e1c1ce0")
 
     timer 1.0 repeat True action If(time_left > 1, SetVariable("time_left", time_left - 1),
                         [Hide("find_the_correct_way_puzzle"), Jump("a47")])
+    frame:
+        align (0.5, 0.25)       # Центрирование по горизонтали и вертикали
+        
+        # Настройка внешнего вида фрейма
+        background "#000000ee"
+        padding (40, 40)
+        xysize (800, 120)       # Расстояние между верхней строкой информации и кнопкам
+            # 1. Верхняя панель с информацией (hbox)
+        hbox:
+            align (0.5, 0.0)
+            spacing 30
+            if time_left >= 10:
+                text "Осталось времени 00:[time_left]" size 30 color "#e74c3c" bold True
+            else:
+                text "Осталось времени 00:0[time_left]" size 30 color "#e74c3c" bold True
+            text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True
+
+            # 2. Нижняя панель с кнопками направлений (hbox)
     hbox:
-        align (0.5, 0.2)
-        spacing 15
-        text "Осталось времени 00:[time_left]" size 30 color "#e74c3c" bold True align (0.5, 0.5)
-        text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True align (0.5, 0.5)
-       
-    for idx, (name, lbl) in enumerate(all_directions.items()):
-        $ btn_x = 340 + idx * 210
-        button:
-            xpos btn_x
-            ypos 500
-            xsize 180 ysize 80
-            background "#347c1e"
-            hover_background "#45a02a"
-            action Function(button_clicked, name)
-            text lbl align (0.5, 0.5) color "#fff" size 16 bold True    
+        align (0.5, 0.5)
+        spacing 25     # Промежуток между кнопками направления
+                
+        for idx, (name, lbl) in enumerate(all_directions.items()):
+            button:
+                xsize 270 
+                ysize 120
+                background "#2e681c"
+                hover_background "#3f7d2d"
+                sensitive (clicks_made < 6) 
+                action Function(button_clicked, name)
+
+                text lbl align (0.5, 0.5) color "#fff" size 20 bold True   
 
 screen chess_board_view(mgr):
     modal True
@@ -654,14 +678,6 @@ label a49:
     narrator "Мне стоит посмотреть, в какой ветке я нахожусь, затем поменять её на другую, которая выведет меня в настоящий мир."
     narrator "Как только я ввела первую команду, экран начал моргать. Вскоре на нём появилась надпись: «Введите свой ID и пароль». Но где мне взять их?"
     narrator "Вспомнив про устройство на руке, я подняла его поближе, чтобы рассмотреть символы."
-    # сall screen git_puzzle
-    # python:
-    #     player_results = [None, None, None, None]
-    # call screen git_puzzle
-    # menu:
-    #     'Выполнить':    # Заглушка на время пока нет головоломки
-    #         narrator "Как только я нажала на Enter, я почувствовала, что меня как будто начало сжимать. Я упала на землю. Всё вокруг вертелось. И я потеряла сознание. Очнулась я в подвале какого-то строения."
-    #         jump a53
     jump start_git_puzzle
 
 label a53:
@@ -922,8 +938,6 @@ label start_chess:
         jump start_chess
 
 label start_git_puzzle:
-    # 'pbw branch', 'pbw switch helen_alive', 
-    #     'pbw restore --staged helen.life', 'pbw restore helen.life'
     narrator "Я ввела данные с устройства и вошла в систему."
     narrator "Судя по информации из книги, чтобы вернуться в реальный мир, мне нужно выполнить следующие действия:"
     narrator "Первое. Нужно посмотреть список веток с помощью команды {b}pbw branch{/b}"
@@ -938,4 +952,5 @@ label git_puzzle_success:
     jump a53
 
 label start_find_way_puzzle:
+    scene deformed_hallway_2
     call screen find_the_correct_way_puzzle
