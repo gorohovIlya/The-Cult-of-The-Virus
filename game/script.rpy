@@ -114,25 +114,42 @@
     
     # AntColonyAlgorithm puzzle
     num_ants = 10
-    ants = {f"ant_{n}":(random.randint(0, 1500), random.randint(0, 1500)) for n in range(num_ants)}
+    success_probability = 0
+    state = 0
+    ants = [f"ants_{i}" for i in range(num_ants)]
+    ants_positions = {}
     ants_found = []
+
+    def setup_ant_puzzle():
+        global ants_found, ants_positions, success_probability
+        ants_found.clear()
+        ants_positions.clear()
+        success_probability = random.uniform(0, 1)
+        for ant in ants:
+            ants_positions[ant] = (random.randint(100, 1500), 
+                                        random.randint(600, 1000))
+
+    def check_win():
+        global state
+        if len(ants_found) == num_ants:
+            if 120 <= store.ants_time_left <= 180:
+                renpy.jump('ant_puzzle_success')
+            elif 60 <= store.ants_time_left < 120:
+                renpy.jump('ant_puzzle_prob_success')
+                state = 1
+            elif 30 <= store.ants_time_left < 60:
+                renpy.jump('ant_puzzle_prob_success')
+                state = 2
+            elif 1 <= store.ants_time_left < 30:
+                renpy.jump('ant_puzzle_prob_success')
+                state = 3
+            else:
+                renpy.jump('ant_puzzle_failure')
+
     def ant_clicked(ant):
         global ants_found
         ants_found.append(ant)
-        if len(ants_found) == num_ants:
-            probability = random.uniform(0, 1)
-            if 120 <= store.ants_time_left <= 180:
-                renpy.jump('ant_puzzle_success_100')
-            elif 60 <= store.ants_time_left < 120:
-                renpy.jump('ant_puzzle_success_50')
-            elif 30 <= store.ants_time_left < 60:
-                renpy.jump('ant_puzzle_success_25')
-            elif 1 <= store.ants_time_left < 30:
-                renpy.jump('ant_puzzle_success_10')
-            else:
-                renpy.jump('ant_puzzle_failure')
-        else:
-            renpy.restart_interaction()
+        check_win()
 
     #Find the correct way puzzle
 
@@ -164,14 +181,50 @@ default way_time_left = 60
 default ants_time_left = 180
 default clicks_made = 0
 
+screen ant_algorithm_puzzle():
+    modal True
+
+    timer 1.0 repeat True action If(ants_time_left > 1, SetVariable("ants_time_left", ants_time_left - 1),
+                        [Hide("ant_algorithm_puzzle"), Jump("ant_puzzle_failure")])
+    frame:
+        align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
+        
+        # Настройка внешнего вида фрейма
+        background "#000000ee"
+        padding (40, 40)
+        xysize (1200, 120)
+        hbox:
+            align (0.5, 0.0)
+            spacing 30
+            if ants_time_left % 60 >= 10:
+                text "Осталось времени 0[ants_time_left // 60]:[ants_time_left % 60]" size 30 color "#e74c3c" bold True
+            else:
+                text "Осталось времени 0[ants_time_left // 60]:0[ants_time_left % 60]" size 30 color "#e74c3c" bold True
+            text "  |   Найдено муравьев: [len(ants_found)] из [num_ants]" xalign 0.05 yalign 0.05 size 30 color "#fff"
+
+
+    for ant_name, ant_pos in ants_positions.items():
+        if ant_name not in ants_found:
+            $ ant_img_idle = Transform("images/ant_puzzle/ant1.png", zoom=0.033, anchor=(0.5, 0.5))
+            $ ant_img_hover = Transform("images/ant_puzzle/ant1.png", zoom=0.04, anchor=(0.5, 0.5))
+
+            imagebutton:
+                idle ant_img_idle
+                hover ant_img_hover
+                
+                xpos ant_pos[0]
+                ypos ant_pos[1]
+                
+                action Function(ant_clicked, ant_name)
+
 screen find_the_correct_way_puzzle():
     modal True
     add Solid("#1e1c1ce0")
 
-    timer 1.0 repeat True action If(way_time_left > 1, SetVariable("time_left", way_time_left - 1),
+    timer 1.0 repeat True action If(way_time_left > 1, SetVariable("way_time_left", way_time_left - 1),
                         [Hide("find_the_correct_way_puzzle"), Jump("a47")])
     frame:
-        align (0.5, 0.25)       # Центрирование по горизонтали и вертикали
+        align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
         
         # Настройка внешнего вида фрейма
         background "#000000ee"
@@ -181,7 +234,7 @@ screen find_the_correct_way_puzzle():
         hbox:
             align (0.5, 0.0)
             spacing 30
-            if time_left >= 10:
+            if way_time_left >= 10:
                 text "Осталось времени 00:[way_time_left]" size 30 color "#e74c3c" bold True
             else:
                 text "Осталось времени 00:0[way_time_left]" size 30 color "#e74c3c" bold True
@@ -189,7 +242,7 @@ screen find_the_correct_way_puzzle():
 
             # 2. Нижняя панель с кнопками направлений (hbox)
     hbox:
-        align (0.5, 0.5)
+        align (0.5, 0.67)
         spacing 25     # Промежуток между кнопками направления
                 
         for idx, (name, lbl) in enumerate(all_directions.items()):
@@ -349,7 +402,7 @@ define girl = Character(_('Девушка'))
 
 label start:
     "Начинаем"
-    jump start_find_way_puzzle
+    jump start_ant_puzzle
 
 label a1:
     narrator "Был обычный, безоблачный майский день. Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
@@ -538,11 +591,7 @@ label a30:
     narrator "Когда я выбежала, я поняла, что коридор изменился до неузнаваемости. Он менялся, искривлялся, искажался. Дверей в другие аудитории не было."
     narrator "Из окон лилось какое-то непонятное зелёное свечение. Пола и потолка просто не было. Вместо них бегали нули и единицы, которые постоянно меняли своё положение."
     narrator "Я начала бежать прямо по коридору так быстро, как могла. Скоро я достигла развилки. Боже, куда бежать?"
-    menu:   # Заглушка на время пока нет головоломки
-        'Success':
-            jump a31
-        'Failure':
-            jump a47
+    jump start_find_way_puzzle
 
 label a31:
     narrator "Наконец я увидела дверь, из которой был виден солнечный свет… Быстрее, ещё быстрее. Я протаранила дверь и вылетела на освещённую солнцем улицу."
@@ -761,11 +810,7 @@ label a57:
     narrator "Тут я заметила надпись: «Найди их всех, и они укажут тебе путь. Они находятся в ближайшей аудитории»."
     janet "— Неужели нам придётся облазить всю аудиторию, чтобы найти этих муравьев?"
     john "— Придётся, и это надо сделать быстро, пока нас не обнаружили."
-    menu:   # Заглушка на время пока нет головоломки
-        'Success':
-            jump a58
-        'Failure':
-            jump a61
+    jump start_ant_puzzle
 
 label a58:
     john "— Еще немного, я вижу выход."
@@ -807,7 +852,7 @@ label a60:
     return
 
 label a61:
-    narrator "Мы столкнулись с культистами, когда поворачивали за угол. Они заметили нас и начали доставать клинки."
+    narrator "Пройдя пять минут, мы столкнулись с культистами, когда поворачивали за угол. Они заметили нас и начали доставать клинки."
     narrator "Чудом мы увернулись от их ударов и бросились прямо по коридору. Мы бежали со всей скоростью, но культисты постепенно догоняли нас."
     john "— Бегите дальше, выход должен быть скоро. Я задержу их. Если вас найдет девушка, которую зовут Лилиана, то не бойтесь её. Вы можете ей доверять. Она поможет вам."
     narrator "После этих слов Джон резко развернулся и направился прямо на культистов. Когда он добежал до них, он ударил одного, и тот рухнул на пол. Но он не успел увернуться от второго."
@@ -969,3 +1014,69 @@ label git_puzzle_success:
 label start_find_way_puzzle:
     scene deformed_hallway_2
     call screen find_the_correct_way_puzzle
+
+label start_ant_puzzle:
+    scene aud_distorted
+    $ ants_time_left = 180
+    $ setup_ant_puzzle()
+    call screen ant_algorithm_puzzle
+
+label ant_puzzle_prob_success:
+    narrator "Мы нашли всех муравьев в аудитории, однако на это ушло больше времени, чем хотелось бы."
+    narrator "Джон расставил муравьев на рисунке, после чего они стали перемещаться между вершинами графа."
+    narrator "Некоторое время мы наблюдали за тем, как траектории движения муравьёв становились всё более оптимальными, пока нас не прервал шёпот Джанет"
+    janet "— Вы тоже это слышите?"
+    narrator "Отвлёкшись от наблюдения за движущимися фигурками муравьёв, я услышала разговор культистов, звуки которого из коридора"
+    janet "— Чёрт! Мне кажется я слышу шаги..."
+    narrator "Я на цыпочках подошла к двери и прислушалась"
+    narrator "Было слышно, как где-то в коридоре несколько культистов шли и переговаривались между собой"
+    narrator "Судя по звуку, культисты, к счастью для нас, пошли в противоположном направлении."
+    helen "— У нас мало времени. Нам нужно идти сейчас же."
+    helen "— Джон, как там у тебя? Муравьи нашли короткий путь по этим чёртовым коридорам?"
+    john "— Хм, муравьи довольно равномерно распределились по графу."
+    john "— Есть только одна траектория, по которой от начальной до конечной точки ходит больше одного муравья..."
+    john "— Она может оказаться неоптимальной, но, боюсь, другого выбора у нас нет."
+    narrator "После этих слов Джон тихонько подошел к двери." 
+    narrator "Сначала он прислушался к тому что происходит в коридоре, после чего аккуратно высунул голову и осмтрелся"
+    narrator "Убедившись, что культистов поблизости нет, он жестом показал нам с Джанет, что можно идти"
+    narrator "Мы вышли из аудитории и пошли вслед за Джоном."
+    python:
+        if state == 1:
+            if success_probability <= 0.5:
+                renpy.jump('a58')
+            else:
+                renpy.jump('a61')
+        elif state == 2:
+            if success_probability <= 0.25:
+                renpy.jump('a58')
+            else:
+                renpy.jump('a61')
+        elif state == 3:
+            if success_probability <= 0.1:
+                renpy.jump('a58')
+            else:
+                renpy.jump('a61')
+        else:
+            renpy.jump('a61')
+
+label ant_puzzle_failure:
+    narrator "К несчастью, у нас не получилось найти всех муравьёв в аудитории."
+    helen "— Похоже, нам придётся идти наобум..."
+    narrator "После этих слов аудиторию наполнило неловкое молчание, которое через через пару минут прервал Джон"
+    john "— Я смог запомнить один из путей к выходу."
+    john "— Скорее всего он не оптимален, так как я нашёл его с помощью «жадного алгоритма». Но, к сожалению, выбора у нас нет."
+    narrator "Джон тихонько вышел из аудитории, осмотрелся, после чего жестом показал идти за ним."
+    narrator "Мы вышли из аудитории и пошли вслед за Джоном."
+    jump a61
+
+label ant_puzzle_success:
+    narrator "Мы нашли всех муравьев в аудитории очень быстро"
+    narrator "Джон расставил муравьев на рисунке, после чего они стали перемещаться между вершинами графа."
+    narrator "Мы наблюдали за тем, как траектории движения муравьёв становились всё более оптимальными, пока все муравьи не стали ходить от начальной до конечной точки маршрута по одной и той же траектории."
+    john "— Это и есть наш оптимальный путь!"
+    narrator "Каждый из нас внимательно изучил найденный муравьями путь и запомнил его, чтобы не потеряться, если кого-то из нас поймайют культисты."
+    narrator "Мы осторожно покинули аудиторию и начали идти по маршруту."
+    jump a58
+    
+
+
