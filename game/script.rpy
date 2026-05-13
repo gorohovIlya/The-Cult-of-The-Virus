@@ -1,6 +1,7 @@
 ﻿init python:
     # Chess puzzle
     import chess
+    import random
 
     class ChessManager:
         def __init__(self, fen=None, moves_limit=10):
@@ -112,6 +113,26 @@
             renpy.restart_interaction()
     
     # AntColonyAlgorithm puzzle
+    num_ants = 10
+    ants = {f"ant_{n}":(random.randint(0, 1500), random.randint(0, 1500)) for n in range(num_ants)}
+    ants_found = []
+    def ant_clicked(ant):
+        global ants_found
+        ants_found.append(ant)
+        if len(ants_found) == num_ants:
+            probability = random.uniform(0, 1)
+            if 120 <= store.ants_time_left <= 180:
+                renpy.jump('ant_puzzle_success_100')
+            elif 60 <= store.ants_time_left < 120:
+                renpy.jump('ant_puzzle_success_50')
+            elif 30 <= store.ants_time_left < 60:
+                renpy.jump('ant_puzzle_success_25')
+            elif 1 <= store.ants_time_left < 30:
+                renpy.jump('ant_puzzle_success_10')
+            else:
+                renpy.jump('ant_puzzle_failure')
+        else:
+            renpy.restart_interaction()
 
     #Find the correct way puzzle
 
@@ -138,22 +159,16 @@
                 renpy.jump("a47")
         else:
             renpy.restart_interaction()
-    
-    def format_time():
-        t = str(store.clicks_made)
-        if len(t) == 2:
-            return t
-        else:
-            return '0' + t
 
-default time_left = 60
+default way_time_left = 60
+default ants_time_left = 180
 default clicks_made = 0
 
 screen find_the_correct_way_puzzle():
     modal True
     add Solid("#1e1c1ce0")
 
-    timer 1.0 repeat True action If(time_left > 1, SetVariable("time_left", time_left - 1),
+    timer 1.0 repeat True action If(way_time_left > 1, SetVariable("time_left", way_time_left - 1),
                         [Hide("find_the_correct_way_puzzle"), Jump("a47")])
     frame:
         align (0.5, 0.25)       # Центрирование по горизонтали и вертикали
@@ -167,9 +182,9 @@ screen find_the_correct_way_puzzle():
             align (0.5, 0.0)
             spacing 30
             if time_left >= 10:
-                text "Осталось времени 00:[time_left]" size 30 color "#e74c3c" bold True
+                text "Осталось времени 00:[way_time_left]" size 30 color "#e74c3c" bold True
             else:
-                text "Осталось времени 00:0[time_left]" size 30 color "#e74c3c" bold True
+                text "Осталось времени 00:0[way_time_left]" size 30 color "#e74c3c" bold True
             text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True
 
             # 2. Нижняя панель с кнопками направлений (hbox)
