@@ -138,7 +138,7 @@
             elif 30 <= store.ants_time_left < 60:
                 store.state = 2
                 renpy.jump('ant_puzzle_prob_success')
-            elif 1 <= store.ants_time_left < 30:
+            elif 10 <= store.ants_time_left < 30:
                 store.state = 3
                 renpy.jump('ant_puzzle_prob_success')
             else:
@@ -148,6 +148,19 @@
         global ants_found
         ants_found.append(ant)
         check_win()
+
+    def get_time_color():
+        result = ''
+        if 120 <= store.ants_time_left <= 180:
+            result = '#00ff11'
+        elif 60 <= store.ants_time_left < 120:
+            result = '#eeff00'
+        elif 30 <= store.ants_time_left < 60:
+            result = '#ff6f00'
+        else:
+            result = '#ff0000'
+        return result
+            
 
     #Find the correct way puzzle
 
@@ -179,11 +192,12 @@ default way_time_left = 60
 default ants_time_left = 180
 default clicks_made = 0
 default state = 0
+default ant_time_color = '#fff'
 
 screen ant_algorithm_puzzle():
     modal True
 
-    timer 1.0 repeat True action If(ants_time_left > 1, SetVariable("ants_time_left", ants_time_left - 1),
+    timer 1.0 repeat True action If(ants_time_left > 1, [SetVariable("ants_time_left", ants_time_left - 1), SetVariable("ant_time_color", get_time_color())],
                         [Hide("ant_algorithm_puzzle"), Jump("ant_puzzle_failure")])
     frame:
         align (0.5, 0.1)
@@ -195,9 +209,9 @@ screen ant_algorithm_puzzle():
             align (0.5, 0.0)
             spacing 30
             if ants_time_left % 60 >= 10:
-                text "Осталось времени 0[ants_time_left // 60]:[ants_time_left % 60]" size 30 color "#e74c3c" bold True
+                text "Осталось времени 0[ants_time_left // 60]:[ants_time_left % 60]" size 30 color ant_time_color bold True
             else:
-                text "Осталось времени 0[ants_time_left // 60]:0[ants_time_left % 60]" size 30 color "#e74c3c" bold True
+                text "Осталось времени 0[ants_time_left // 60]:0[ants_time_left % 60]" size 30 color ant_time_color bold True
             text "  |   Найдено муравьев: [len(ants_found)] из [num_ants]" xalign 0.05 yalign 0.05 size 30 color "#fff"
 
 
@@ -398,8 +412,8 @@ define man = Character(_('Мужчина'))
 define girl = Character(_('Девушка'))
 
 label start:
-    "Начинаем"
-    jump start_ant_puzzle
+    "Нажмите любую кнопку для продолжения"
+    jump a1
 
 label a1:
     narrator "Был обычный, безоблачный майский день. Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
