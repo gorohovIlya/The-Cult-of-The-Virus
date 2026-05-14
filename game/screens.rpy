@@ -1618,3 +1618,216 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+screen ant_algorithm_puzzle():
+    modal True
+
+    timer 1.0 repeat True action If(ants_time_left > 1, [SetVariable("ants_time_left", ants_time_left - 1), SetVariable("ant_time_color", get_time_color())],
+                        [Hide("ant_algorithm_puzzle"), Jump("ant_puzzle_failure")])
+    frame:
+        align (0.5, 0.1)
+        
+        background "#000000ee"
+        padding (40, 40)
+        xysize (1200, 120)
+        hbox:
+            align (0.5, 0.0)
+            spacing 30
+            if ants_time_left % 60 >= 10:
+                text "Осталось времени 0[ants_time_left // 60]:[ants_time_left % 60]" size 30 color ant_time_color bold True
+            else:
+                text "Осталось времени 0[ants_time_left // 60]:0[ants_time_left % 60]" size 30 color ant_time_color bold True
+            text "  |   Найдено муравьев: [len(ants_found)] из [num_ants]" xalign 0.05 yalign 0.05 size 30 color "#fff"
+
+
+    for ant_name, ant_pos in ants_positions.items():
+        if ant_name not in ants_found:
+            $ ant_img_idle = Transform("images/ant_puzzle/ant1.png", zoom=0.033, anchor=(0.5, 0.5))
+            $ ant_img_hover = Transform("images/ant_puzzle/ant1.png", zoom=0.04, anchor=(0.5, 0.5))
+
+            imagebutton:
+                idle ant_img_idle
+                hover ant_img_hover
+                
+                xpos ant_pos[0]
+                ypos ant_pos[1]
+                
+                action Function(ant_clicked, ant_name)
+
+screen find_the_correct_way_puzzle():
+    modal True
+    add Solid("#1e1c1ce0")
+
+    timer 1.0 repeat True action If(way_time_left > 1, SetVariable("way_time_left", way_time_left - 1),
+                        [Hide("find_the_correct_way_puzzle"), Jump("a47")])
+    frame:
+        align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
+        
+        background "#000000ee"
+        padding (40, 40)
+        xysize (800, 120)
+        # 1. Верхняя панель с информацией (hbox)
+        hbox:
+            align (0.5, 0.0)
+            spacing 30
+            if way_time_left >= 10:
+                text "Осталось времени 00:[way_time_left]" size 30 color "#e74c3c" bold True
+            else:
+                text "Осталось времени 00:0[way_time_left]" size 30 color "#e74c3c" bold True
+            text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True
+
+    # 2. Нижняя панель с кнопками направлений (hbox)
+    hbox:
+        align (0.5, 0.67)
+        spacing 25
+                
+        for idx, (name, lbl) in enumerate(all_directions.items()):
+            button:
+                xsize 270 
+                ysize 120
+                background "#2e681c"
+                hover_background "#3f7d2d"
+                sensitive (clicks_made < 6) 
+                action Function(button_clicked, name)
+
+                text lbl align (0.5, 0.5) color "#fff" size 20 bold True   
+
+screen chess_board_view(mgr):
+    modal True
+    add Solid("#000000cc")
+
+    fixed:
+        align (0.5, 0.5)
+        xsize 720 ysize 720
+
+        add "images/chess_puzzle/chessboard.svg":
+            xsize 720 ysize 720
+
+        grid 8 8:
+            xsize 720 ysize 720
+            spacing 0
+            
+            for y in range(7, -1, -1):
+                for x in range(8):
+                    $ current_sq = chess.square(x, y)
+                    $ piece_name = mgr.get_piece_at(x, y)
+                    $ is_target = current_sq in mgr.legal_targets
+                    $ is_sel = (current_sq == mgr.selected_square)
+
+                    button:
+                        xsize 90 ysize 90
+                        background Solid("#00000001")
+                        padding (0, 0)
+                        margin (0, 0)
+                        action Function(mgr.select_square, x, y)
+                        
+                        if is_sel:
+                            add Solid("#44ff4444") xsize 90 ysize 90
+                        
+                        if piece_name:
+                            add f"images/chess_puzzle/{piece_name}.svg":
+                                xsize 70 ysize 70 
+                                align (0.5, 0.5)
+                        elif is_target:
+                            add Solid("#1c631486") xsize 20 ysize 20 align(0.5, 0.5)
+
+    vbox:
+        xpos 0.85 yalign 0.5
+        spacing 15
+        text f"Ход {'БЕЛЫЕ' if mgr.is_white_turn else 'ЧЕРНЫЕ'}" size 24 color "#fff"
+        text f"Ходов: {mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
+        
+        if mgr.is_success:   
+            text "МАТ!" color "#0f0" size 40
+            textbutton "Далее" action Return(True)
+        elif mgr.is_failure: 
+            text "ПРОВАЛ" color "#f00" size 30
+            textbutton "Заново" action Return(False)
+
+screen git_puzzle():
+    modal True
+    add Solid("#370d2b") # Темный фон
+    
+    # Главный контейнер
+    draggroup:
+        id "git_draggroup"
+        
+        for i in range(4):
+            $ slot_y = 150 + i * 100 
+
+            drag:
+                drag_name "desc_{}".format(i)
+                droppable False
+                draggable False
+                xpos 50
+                ypos slot_y
+                frame:
+                    xsize 600 ysize 80
+                    background Frame(Solid("#370d2b"), 4, 4)
+                    padding (5, 5)
+                    text "{b}helen@place-between-worlds:~{/b}" align (0.5, 0.5) color "#379b09" size 30 
+
+            drag:
+                drag_name "slot_{}".format(i) 
+                droppable True
+                draggable False
+                xpos 625
+                ypos slot_y
+                
+                # Визуальное оформление пустого слота
+                frame:
+                    xsize 440 ysize 80
+                    background Frame(Solid("#9e4887"), 4, 4)
+                    padding (5, 5)
+                    text "Команда [i]" align (0.5, 0.5) color "#ccc" size 30
+
+        for index, item in enumerate(all_items):
+            
+            if item in player_results:
+                $ slot_idx = player_results.index(item)
+                $ my_x = 605 + 30
+                $ my_y = 150 + slot_idx * 100 + 10
+            else:
+                $ col = index % 3
+                $ row = index // 3
+                $ my_x = 500 + col * 450
+                $ my_y = 600 + row * 100
+
+            drag:
+                drag_name item
+                droppable False
+                draggable True
+                dragged item_dragged
+                xpos my_x
+                ypos my_y
+                
+                # Внешний вид команды
+                frame:
+                    xsize 420 ysize 60
+                    background Frame(Solid("#6a2f5a"), 4, 4)
+                    hover_background Solid("#672556")
+                    padding (5, 5)
+                    
+                    text item:
+                        align (0.5, 0.5)
+                        color "#ffffff"
+                        size 20
+                        text_align 0.5
+
+    if None not in player_results:
+        button:
+            align (0.5, 0.85)
+            xysize (240, 60)
+            background Frame(Solid("#27ae60"), 6, 6)
+            hover_background Frame(Solid("#2ecc71"), 6, 6)
+            
+            if player_results == win_order:
+                action Jump("git_puzzle_success")
+            else:
+                action Show("git_puzzle_failure_msg")
+            
+            text "Enter" align (0.5, 0.5) color "#fff" size 22 bold True
+
+screen git_puzzle_failure_msg():
+    timer 2.0 action Hide("git_puzzle_failure_msg")
+    text "Неверная последовательность команд!" align(0.5, 0.05) color "#e74c3c"
