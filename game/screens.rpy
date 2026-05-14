@@ -1678,7 +1678,7 @@ screen find_the_correct_way_puzzle():
 
     # 2. Нижняя панель с кнопками направлений (hbox)
     hbox:
-        align (0.5, 0.67)
+        align (0.5, 0.8)
         spacing 25
                 
         for idx, (name, lbl) in enumerate(all_directions.items()):
