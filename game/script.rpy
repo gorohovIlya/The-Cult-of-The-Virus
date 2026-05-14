@@ -115,7 +115,6 @@
     # AntColonyAlgorithm puzzle
     num_ants = 10
     success_probability = 0
-    state = 0
     ants = [f"ants_{i}" for i in range(num_ants)]
     ants_positions = {}
     ants_found = []
@@ -130,19 +129,18 @@
                                         random.randint(600, 1000))
 
     def check_win():
-        global state
         if len(ants_found) == num_ants:
             if 120 <= store.ants_time_left <= 180:
                 renpy.jump('ant_puzzle_success')
             elif 60 <= store.ants_time_left < 120:
+                store.state = 1
                 renpy.jump('ant_puzzle_prob_success')
-                state = 1
             elif 30 <= store.ants_time_left < 60:
+                store.state = 2
                 renpy.jump('ant_puzzle_prob_success')
-                state = 2
             elif 1 <= store.ants_time_left < 30:
+                store.state = 3
                 renpy.jump('ant_puzzle_prob_success')
-                state = 3
             else:
                 renpy.jump('ant_puzzle_failure')
 
@@ -180,6 +178,7 @@
 default way_time_left = 60
 default ants_time_left = 180
 default clicks_made = 0
+default state = 0
 
 screen ant_algorithm_puzzle():
     modal True
@@ -187,9 +186,8 @@ screen ant_algorithm_puzzle():
     timer 1.0 repeat True action If(ants_time_left > 1, SetVariable("ants_time_left", ants_time_left - 1),
                         [Hide("ant_algorithm_puzzle"), Jump("ant_puzzle_failure")])
     frame:
-        align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
+        align (0.5, 0.1)
         
-        # Настройка внешнего вида фрейма
         background "#000000ee"
         padding (40, 40)
         xysize (1200, 120)
@@ -226,11 +224,10 @@ screen find_the_correct_way_puzzle():
     frame:
         align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
         
-        # Настройка внешнего вида фрейма
         background "#000000ee"
         padding (40, 40)
-        xysize (800, 120)       # Расстояние между верхней строкой информации и кнопкам
-            # 1. Верхняя панель с информацией (hbox)
+        xysize (800, 120)
+        # 1. Верхняя панель с информацией (hbox)
         hbox:
             align (0.5, 0.0)
             spacing 30
@@ -240,10 +237,10 @@ screen find_the_correct_way_puzzle():
                 text "Осталось времени 00:0[way_time_left]" size 30 color "#e74c3c" bold True
             text "  |  Шагов: [clicks_made]/6" size 30 color "#fff" bold True
 
-            # 2. Нижняя панель с кнопками направлений (hbox)
+    # 2. Нижняя панель с кнопками направлений (hbox)
     hbox:
         align (0.5, 0.67)
-        spacing 25     # Промежуток между кнопками направления
+        spacing 25
                 
         for idx, (name, lbl) in enumerate(all_directions.items()):
             button:
@@ -1041,23 +1038,23 @@ label ant_puzzle_prob_success:
     narrator "Убедившись, что культистов поблизости нет, он жестом показал нам с Джанет, что можно идти"
     narrator "Мы вышли из аудитории и пошли вслед за Джоном."
     python:
-        if state == 1:
+        if store.state == 1:
             if success_probability <= 0.5:
                 renpy.jump('a58')
             else:
                 renpy.jump('a61')
-        elif state == 2:
+        elif store.state == 2:
             if success_probability <= 0.25:
                 renpy.jump('a58')
             else:
                 renpy.jump('a61')
-        elif state == 3:
+        elif store.state == 3:
             if success_probability <= 0.1:
                 renpy.jump('a58')
             else:
                 renpy.jump('a61')
         else:
-            renpy.jump('a61')
+            renpy.jump('a58')
 
 label ant_puzzle_failure:
     narrator "К несчастью, у нас не получилось найти всех муравьёв в аудитории."
@@ -1077,6 +1074,5 @@ label ant_puzzle_success:
     narrator "Каждый из нас внимательно изучил найденный муравьями путь и запомнил его, чтобы не потеряться, если кого-то из нас поймайют культисты."
     narrator "Мы осторожно покинули аудиторию и начали идти по маршруту."
     jump a58
-    
 
 
