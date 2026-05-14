@@ -4,11 +4,7 @@ layeredimage helen:
     group body:
         attribute body_aa default:
             "characters/helen/helen_body_aa.png"
-<<<<<<< HEAD
-        attribute body_ab: 
-=======
         attribute body_ab:
->>>>>>> feature/background_and_sprite
             "characters/helen/helen_body_ab.png"
         attribute body_ac:
             "characters/helen/helen_body_ac.png"
@@ -18,8 +14,6 @@ layeredimage helen:
             "characters/helen/helen_body_ae.png"
         attribute body_af:
             "characters/helen/helen_body_af.png"
-<<<<<<< HEAD
-=======
         attribute body_bag_aa:
             "characters/helen/helen_body_bag_aa.png"
         attribute body_bag_ab:
@@ -44,7 +38,6 @@ layeredimage helen:
             "characters/helen/helen_body_pajamas_ae.png"
         attribute body_pajamas_af:
             "characters/helen/helen_body_pajamas_af.png"
->>>>>>> feature/background_and_sprite
 
     group head:
         attribute head_a default: 
@@ -59,8 +52,6 @@ layeredimage helen:
             "characters/helen/helen_head_e.png"
         attribute head_f: 
             "characters/helen/helen_head_f.png"
-<<<<<<< HEAD
-=======
         attribute head_g:
             "characters/helen/helen_head_g.png"
         attribute head_h:
@@ -85,4 +76,3 @@ layeredimage helen:
             "characters/helen/helen_head_without_cap_h.png"
         attribute head_without_cap_i:
             "characters/helen/helen_head_without_cap_i.png"
->>>>>>> feature/background_and_sprite
