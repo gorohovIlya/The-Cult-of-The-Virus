@@ -2,29 +2,43 @@ define swan = Character(_("Профессор Свэн"))
 
 layeredimage swan:
     group body:
-        attribute body_aa default:
-            "characters/swan/swan_body_aa.png"
-        attribute body_ab: 
-            "characters/swan/swan_body_ab.png"
-        attribute body_ac:
-            "characters/swan/swan_body_ac.png"
-        attribute body_ad:
-            "characters/swan/swan_body_ad.png"
-        attribute body_ae:
-            "characters/swan/swan_body_ae.png"
-        attribute body_af:
-            "characters/swan/swan_body_af.png"
-
-    group head:
-        attribute head_a default: 
-            "characters/swan/swan_head_a.png"
-        attribute head_b: 
-            "characters/swan/swan_head_b.png"
-        attribute head_c: 
-            "characters/swan/swan_head_c.png"
-        attribute head_d: 
-            "characters/swan/swan_head_d.png"
-        attribute head_e: 
-            "characters/swan/swan_head_e.png"
-        attribute head_f: 
-            "characters/swan/swan_head_f.png"
+        attribute swan_1:
+            "characters/swan/swan_1.png"
+        attribute swan_2:
+            "characters/swan/swan_2.png"
+        attribute swan_3:
+            "characters/swan/swan_3.png"
+        attribute swan_4:
+            "characters/swan/swan_4.png"
+        attribute swan_5:
+            "characters/swan/swan_5.png"
+        attribute swan_6:
+            "characters/swan/swan_6.png"
+        attribute swan_7:
+            "characters/swan/swan_7.png"
+        attribute swan_8:
+            "characters/swan/swan_8.png"
+        attribute swan_9:
+            "characters/swan/swan_9.png"
+        attribute swan_10:
+            "characters/swan/swan_10.png"
+        attribute swan_11:
+            "characters/swan/swan_11.png"
+        attribute swan_12:
+            "characters/swan/swan_12.png"
+        attribute swan_13:
+            "characters/swan/swan_13.png"
+        attribute swan_14:
+            "characters/swan/swan_14.png"
+        attribute swan_15:
+            "characters/swan/swan_15.png"
+        attribute swan_16:
+            "characters/swan/swan_16.png"
+        attribute swan_17:
+            "characters/swan/swan_17.png"
+        attribute swan_18:
+            "characters/swan/swan_18.png"
+        attribute swan_19:
+            "characters/swan/swan_19.png"
+        attribute swan_20:
+            "characters/swan/swan_20.png"

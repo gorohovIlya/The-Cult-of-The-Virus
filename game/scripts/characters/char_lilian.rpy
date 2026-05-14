@@ -15,6 +15,13 @@ layeredimage lilian:
         attribute body_af:
             "characters/lilian/lilian_body_af.png"
 
+        attribute body_ag:
+            "characters/lilian/lilian_body_ag.png"
+        attribute body_ah:
+            "characters/lilian/lilian_body_ah.png"
+        attribute body_ai:
+            "characters/lilian/lilian_body_ai.png"
+
     group head:
         attribute head_a default: 
             "characters/lilian/lilian_head_a.png"
@@ -28,3 +35,19 @@ layeredimage lilian:
             "characters/lilian/lilian_head_e.png"
         attribute head_f: 
             "characters/lilian/lilian_head_f.png"
+        attribute head_g:
+            "characters/lilian/lilian_head_g.png"
+        attribute head_h:
+            "characters/lilian/lilian_head_h.png"
+        attribute head_i:
+            "characters/lilian/lilian_head_i.png"
+        attribute no_head:
+            Null()
+
+    group arms:
+        attribute no_arms default:
+            Null()
+        attribute arms_af:
+            "characters/lilian/lilian_arms_af.png"
+        attribute arms_ag:
+            "characters/lilian/lilian_arms_ag.png"
