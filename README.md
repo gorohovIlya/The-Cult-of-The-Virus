@@ -1,3 +1,5 @@
+# Description of our project
+
 # «The Virus Cult» — Visual Novel & Official Website
 
 ## Visual Novel — Horror Genre
@@ -52,6 +54,9 @@ The website serves as a promotional hub for the visual novel.
 
 #### Backend
 - Laravel 13
+
+> For more information about the website, use this link.
+    [Github](https://github.com/gorohovIlya/the-virus-cult-website.git)
 
 ---
 
@@ -118,5 +123,3 @@ Make
 ## Rename.sh (в images/characters)
 
 Переименовывает файлы персонажей
-
-> For more information about the website, refer to the project documentation.
