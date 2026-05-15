@@ -101,9 +101,9 @@ The website serves as a promotional hub for the visual novel.
 создаёт файлы со спрайтами персонажей вида
 
 ```
-define cultist = Character(_("Персонаж"))
+define character = Character(_("Персонаж"))
 
-layeredimage cultist:
+layeredimage character:
     group body:
         attribute body_aa default:
             "characters/character/character_body_aa.png"
@@ -111,7 +111,7 @@ layeredimage cultist:
 
     group head:
         attribute head_a default: 
-            "characters/cultist/character_head_a.png"
+            "characters/character/character_head_a.png"
         ...
 
 ```
