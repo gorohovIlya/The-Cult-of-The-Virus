@@ -3,6 +3,7 @@ default ants_time_left = 180
 default clicks_made = 0
 default state = 0
 default ant_time_color = '#fff'
+default from_location = ""
 
 define voice_behind_door = Character(_('Голос за дверью'))
 define man = Character(_('Мужчина'))
