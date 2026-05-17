@@ -58,7 +58,7 @@ The website serves as a promotional hub for the visual novel.
 > For more information about the website, use this link.
     [Github](https://github.com/gorohovIlya/the-virus-cult-website.git)
 
-# End of description
+# End of the description
 ---
 
 ## Структура проекта
