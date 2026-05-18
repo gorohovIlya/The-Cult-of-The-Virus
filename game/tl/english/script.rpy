@@ -3710,4 +3710,496 @@ translate english strings:
 
     # game/script.rpy:1074
     old "Оставить документы"
-    new "Leave the documents"
+    new "Leave the documents"# TODO: Translation updated at 2026-05-18 20:28
+
+# game/script.rpy:17
+translate english a1_8bbcd8d5:
+
+    # narrator "Был обычный, безоблачный майский день."
+    narrator "It was an ordinary, cloudless May day. The spring sunlight illuminated the classroom, and birds were singing outside the window."
+
+# game/script.rpy:18
+translate english a1_5ed9fb13:
+
+    # narrator "Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
+    narrator "The spring sunlight illuminated the classroom, and birds were singing outside the window."
+
+# game/script.rpy:23
+translate english a2_b6340834:
+
+    # narrator "Я сидела на последнем занятии этого семестра."
+    narrator "I was sitting in the last class of the semester"
+
+# game/script.rpy:24
+translate english a2_c493272b:
+
+    # narrator "Все экзамены были сданы автоматом, остался всего лишь один зачёт, о сдаче которого я вообще не переживала."
+    narrator "All the exams were automatically passed, only one credit test remained, and I wasn't worried about passing it at all."
+
+# game/script.rpy:91
+translate english a5_473b1bc3:
+
+    # narrator "На следующий день я приехала в Институт."
+    narrator "The next day, I arrived at the Institute."
+
+# game/script.rpy:92
+translate english a5_bcda20cb:
+
+    # narrator "Это был комплекс зданий невероятных размеров."
+    narrator "It was a complex of buildings of incredible size."
+
+# game/script.rpy:99
+translate english a6_355ca345:
+
+    # narrator "Когда я вошла внутрь, то сразу же пошла к стойке охраны, чтобы сказать, зачем я пришла."
+    narrator "When I entered, I immediately went to the security desk to say why I had come"
+
+# game/script.rpy:100
+translate english a6_1b27e49d:
+
+    # narrator "Ну и ещё спросить дорогу до 245 кабинета."
+    narrator "And also to ask for directions to room 245."
+
+# game/script.rpy:111
+translate english a8_9de7fc7d:
+
+    # narrator "Моё выступление длилось 20 минут."
+    narrator "My presentation lasted for 20 minutes."
+
+# game/script.rpy:112
+translate english a8_3300b909:
+
+    # narrator "Когда я закончила, все магистранты зааплодировали."
+    narrator "When I finished, all the master's students applauded."
+
+# game/script.rpy:113
+translate english a8_7bf7377f:
+
+    # narrator "После этого они начали расходиться."
+    narrator "After that, they began to disperse."
+
+# game/script.rpy:144
+translate english a9_b7ede5d7:
+
+    # narrator "И он начал говорить. Я слушала его и записывала."
+    narrator "And he began to speak. I listened to him and took notes."
+
+# game/script.rpy:145
+translate english a9_df265bf2:
+
+    # narrator "Некоторые идеи были, как по мне, абсурдны, до некоторых я могла додуматься и сама, но было несколько предложений, которые показались мне просто гениальными."
+    narrator "Some ideas were, in my opinion, absurd, some I could have come up with myself, but there were a few suggestions that seemed simply brilliant to me."
+
+# game/script.rpy:153
+translate english a10_57941067:
+
+    # narrator "Он действительно был вкусным, как и говорил профессор."
+    narrator "It was indeed delicious, just as the professor had said."
+
+# game/script.rpy:154
+translate english a10_55f22284:
+
+    # narrator "За чаем мы разговорились о жизни, и я поняла, что профессор Свэн не такой, каким все его считали. В душе он весьма добрый человек."
+    narrator "Over tea, we started talking about life, and I realized that Professor Swan wasn't the way everyone thought he was. Deep down, he is quite a kind person."
+
+# game/script.rpy:155
+translate english a10_14573e37:
+
+    # narrator "Поведение и внешность человека могут быть обманчивы."
+    narrator "A person's behavior and appearance can be deceiving."
+
+# game/script.rpy:156
+translate english a10_8d950590:
+
+    # narrator "Под маской доброго и отзывчивого может прятаться настоящее чудовище."
+    narrator "A real monster can hide behind the mask of a kind and helpful person."
+
+# game/script.rpy:157
+translate english a10_b7bce490:
+
+    # narrator "Единственное, что правдиво в человеком — это его мотивы."
+    narrator "The only thing that is true about a person is their motives."
+
+# game/script.rpy:158
+translate english a10_68819ec0:
+
+    # narrator "Лишь они отражают его мировоззрение."
+    narrator "Only they reflect their worldview."
+
+# game/script.rpy:159
+translate english a10_45a7bbfb:
+
+    # narrator "Запомните это навсегда…"
+    narrator "Remember this forever..."
+
+# game/script.rpy:168
+translate english a12_e3531532:
+
+    # swan "— Мне надо отойти на 10 минут."
+    swan "— I need to step out for 10 minutes."
+
+# game/script.rpy:169
+translate english a12_a024dfb8:
+
+    # swan "— Подождите меня, пожалуйста, и мы продолжим."
+    swan "— Please wait for me, and we will continue."
+
+# game/script.rpy:180
+translate english a12_2c0a2a1d:
+
+    # narrator "Но профессор не возвращался."
+    narrator "But the professor didn't return."
+
+# game/script.rpy:181
+translate english a12_3c122284:
+
+    # narrator "Мне становилось скучно."
+    narrator "I was getting bored."
+
+# game/script.rpy:192
+translate english a13_d2b0ce1d:
+
+    # narrator "В конце концов я решила прогуляться по ИСЗФ."
+    narrator "In the end, I decided to take a walk around the ISTP."
+
+# game/script.rpy:193
+translate english a13_b53fc9d2:
+
+    # narrator "Я вышла из аудитории, и моему взору открылся пустой длинный коридор."
+    narrator "I stepped out of the classroom, and a long, empty corridor opened up before my eyes."
+
+# game/script.rpy:202
+translate english a14_2afc7090:
+
+    # narrator "Я повернула налево."
+    narrator "I turned left."
+
+# game/script.rpy:203
+translate english a14_194b944e:
+
+    # narrator "Когда я шла, я читала таблички на дверях."
+    narrator "As I walked, I read the signs on the doors."
+
+# game/script.rpy:204
+translate english a14_d25fa0eb:
+
+    # narrator "Некоторые аудитории были открыты и пусты, но в основном двери были закрыты."
+    narrator "Some classrooms were open and empty, but most of the doors were locked."
+
+# game/script.rpy:208
+translate english a15_381e7ce4:
+
+    # narrator "В одной из аудиторий я услышала знакомый голос профессора Бисмарка, преподавателя по анализу данных."
+    narrator "In one of the classrooms, I heard the familiar voice of Professor Bismarck, the data analysis teacher."
+
+# game/script.rpy:209
+translate english a15_7def4345:
+
+    # narrator "Я подошла к двери и прислушалась, о чём он говорит."
+    narrator "I approached the door and listened to what he was saying."
+
+# game/script.rpy:211
+translate english a15_1a04b872:
+
+    # narrator "Он рассказывал мой любимый анекдот про демократический ад, и я подумала, не зайти ли мне и не поздороваться с ним, но когда я коснулась ручки, она обожгла мою ладонь."
+    narrator "He was telling my favorite joke about democratic hell, and I thought about going in to say hello, but when I touched the handle, it burned my palm."
+
+# game/script.rpy:212
+translate english a15_36357c10:
+
+    # narrator "Что с этой дверью не так?"
+    narrator "What is wrong with this door?"
+
+# game/script.rpy:220
+translate english a16_95616c71:
+
+    # narrator "Я продолжила путь по коридору."
+    narrator "I continued down the corridor."
+
+# game/script.rpy:221
+translate english a16_f757f308:
+
+    # narrator "Дойдя до конца, я развернулась и направилась в другую сторону."
+    narrator "Reaching the end, I turned around and headed in the other direction."
+
+# game/script.rpy:222
+translate english a16_c80cc98d:
+
+    # narrator "Мой путь от начала и до конца занял три минуты неспешного шага."
+    narrator "My journey from beginning to end took three minutes of leisurely walking."
+
+# game/script.rpy:227
+translate english a17_13453063:
+
+    # narrator "Я решила толкнуть дверь, но не рассчитала силу и с громким звуком ввалилась в аудиторию, где, по всей видимости, проходил экзамен."
+    narrator "I decided to push the door open, but misjudged my strength and tumbled loudly into a classroom where an exam seemed to be taking place."
+
+# game/script.rpy:228
+translate english a17_6c70c9b2:
+
+    # narrator "Все взгляды в комнате сразу же устремились ко мне."
+    narrator "All eyes in the room instantly turned toward me."
+
+# game/script.rpy:261
+translate english a17_d7e78d84:
+
+    # narrator "Есть вещи, которые делать не следует. И есть места, куда не стоит заходить."
+    narrator "There are things you shouldn't do. And there are places you shouldn't enter."
+
+# game/script.rpy:262
+translate english a17_72a9764c:
+
+    # narrator "Зачем вы зашли туда?"
+    narrator "Why did you go in there?"
+
+# game/script.rpy:267
+translate english a18_8007f784:
+
+    # narrator "Я решила развернуться и пойти в другой конец коридора."
+    narrator "I decided to turn around and head to the other end of the corridor."
+
+# game/script.rpy:268
+translate english a18_3420223c:
+
+    # narrator "По пути я увидела дверь с надписью «Кафедра программирования»."
+    narrator "On the way, I saw a door with a sign that read 'Department of Programming'."
+
+# game/script.rpy:272
+translate english a19_c550de61:
+
+    # narrator "Под надписью висела табличка с именами преподавателей. Посмотрев на имена и увидев среди них имя профессора Свэна, я решила зайти и спросить, когда он вернётся."
+    narrator "Below the sign hung a plaque with the teachers' names. Looking at the names and seeing Professor Swan's among them, I decided to go in and ask when he would return."
+
+# game/script.rpy:273
+translate english a19_8564060f:
+
+    # narrator "Дверь была приоткрыта, и я решила заглянуть туда."
+    narrator "The door was slightly ajar, so I decided to peek inside."
+
+# game/script.rpy:300
+translate english a24_cb133cba:
+
+    # narrator "Это повергло меня в шок."
+    narrator "This shocked me completely."
+
+# game/script.rpy:301
+translate english a24_a3361eab:
+
+    # narrator "Почему-то мне показалось, что они говорили обо мне. И от этого мне стало ещё хуже."
+    narrator "For some reason, it felt like they were talking about me. And that made me feel even worse."
+
+# game/script.rpy:318
+translate english a26_baef8fed:
+
+    # narrator "Когда я взяла ноутбук, то заметила на столе какой-то рисунок, который не видела раньше."
+    narrator "When I picked up the laptop, I noticed a drawing on the table that I hadn't seen before."
+
+# game/script.rpy:319
+translate english a26_c0d6cbb4:
+
+    # narrator "Времени осматривать его не было, но что-то подсказывало мне, что это может пригодиться."
+    narrator "There was no time to examine it, but something told me it might come in handy."
+
+# game/script.rpy:353
+translate english a30_7922bcf9:
+
+    # narrator "Когда я выбежала, я поняла, что коридор изменился до неузнаваемости."
+    narrator "When I ran out, I realized that the corridor had changed beyond recognition."
+
+# game/script.rpy:354
+translate english a30_085d051a:
+
+    # narrator "Он менялся, искривлялся, искажался."
+    narrator "It was changing, warping, distorting."
+
+# game/script.rpy:355
+translate english a30_29c58613:
+
+    # narrator "Дверей в другие аудитории не было."
+    narrator "There were no doors to other classrooms."
+
+# game/script.rpy:356
+translate english a30_2dd8f9e4:
+
+    # narrator "Из окон лилось какое-то непонятное зелёное свечение."
+    narrator "An incomprehensible green glow poured from the windows."
+
+# game/script.rpy:357
+translate english a30_6b6b8953:
+
+    # narrator "Пола и потолка просто не было. Вместо них бегали нули и единицы, которые постоянно меняли своё положение."
+    narrator "There was simply no floor or ceiling. Instead, zeros and ones were rushing around, constantly changing their positions."
+
+# game/script.rpy:358
+translate english a30_39c04c17:
+
+    # narrator "Я начала бежать прямо по коридору так быстро, как могла."
+    narrator "I started running straight down the corridor as fast as I could."
+
+# game/script.rpy:359
+translate english a30_f5ed1deb:
+
+    # narrator "Скоро я достигла развилки. Боже, куда бежать?"
+    narrator "Soon I reached a fork in the path. My God, which way should I run?"
+
+# game/script.rpy:363
+translate english a31_97f504ea:
+
+    # narrator "Наконец я увидела дверь, из которой был виден солнечный свет…"
+    narrator "Finally, I saw a door through which sunlight was visible..."
+
+# game/script.rpy:364
+translate english a31_2c7ef4ae:
+
+    # narrator "Быстрее, ещё быстрее."
+    narrator "Faster, even faster."
+
+# game/script.rpy:365
+translate english a31_4d45e55b:
+
+    # narrator "Я протаранила дверь и вылетела на освещённую солнцем улицу."
+    narrator "I rammed through the door and burst out into the sunlit street."
+
+# game/script.rpy:371
+translate english a32_1e8f34a8:
+
+    # narrator "Вскоре я была дома."
+    narrator "Soon I was home."
+
+# game/script.rpy:372
+translate english a32_c710f7fd:
+
+    # narrator "Я быстро забаррикадировала дверь, закрыла все окна и легла на кровать."
+    narrator "I quickly barricaded the door, closed all the windows, and lay down on the bed."
+
+# game/script.rpy:373
+translate english a32_a194fcaa:
+
+    # narrator "Я долго не могла уснуть."
+    narrator "I couldn't fall asleep for a long time."
+
+# game/script.rpy:380
+translate english a33_a692adec:
+
+    # narrator "Я быстро переоделась, прибралась в квартире, разобрала баррикады и стала ждать друзей."
+    narrator "I quickly changed, cleaned up the apartment, took down the barricades, and began waiting for my friends."
+
+# game/script.rpy:381
+translate english a33_be8ac2dc:
+
+    # narrator "Через час они были в квартире."
+    narrator "An hour later, they were in the apartment."
+
+# game/script.rpy:389
+translate english a34_b4719914:
+
+    # narrator "Друзья обратили на это внимание и спросили, все ли со мной нормально."
+    narrator "My friends noticed this and asked if I was alright."
+
+# game/script.rpy:417
+translate english a36_88723a96:
+
+    # narrator "Когда я подходила к моему дому, я заметила, что какая-то тень мелькнула рядом с ним и ускользнула в переулок."
+    narrator "As I was approaching my house, I noticed a shadow flash past it and slip into an alleyway."
+
+# game/script.rpy:419
+translate english a36_a518ab94:
+
+    # narrator "Подумав, что это кошка, я продолжила путь."
+    narrator "Thinking it was just a cat, I continued on my way."
+
+# game/script.rpy:542
+translate english a43_89407fe6:
+
+    # narrator "Но ответа не последовало."
+    narrator "But there was no answer."
+
+# game/script.rpy:544
+translate english a43_89a244c3:
+
+    # narrator "Культист в полном молчании вынул кинжал и бросился на меня."
+    narrator "The cultist silently drew a dagger and rushed at me."
+
+# game/script.rpy:1179
+translate english a51_02ed99c5:
+
+    # narrator "Как всё-таки хорошо расслабиться!"
+    narrator "How wonderful it is to finally relax!"
+
+# game/script.rpy:1180
+translate english a51_bcd04848:
+
+    # narrator "Я просидела перед телевизором до поздней ночи."
+    narrator "I sat in front of the TV until late at night."
+
+# game/script.rpy:1311
+translate english ant_puzzle_prob_success_bfb994b3:
+
+    # narrator "Некоторое время мы наблюдали за тем, как траектории движения муравьев становились всё более оптимальными, пока нас не прервал шёпот Джанет."
+    narrator "For a while, we watched the ants' trajectories become more and more optimal, until we were interrupted by Janet's whisper."
+
+# game/script.rpy:1313
+translate english ant_puzzle_prob_success_3b911308:
+
+    # narrator "Отвлёкшись от наблюдения за движущимися фигурками муравьев, я услышала приглушенный разговор культистов, звуки которого доносились из коридора."
+    narrator "Distracted from watching the moving ant figures, I heard a muffled conversation of the cultists coming from the corridor."
+
+# game/script.rpy:1315
+translate english ant_puzzle_prob_success_1c39a605:
+
+    # narrator "Я на цыпочках подошла к двери и прислушалась."
+    narrator "I tiptoed to the door and listened closely."
+
+# game/script.rpy:1317
+translate english ant_puzzle_prob_success_0bec2a3d:
+
+    # narrator "Судя по звуку, они, к счастью для нас, пошли в противоположном направлении."
+    narrator "Judging by the sound, fortunately for us, they went in the opposite direction."
+
+# game/script.rpy:1319
+translate english ant_puzzle_prob_success_2061f4a0:
+
+    # helen "— Джон, как там у тебя?"
+    helen "— John, how are things on your end?"
+
+# game/script.rpy:1320
+translate english ant_puzzle_prob_success_6829398d:
+
+    # helen "— Муравьи нашли короткий путь по этим искаженным коридорам?"
+    helen "— Have the ants found a short path through these distorted corridors?"
+
+# game/script.rpy:1325
+translate english ant_puzzle_prob_success_bb940f0f:
+
+    # narrator "Сначала он прислушался к тому что происходит в коридоре, после чего аккуратно высунул голову и осмтрелся."
+    narrator "First he listened to what was happening in the corridor, then carefully poked his head out and looked around."
+
+# game/script.rpy:1326
+translate english ant_puzzle_prob_success_8b366ec0:
+
+    # narrator "Убедившись, что культистов поблизости нет, он жестом показал нам с Джанет, что можно идти."
+    narrator "Making sure there were no cultists nearby, he gestured to Janet and me that it was safe to go."
+
+# game/script.rpy:1352
+translate english ant_puzzle_failure_ebe9aaa0:
+
+    # john "— Скорее всего он не оптимален, так как я нашёл его с помощью «жадного алгоритма»."
+    john "— It's likely not optimal, since I found it using a 'greedy algorithm'."
+
+# game/script.rpy:1353
+translate english ant_puzzle_failure_a8527f88:
+
+    # john "— Но, к сожалению, выбора у нас нет."
+    john "— But unfortunately, we don't have a choice."
+
+# game/script.rpy:1361
+translate english ant_puzzle_success_e8de8e6c:
+
+    # narrator "Мы наблюдали за тем, как траектории движения муравьев становились всё более оптимальными."
+    narrator "We watched the trajectories of the ants become more and more optimal."
+
+# game/script.rpy:1362
+translate english ant_puzzle_success_cc1b0049:
+
+    # narrator "Через некоторое время все муравьи не стали ходить от начальной до конечной точки маршрута по одной и той же траектории."
+    narrator "After a while, all the ants began to walk from the starting to the ending point of the route along the exact same trajectory."

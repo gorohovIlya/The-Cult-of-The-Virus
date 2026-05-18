@@ -421,4 +421,135 @@ translate english strings:
     new "FAILED"
 
     old "Заново"
-    new "Retry"
+    new "Retry"# TODO: Translation updated at 2026-05-18 20:28
+
+translate english strings:
+
+    # game/screens.rpy:323
+    old "Об игре"
+    new "Об игре"
+
+    # game/screens.rpy:569
+    old "Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
+    new "Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
+
+    # game/screens.rpy:604
+    old "{} страница"
+    new "{} страница"
+
+    # game/screens.rpy:647
+    old "{#file_time}%A, %d %B %Y, %H:%M"
+    new "{#file_time}%A, %d %B %Y, %H:%M"
+
+    # game/screens.rpy:647
+    old "Пустой слот"
+    new "Пустой слот"
+
+    # game/screens.rpy:667
+    old "<"
+    new "<"
+
+    # game/screens.rpy:671
+    old "{#auto_page}А"
+    new "{#auto_page}А"
+
+    # game/screens.rpy:674
+    old "{#quick_page}Б"
+    new "{#quick_page}Б"
+
+    # game/screens.rpy:680
+    old ">"
+    new ">"
+
+    # game/screens.rpy:685
+    old "Загрузить Sync"
+    new "Загрузить Sync"
+
+    # game/screens.rpy:689
+    old "Скачать Sync"
+    new "Скачать Sync"
+
+    # game/screens.rpy:754
+    old "Язык / Language"
+    new "Язык / Language"
+
+    # game/screens.rpy:1025
+    old "Прохождение диалогов, активация интерфейса."
+    new "Прохождение диалогов, активация интерфейса."
+
+    # game/screens.rpy:1029
+    old "Прохождение диалогов без возможности делать выбор."
+    new "Прохождение диалогов без возможности делать выбор."
+
+    # game/screens.rpy:1036
+    old "Esc"
+    new "Esc"
+
+    # game/screens.rpy:1037
+    old "Вход в игровое меню."
+    new "Вход в игровое меню."
+
+    # game/screens.rpy:1040
+    old "Ctrl"
+    new "Ctrl"
+
+    # game/screens.rpy:1041
+    old "Пропускает диалоги, пока зажат."
+    new "Пропускает диалоги, пока зажат."
+
+    # game/screens.rpy:1044
+    old "Tab"
+    new "Tab"
+
+    # game/screens.rpy:1045
+    old "Включает режим пропуска."
+    new "Включает режим пропуска."
+
+    # game/screens.rpy:1049
+    old "Откат назад по сюжету игры."
+    new "Откат назад по сюжету игры."
+
+    # game/screens.rpy:1053
+    old "Откатывает предыдущее действие вперёд."
+    new "Откатывает предыдущее действие вперёд."
+
+    # game/screens.rpy:1061
+    old "Делает снимок экрана."
+    new "Делает снимок экрана."
+
+    # game/screens.rpy:1065
+    old "Включает поддерживаемый {a=https://www.renpy.org/l/voicing}синтезатор речи{/a}."
+    new "Включает поддерживаемый {a=https://www.renpy.org/l/voicing}синтезатор речи{/a}."
+
+    # game/screens.rpy:1069
+    old "Открывает меню специальных возможностей."
+    new "Открывает меню специальных возможностей."
+
+    # game/screens.rpy:1098
+    old "Правый триггер\nA/Нижняя кнопка"
+    new "Правый триггер\nA/Нижняя кнопка"
+
+    # game/screens.rpy:1102
+    old "Левый Триггер\nЛевый Бампер"
+    new "Левый Триггер\nЛевый Бампер"
+
+    # game/screens.rpy:1110
+    old "Крестовина, Стики"
+    new "Крестовина, Стики"
+
+    # game/screens.rpy:1114
+    old "Старт, Гид, B/Правая кнопка"
+    new "Старт, Гид, B/Правая кнопка"
+
+    # game/screens.rpy:1118
+    old "Y/Верхняя кнопка"
+    new "Y/Верхняя кнопка"
+
+    # game/screens.rpy:1121
+    old "Калибровка"
+    new "Калибровка"
+
+    # game/screens.rpy:1546
+    old "Меню"
+    new "Меню"
+

@@ -748,6 +748,16 @@ screen preferences():
                         label _("Режим экрана")
                         textbutton _("Оконный") action Preference("display", "window")
                         textbutton _("Полный") action Preference("display", "fullscreen")
+                    
+                    vbox:
+                        style_prefix "radio"
+                        label _("Язык / Language")
+                        
+                        # None возвращает игру к исходному языку (в вашем случае к русскому)
+                        textbutton "Русский" action Language(None) 
+                        
+                        # "en" переключает игру на папку локализации tl/en
+                        textbutton "English" action Language("english")
 
                 vbox:
                     style_prefix "check"
@@ -1735,15 +1745,20 @@ screen chess_board_view(mgr):
     vbox:
         xpos 0.85 yalign 0.5
         spacing 15
-        text f"Ход {'БЕЛЫЕ' if mgr.is_white_turn else 'ЧЕРНЫЕ'}" size 24 color "#fff"
-        text f"Ходов: {mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
+        
+        if mgr.is_white_turn:
+            text _("Ход: БЕЛЫЕ") size 24 color "#fff"
+        else:
+            text _("Ход: ЧЕРНЫЕ") size 24 color "#fff"
+            
+        text _("Ходов: ") + f"{mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
         
         if mgr.is_success:   
-            text "МАТ!" color "#0f0" size 40
-            textbutton "Далее" action Return(True)
+            text _("МАТ!") color "#0f0" size 40
+            textbutton _("Далее") action Return(True)
         elif mgr.is_failure: 
-            text "ПРОВАЛ" color "#f00" size 30
-            textbutton "Заново" action Return(False)
+            text _("ПРОВАЛ") color "#f00" size 30
+            textbutton _("Заново") action Return(False)
 
 screen git_puzzle():
     modal True
