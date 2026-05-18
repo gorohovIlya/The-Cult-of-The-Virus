@@ -3680,14 +3680,6 @@ translate english strings:
     old "Уйти"
     new "Leave"
 
-    # game/script.rpy:182
-    old "Налево"
-    new "Left"
-
-    # game/script.rpy:184
-    old "Направо"
-    new "Right"
-
     # game/script.rpy:196
     old "Продолжить идти"
     new "Continue walking"

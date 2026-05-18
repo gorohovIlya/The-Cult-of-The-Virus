@@ -391,9 +391,6 @@ translate english strings:
     old "Ошибка! Неправильный порядок команд. Попробуйте снова."
     new "Error! Incorrect command order. Try again."
 
-    old "Enter"
-    new "Enter"
-
     # Дополнительные строки мини-игры "Поиск муравьев"
     old "Осталось времени 0[ants_time_left // 60]:[ants_time_left % 60]"
     new "Time left 0[ants_time_left // 60]:[ants_time_left % 60]"
