@@ -3,6 +3,7 @@ default ants_time_left = 180
 default clicks_made = 0
 default state = 0
 default ant_time_color = '#fff'
+default from_location = ''
 
 define voice_behind_door = Character(_('Голос за дверью'))
 define man = Character(_('Мужчина'))
@@ -231,7 +232,7 @@ label a17:
         align (1.0, 0.6)
         yoffset 140
     bismarck "— Вы что-то хотели, Хэлен?"
-    show helen body_ac head_c: # at left
+    show helen body_ac head_e: # at left
         align (0.0, 0.6)
         yoffset 180
     helen "— Извините, профессор! Я просто решила зайти поздороваться, а заодно и послушать анекдот, но я вижу, что вы заняты."
@@ -302,7 +303,7 @@ label a24:
     narrator "Я решила бежать оттуда, но когда я отходила от двери, я случайно коснулась её, и она скрипнула."
     show virus virus_7: # at left:
         zoom 0.75
-        align (1.0, 0.6)
+        align (0.0, 0.6)
         yoffset 140
     virus "— Что это?"
     jump a25
@@ -395,9 +396,8 @@ label a34:
 
 label a35:
     show helen head_a body_aa: # at left:
-        zoom 0.75
         align (0.0, 0.6)
-        yoffset 140
+        yoffset 180
     helen "— Да, всё нормально, просто устала."
     hide helen
     narrator "Друзья поняли, что вечер подошёл к концу."
@@ -429,29 +429,36 @@ label a37:
         yoffset 140
     narrator "Я быстро развернулась и увидела девушку."
     show helen body_ad head_f: # at left
-        zoom 0.75
         align (0.0, 0.6)
-        yoffset 140
+        yoffset 180
     helen "— Кто ты? Что тебе от меня нужно?"
     girl "— Не беспокойся, Хэлен. Я не причиню тебе зла."
     girl "Извини, что так грубо обошлась с тобой, но на то были причины."
     lilian "Я Лилиана."
-    show helen body_af head_h at left
+    show helen body_af head_h: # at left
+        align (0.0, 0.6)
+        yoffset 180
     helen "— Когда и откуда ты узнала моё имя?"
-    show lilian body_af head_d arms_af at right:
+    show lilian body_af head_d arms_af:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Со вчерашнего дня от моих разведчиков. Это ведь ты вчера сбежала из ИСЗФ, или, как называем его мы, из логова вируса, не так ли?"
     helen "— Кто такие «мы», что за вирус и что вообще происходит?"
     jump a38
 
 label a38:
     hide helen
-    show lilian body_af head_d at center:
+    show lilian body_af head_d:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Я начну отвечать с последнего вопроса."
     lilian "— Как я знаю, ты любишь программировать."
-    show lilian body_ac head_a no_arms at center:
+    show lilian body_ac head_a no_arms:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Ты многое знаешь и ничего не знаешь одновременно."
     lilian "— Многие люди думают, что программирование — это просто бездушные команды, алгоритмы, нули и единицы."
     lilian "— Но это далеко не так."
@@ -463,8 +470,10 @@ label a38:
     lilian "— Со временем начали появляться новые боги. Бог машинного обучения и нейронных сетей, бог веб-программирования, бог алгоритмов и так далее."
     lilian "— Для всех них были придуманы свои языки, которые превратились в посланников."
     lilian "— Десять самых популярных из них сформировали Орден, который защищает богов."
-    show lilian body_ae head_c at center:
+    show lilian body_ae head_c: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Но есть и тёмная сторона в программировании — это хакеры."
     lilian "— Они хотели и хотят вредить людям и наживаться на их беспечности."
     lilian "— Собственно, они и создали вирус, который стал своего рода тёмным братом машинного кода."
@@ -475,15 +484,21 @@ label a38:
 
 label a39:
     narrator "Когда она закончила, я не знала, что сказать. Я судорожно перебирала в голове варианты того, зачем я им понадобилась."
-    show lilian body_af head_d arms_af at center:
+    show lilian body_af head_d arms_af: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— У меня не так много способных людей."
     lilian "— Ты же достаточно умна. К тому же ты единственная, кто смогла сбежать из логова."
     lilian "— Поэтому я и пришла за тобой."
     lilian "— Что скажешь?"
-    show helen body_ae head_h at left
-    show lilian body_af head_d arms_af at right:
+    show helen body_ae head_h:
+        align (0.0, 0.6)
+        yoffset 180
+    show lilian body_af head_d arms_af: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     menu:
         "Отказаться":
             jump a40
@@ -491,19 +506,29 @@ label a39:
             jump a41
 
 label a40:
-    show lilian body_ah head_f no_arms at right:
+    show lilian body_ah head_f no_arms: # at right:
         zoom 0.75
-    show helen body_aa head_a at left
+        align (1.0, 0.6)
+        yoffset 140
+    show helen body_aa head_a:
+        align (0.0, 0.6)
+        yoffset 180
     lilian "— Я понимаю, что ты не доверяешь мне. Но позволь мне переубедить тебя."
     lilian "— Можешь, пожалуйста, аккуратно посмотреть на окно своей квартиры?"
     hide lilian
     narrator "Я подошла к углу переулка и медленно высунулась."
-    show helen body_ad head_f at center
+    show helen body_ad head_f:
+        align (0.5, 0.6)
+        yoffset 180
     narrator "Присмотревшись, в окне своей квартиры я увидела чёрный силуэт."
     narrator "Ошарашенная, я медленно вернулась обратно."
-    show helen head_h body_af at left
-    show lilian head_d head_af arms_af at right:
+    show helen head_h body_af:
+        align (0.0, 0.6)
+        yoffset 180
+    show lilian head_d head_af arms_af: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Теперь ты понимаешь, что я не хочу тебе зла."
     lilian "— Что ты сейчас думаешь?"
     narrator "Недоверие к ней оставалось, но она спасла меня. Поэтому я неуверенно кивнула."
@@ -511,8 +536,10 @@ label a40:
 
 label a41:
     hide helen
-    show lilian head_e body_aa no_arms at center:
+    show lilian head_e body_aa no_arms: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Она улыбнулась."
     lilian "— Следуй за мной. Я приведу тебя на нашу базу."
     lilian "— Не переживай насчёт вещей. Мои люди завтра всё тебе принесут."
@@ -523,7 +550,9 @@ label a41:
     return
 
 label a42:
-    show helen head_g body_af at center 
+    show helen head_g body_af: # at center
+        align (0.5, 0.6)
+        yoffset 180
     helen "— Извините меня, но что-то мне стало не хорошо. Думаю, на сегодня хватит."
     hide helen
     narrator "Друзья понимающе посмотрели на меня и стали собираться."
@@ -537,7 +566,9 @@ label a43:
     narrator "Разбудил меня непонятный шорох в комнате."
     narrator "Когда я открыла глаза, было уже темно."
     narrator "Но, присмотревшись в темноту, я увидела фигуру человека в чёрной мантии."
-    show helen head_f body_ad at center
+    show helen head_f body_ad: # at center
+        align (0.5, 0.6)
+        yoffset 180
     helen "— Кто вы?"
     narrator "Но ответа не последовало."
     hide helen
@@ -545,29 +576,41 @@ label a43:
     narrator "Когда он был в паре сантиметров от меня, чёрная тень ударилась в его бок. Человек повалился на пол, что-то крича."
     narrator "Затем тень ударила его. Человек издал сдавленный писк и перестал двигаться."
     narrator "Убедившись, что нападавший не представляет опасности, тень отступила от него и подошла ко мне. Перед глазами возникла девушка."
-    show lilian head_b body_ab at right:
+    show lilian head_b body_ab: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     girl "— Ты не ранена?"
-    show helen head_h body_af at left
+    show helen head_h body_af: # at left
+        align (0.0, 0.6)
+        yoffset 180
     helen "— Нет, не ранена. Кто ты?"
-    show lilian head_a body_aa at right:
+    show lilian head_a body_aa: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Я Лилиана. Твоё же имя мне известно, Хэлен."
     helen "— Когда и откуда ты узнала моё имя?"
-    show lilian body_af head_d arms_af at right:
+    show lilian body_af head_d arms_af: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Со вчерашнего дня от моих разведчиков. Это ведь ты вчера сбежала из ИСЗФ или, как называем его мы, логово вируса, не так ли?"
     helen "— Кто такие «мы», что за вирус и что вообще происходит?"
     jump a44
 
 label a44:
     hide helen
-    show lilian body_af head_d at center:
+    show lilian body_af head_d: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Я начну отвечать с последнего вопроса."
     lilian "— Как я знаю, ты любишь программировать."
-    show lilian body_ac head_a no_arms at center:
+    show lilian body_ac head_a no_arms: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Ты многое знаешь и ничего не знаешь одновременно."
     lilian "— Многие люди думают, что программирование — это просто бездушные команды, алгоритмы, нули и единицы."
     lilian "— Но это далеко не так."
@@ -579,8 +622,10 @@ label a44:
     lilian "— Со временем начали появляться новые боги. Бог машинного обучения и нейронных сетей, бог веб-программирования, бог алгоритмов и так далее."
     lilian "— Для всех них были придуманы свои языки, которые превратились в посланников."
     lilian "— Десять самых популярных из них сформировали Орден, который защищает богов."
-    show lilian body_ae head_c at center:
+    show lilian body_ae head_c: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Но есть и тёмная сторона в программировании — это хакеры."
     lilian "— Они хотели и хотят вредить людям и наживаться на их беспечности."
     lilian "— Собственно, они и создали вирус, который стал своего рода тёмным братом машинного кода."
@@ -591,15 +636,21 @@ label a44:
 
 label a45:
     narrator "Когда она закончила, я не знала, что сказать. Я судорожно перебирала в голове варианты того, зачем я им понадобилась."
-    show lilian body_af head_d arms_af at center:
+    show lilian body_af head_d arms_af: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— У меня не так много способных людей."
     lilian "— Ты же достаточно умна. К тому же ты единственная, кто смогла сбежать из логова."
     lilian "— Поэтому я и пришла за тобой."
     lilian "— Что скажешь?"
-    show helen body_ae head_h at left
-    show lilian body_af head_d arms_af at right:
+    show helen body_ae head_h: # at left
+        align (0.0, 0.6)
+        yoffset 180
+    show lilian body_af head_d arms_af: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     jump a46
 
 label a46:
@@ -608,8 +659,10 @@ label a46:
     narrator "Но с другой — она спасла мне жизнь."
     narrator "Немного подумав, я нерешительно кивнула."
     hide helen
-    show lilian head_e body_aa no_arms at center:
+    show lilian head_e body_aa no_arms: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Она улыбнулась."
     lilian "— Следуй за мной. Я приведу тебя на нашу базу."
     lilian "— Сейчас нет времени собираться, поэтому про вещи забудь на время."
@@ -640,19 +693,27 @@ label a48:
 
 label a49:
     narrator "Шла я долго, пока в серой дымке не возник силуэт человека."
-    show unknown at center:
+    show unknown: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Он был облачен в серую мантию, полностью закрывавшую его."
     narrator "Виднелись лишь совершенно белые глаза."
     narrator "В руках он держал посох с полумесяцем на конце."
-    show unknown unknown_1 at right:
+    show unknown unknown_1: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "Незнакомец подошёл ко мне ближе."
-    show helen body_af head_h at left
+    show helen body_af head_h: # at left
+        align (0.0, 0.6)
+        yoffset 180
     helen "— Кто вы?"
     hide helen
-    show unknown unknown_1 at center:
+    show unknown unknown_1: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Ответа не последовало."
     narrator "Он внимательно посмотрел на меня безжизненными глазами."
     narrator "Затем он развернулся и жестом приказал следовать за ним."
@@ -662,14 +723,20 @@ label a49:
     narrator "Пейзаж оставался таким же серым и мёртвым."
     narrator "Наконец незнакомец довёл меня до места, где стоял стол."
     narrator "На столе лежала потрёпанная книга и стоял старый экран компьютера."
-    show unknown unknown_1 at center:
+    show unknown unknown_1: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Человек подошёл к столу, включил экран и взял книгу."
-    show unknown unknown_2 at center:
+    show unknown unknown_2: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Затем вернулся ко мне и вручил её."
-    show unknown unknown_1 at center:
+    show unknown unknown_1: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Я неуверенно взяла и открыла книгу."
     hide unknown
     narrator "В ней было написано, что место, где я нахожусь — это место-между-мирами."
@@ -702,40 +769,62 @@ label a53:
 
 label a54:
     narrator "Приблизившись, я различила девушку и мужчину."
-    show john body_aa head_a at center:
+    show john body_aa head_a: # at center:
         zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     man "— Очнулась. Как ты?"
     if(from_location == "flat"):
-        show helen body_pajamas_aa head_without_cap_a at left
+        show helen body_pajamas_aa head_without_cap_a: # at left
+            align (0.0, 0.6)
+            yoffset 180
     else:
-        show helen body_aa head_a at left
+        show helen body_aa head_a:# at left
+            align (0.0, 0.6)
+            yoffset 180
     helen "— Спасибо, всё хорошо."
     hide john
     if (from_location == "world_between_worlds"):
-        show janet body_aa head_a at center:
-            zoom 0.6
+        show janet body_aa head_a: # at center:
+            zoom 0.55
+            align (0.5, 0.75)
+            yoffset 140
         girl "— Точно всё нормально? У тебя кровь на лбу."
-        show helen body_ae head_g at left
+        show helen body_ae head_g: # at left
+            align (0.0, 0.6)
+            yoffset 180
         narrator "Я дотронулась до лба и нащупала небольшую рану."
         narrator "Наверное, ударилась, когда падала, подумала я."
-    show janet body_aa head_a at center:
-        zoom 0.6
+    show janet body_aa head_a: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     girl "— Как тебя зовут?"
     if(from_location == "flat"):
-        show helen body_pajamas_aa head_without_cap_a at left
+        show helen body_pajamas_aa head_without_cap_a: # at left
+            align (0.0, 0.6)
+            yoffset 180
     else:
-        show helen body_aa head_a at left
+        show helen body_aa head_a: # at left
+            align (0.0, 0.6)
+            yoffset 180
     helen "— Хэлен."
     hide helen
     narrator "Они также представились."
     narrator "Девушку звали Джанет."
-    show john at right:
+    show john: # at right:
         zoom 0.7
+        align (1.0, 0.6)
+        yoffset 140
     narrator "А мужчину — Джон."
     if(from_location == "flat"):
-        show helen body_pajamas_af head_without_cap_h at left
+        show helen body_pajamas_af head_without_cap_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     else:
-        show helen body_af head_h at left
+        show helen body_af head_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     helen "— Как вы сюда попали?"
     hide john
     narrator "Первой начала говорить рыжеволосая Джанет."
@@ -747,20 +836,26 @@ label a54:
     janet "— Это продолжалось до тех пор, пока в университет не пришла Анна, чёрт бы её побрал. Она была скромницей и умницей."
     janet "— И эта скромница как-то умудрилась стать популярней меня!"
     janet "— Меня, первой звезды универа!"
-    show janet head_b body_ab at center:
-        zoom 0.6
+    show janet head_b body_ab: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     narrator "Джанет скривила рот в недовольной гримасе."
     janet "— Я пыталась по-доброму поговорить с ней, но у меня не вышло."
     janet "— Она говорила, что сама не знает, как у неё это получилось. Но я не верила ей."
     janet "— В общем, я всячески пробовала напакостить ей, но она как-то выкручивалась из всех ситуаций."
-    show janet body_aa head_a at center:
-        zoom 0.6
+    show janet body_aa head_a: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     janet "— Однажды я заметила, что она проводит много времени с каким-то стариком, Бисмарком вроде бы."
     janet "— Тогда я решила оклеветать её, сказав, что она флиртует с ним."
     janet "— Как-то раз я подкараулила их в одной из аудиторий."
     janet "— Я аккуратно подошла к двери, тихо приоткрыла её и хотела начать снимать, но увиденное поразило меня."
-    show janet head_c body_aa at center:
-        zoom 0.6
+    show janet head_c body_aa: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     janet "— В комнате, помимо них, находилось нечто."
     janet "— Оно стояло над Анной, стоящей на коленях, и что-то говорило на непонятном языке."
     janet "— Вдруг над Анной появился красный шар, который увеличивался со временем."
@@ -769,20 +864,28 @@ label a54:
     janet "— Шар пропал, и существо перестало говорить."
     janet "— Я поняла, что нужно бежать, но не успела я сделать и пары шагов, как мне стало плохо."
     janet "— Последнее, что я помню — это падение и красный глаз существа."
-    show janet body_aa head_a at center:
-        zoom 0.6
+    show janet body_aa head_a: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     janet "— Пришла в себя я уже здесь."
     janet "— Вот такая моя история."
     hide janet
     if from_location == "world_between_worlds":
         narrator "«Опять это существо с красным глазом, — подумала я. — Что это такое и почему оно обладает нечеловеческими способностями?»"
     if(from_location == "flat"):
-        show helen body_pajamas_af head_without_cap_h at left
+        show helen body_pajamas_af head_without_cap_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     else:
-        show helen body_af head_h at left
+        show helen body_af head_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     helen "— Что насчёт тебя, Джон?"
-    show john body_aa head_a at center:
+    show john body_aa head_a: # at center:
         zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Он посмотрел на меня небесно-голубыми глазами."
     narrator "Какое-то время он изучал меня."
     narrator "Затем начал говорить."
@@ -802,24 +905,34 @@ label a54:
 
 label a55:
     narrator "Через какое-то время я завела разговор о побеге."
-    show john body_aa head_a at center:
+    show john body_aa head_a: # at center:
         zoom 0.7
-    john "— Отсюда невозможно сбежать."
+        align (0.5, 0.6)
+        yoffset 140
+    john "— Отсюда невозможно сбеzoom 0.6жать."
     john "— Видишь ту лестницу? Она ведёт из подвала."
     john "— В конце лестницы есть дверь."
     john "— Но она железная и толстая, просто силой её не возьмёшь."
-    show janet body_aa head_a at right:
-        zoom 0.6
+    show janet body_aa head_a: # at right:
+        zoom 0.55
+        align (1.0, 0.75)
+        yoffset 140
     janet "— Недавно какой-то пьяный культист, когда разносил ужин, проговорился о тайной двери, которая находится здесь."
     janet "— Мы пытались найти её, но всё было безуспешно."
     narrator "После того как Джанет перестала говорить, Джон подозрительно покосился на неё."
     if(from_location == "flat"):
-        show helen body_pajamas_af head_without_cap_h at left
+        show helen body_pajamas_af head_without_cap_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     else:
-        show helen body_af head_h at left
+        show helen body_af head_h: # at left
+            align (0.0, 0.6)
+            yoffset 180
     helen "— А если я попробую найти её?"
-    show john head_a body_ab at center:
+    show john head_a body_ab: # at center:
         zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     john "— Попробуй, может тебе повезёт."
     hide janet
     hide john
@@ -854,25 +967,37 @@ label a57:
     narrator "На развилке стоял стол."
     narrator "Когда мы подошли к нему, мы обнаружили рисунок, похожий на граф."
     narrator "Рядом с этим рисунком была небольшая фигурка муравья."
-    show janet head_e body_ad at right:
-        zoom 0.6
+    show janet head_e body_ad: # at right:
+        zoom 0.55
+        align (1.0, 0.75)
+        yoffset 140
     janet "— Что это такое?"
-    show john head_c body_ad at left:
+    show john head_c body_ad: # at left:
         zoom 0.7
+        align (0.0, 0.75)
+        yoffset 140
     john "— Я не знаю. Дайте подумать."
     john "— Мы видим граф и муравья."
     john "— Неужели это должно навести нас на муравьиный алгоритм?"
     janet "— Какой алгоритм?"
-    show john head_a body_ac at left:
+    show john head_a body_ac: # at left:
         zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     janet "— Я потом тебе объясню."
     if(from_location == "flat"):
-        show helen body_pajamas_af head_without_cap_h at center
+        show helen body_pajamas_af head_without_cap_h: # at center
+            align (0.5, 0.6)
+            yoffset 180
     else:
-        show helen body_af head_h at center
+        show helen body_af head_h: # at center
+            align (0.5, 0.6)
+            yoffset 180
     narrator "Тут я заметила надпись: «Найди их всех, и они укажут тебе путь. Они находятся в ближайшей аудитории»."
-    show janet head_b body_ab at right:
-        zoom 0.6
+    show janet head_b body_ab: # at right:
+        zoom 0.55
+        align (1.0, 0.75)
+        yoffset 140
     janet "— Неужели нам придётся облазить всю аудиторию, чтобы найти этих муравьев?"
     john "— Придётся, и это надо сделать быстро, пока нас не обнаружили."
     hide john
@@ -881,60 +1006,85 @@ label a57:
     jump start_ant_puzzle
 
 label a58:
-    show john body_af head_f at center:
+    scene dark_deformed_hallway
+    show john body_af head_f: # at center:
         zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     john "— Еще немного, я вижу выход."
     hide john
     narrator "Мы ускорили шаг."
     scene street
     narrator "Когда мы оказались около двери, Джон быстро открыл её, и мы бросились из этого здания, которое оказалось ИСЗФом."
     narrator "Мы немного отбежали от здания."
-    show john body_af head_f at center:
+    show john body_af head_f: # at center:
         zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     john "— За мной."
     hide john
     narrator "Через какое-то время Джон повернул в подворотню."
     narrator "Мы последовали за ним."
     scene archway_night
     narrator "Когда мы зашли туда, то увидели девушку."
-    show lilian head_e body_aa at right:
+    show lilian head_e body_aa: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     girl "— Джон! Я так рада тебя видеть."
-    show john head_d body_ae at left:
+    show john head_d body_ae: # at left:
         zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     john "— Я тебя тоже, Лилиана!"
     narrator "После этих слов они обнялись."
-    show john head_e body_ac at left:
+    show john head_e body_ac: # at left:
         zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     john "— Позволь мне представить тебе Джанет, которая помогла мне не сойти с ума в подвале. И Хэлен, которая спасла нас."
-    show lilian head_a body_aa at right:
+    show lilian head_a body_aa: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Приятно познакомиться."
     lilian "— Моё имя вы уже слышали."
     jump a59
 
 label a59:
-    show john head_e body_ac at left:
+    show john head_e body_ac: # at left:
         zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     john "— Извините, что скрывал правду."
     john " Просто я не доверял вам."
-    show janet head_a body_aa at center:
-        zoom 0.6
+    show janet head_a body_aa: # at center:
+        zoom 0.55
+        align (0.5, 0.75)
+        yoffset 140
     janet "— Кто вы такие?"
-    show lilian head_a body_aa at right:
+    show lilian head_a body_aa: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     lilian "— Я глава сопротивления, которое борется с вирусом."
     lilian " Джон — моя правая рука и самый верный соратник."
     hide janet
     if(from_location == "flat"):
-        show helen body_pajamas_af head_without_cap_h at center
+        show helen body_pajamas_af head_without_cap_h: # at center
+            align (0.5, 0.6)
+            yoffset 180
     else:
-        show helen body_af head_h at center
+        show helen body_af head_h: # at center
+            align (0.5, 0.6)
+            yoffset 180
     helen "— Кто такой вирус и что за сопротивление?"
     hide john
     hide helen
-    show lilian head_a body_ac at center:
+    show lilian head_a body_ac: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Позволь мне рассказать."
     lilian "— Если ты спасла Джона и Джанет из ИСЗФ, значит ты умеешь программировать."
     lilian "— Скорее всего, ты многое знаешь, но и ничего не знаешь одновременно."
@@ -949,19 +1099,25 @@ label a59:
     lilian "— Со временем начали появляться новые боги. Бог машинного обучения и нейронных сетей, бог веб-программирования, бог алгоритмов и так далее."
     lilian "— Для всех них были придуманы свои языки, которые превратились в посланников."
     lilian "— Десять самых популярных из них сформировали Орден, который защищает богов."
-    show lilian body_ae head_c at center:
+    show lilian body_ae head_c: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Но есть и тёмная сторона в программировании — это хакеры."
     lilian "— Они хотели и хотят вредить людям и наживаться на их беспечности."
     lilian "— Собственно, они и создали вирус, который стал своего рода тёмным братом машинного кода."
     lilian "— Также они основали культ поклонения вирусу, который стал разрастаться быстрыми темпами."
     lilian "— Признаюсь, я и сама в нём состояла, но это в прошлом."
     lilian "— Когда я увидела, какие зверства творит культ, я сбежала и основала то, что называют оппозицией, которая борется с культом."
-    show janet head_e body_ad at left:
-        zoom 0.6
+    show janet head_e body_ad: # at left:
+        zoom 0.55
+        align (0.0, 0.75)
+        yoffset 140
     janet "— Так вот что это было за существо…"
-    show lilian head_d body_ad at center:
+    show lilian head_d body_ad: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Ты видела Вируса?"
     narrator "Джанет кивнула."
     lilian "— Тогда тебе лучше пойти с нами. Я хочу поговорить с тобой. Ты можешь помочь нам."
@@ -973,10 +1129,14 @@ label a59:
     jump a60
 
 label a60:
-    show lilian head_e body_aa at center:
+    show lilian head_e body_aa: # at center:
         zoom 0.75
-    show john head_d body_ac at left:
+        align (0.5, 0.6)
+        yoffset 140
+    show john head_d body_ac: # at left:
         zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     narrator "Лилиана и Джон улыбнулись."
     john "— Тогда следуйте за нами."
     hide john
@@ -985,12 +1145,15 @@ label a60:
     return
 
 label a61:
+    scene dark_deformed_hallway
     narrator "Мы столкнулись с культистами, когда поворачивали за угол."
     narrator "Они заметили нас и начали доставать клинки."
     narrator "Чудом мы увернулись от их ударов и бросились прямо по коридору."
     narrator "Мы бежали со всей скоростью, но культисты постепенно догоняли нас."
-    show john head_f body_af at center:
-        zoom 0.7
+    show john head_f body_af: # at center:
+        zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     john "— Бегите дальше, выход должен быть скоро. Я задержу их."
     john "— Если вас найдет девушка, которую зовут Лилиана, то не бойтесь её."
     john "— Вы можете ей доверять. Она поможет вам."
@@ -1011,33 +1174,49 @@ label a62:
     scene archway_night
     narrator " Вдруг какая-то тень толкнула обоих нас в подворотню."
     narrator "Мы уже готовились защищаться, но тут раздался голос девушки."
-    show lilian head_a body_aa at left:
+    show lilian head_a body_aa: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     girl "— Не беспокойтесь. Я не причиню вреда друзьям Джона."
-    show janet head_d body_ad at right:
-        zoom 0.6
+    show janet head_d body_ad: # at right:
+        zoom 0.55
+        align (1.0, 0.75)
+        yoffset 140
     janet "— Кто ты такая и откуда ты знаешь, что мы друзья Джона?"
     lilian "— Меня зовут Лилиана."
     lilian " Мои люди засекли на радаре коммуникатор Джона, которым он отмечает своих друзей, чтобы прийти к ним на помощь в случае беды."
-    show lilian head_d body_ad at left:
+    show lilian head_d body_ad: # at left:
         zoom 0.75
-    lilian " Кстати, а где сам Джон?"
+        align (0.0, 0.6)
+        yoffset 140
+    lilian "Кстати, а где сам Джон?"
     if(from_location == "flat"):
-        show helen body_pajamas_aa head_without_cap_i at center
+        show helen body_pajamas_aa head_without_cap_i: # at center
+            align (0.5, 0.6)
+            yoffset 180
     else:
-        show helen body_aa head_i at center
+        show helen body_aa head_i: # at center
+            align (0.5, 0.6)
+            yoffset 180
     helen "— Джон погиб, спасая нас."
-    show lilian head_g body_ag arms_ag at left:
+    show lilian head_g body_ag arms_ag: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     narrator "Глаза Лилианы расширились от удивления и шока."
-    show lilian head_h body_ah no_arms at left:
+    show lilian head_h body_ah no_arms: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     lilian "— Он всегда был таким."
     lilian " Если он вас спас, значит это неспроста."
     hide helen
     hide janet
-    show lilian head_h body_ac no_arms at center:
+    show lilian head_h body_ac no_arms: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian " Позвольте мне рассказать вам одну историю."
     lilian "— Многие люди думают, что программирование — это просто бездушные команды, алгоритмы, нули и единицы."
     lilian " Но это далеко не так."
@@ -1050,8 +1229,10 @@ label a62:
     lilian "— Со временем начали появляться новые боги. Бог машинного обучения и нейронных сетей, бог веб-программирования, бог алгоритмов и так далее."
     lilian " Для всех них были придуманы свои языки, которые превратились в посланников."
     lilian "— Десять самых популярных из них сформировали Орден, который защищает богов."
-    show lilian head_h body_ae no_arms at center:
+    show lilian head_h body_ae no_arms: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian " Но есть и тёмная сторона в программировании — это хакеры."
     lilian "— Они хотели и хотят вредить людям и наживаться на их беспечности."
     lilian " Собственно, они и создали вирус, который стал своего рода тёмным братом машинного кода."
@@ -1067,13 +1248,17 @@ label a62:
 
 label a63:
     narrator "Немного подумав, мы согласились."
-    show lilian head_h body_ah at center:
+    show lilian head_h body_ah: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     lilian "— Хорошо. Следуйте за мной."
     scene street_static
     narrator "Мы пошли за Лилианой. Она шла впереди. Мы же отставали на пару шагов."
-    show lilian body_ai no_head at center:
+    show lilian body_ai no_head: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Когда я немного приблизилась к ней, я увидела, что она плачет…" 
     hide lilian
     narrator "КОНЕЦ ПЕРВОЙ ГЛАВЫ."
@@ -1122,34 +1307,48 @@ label a68:
     jump a69
 
 label a69:
-    show swan swan_11 at right:
+    show swan swan_11: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Извините, что заставил ждать."
-    show swan swan_14 at right:
+    show swan swan_14: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Можем продол… Что вы делаете?"
-    show helen body_bag_ae head_c at left
+    show helen body_bag_ae head_c: # at left
+        align (0.5, 0.6)
+        yoffset 180
     helen "— Я, я…"
     swan "— Теперь ты знаешь слишком много. К сожалению, мне придётся убить тебя."
-    show swan swan_20 at right:
+    show swan swan_20: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "После этих слов он достал из кармана нож."
     jump a29
 
 label a50:
     scene hallway
-    show helen head_g body_bag_aa at center
+    show helen head_g body_bag_aa: # at center
+        align (0.5, 0.6)
+        yoffset 180
     helen "— Нет, хватит. Я устала его ждать!"
     hide helen
     narrator "Когда я собрала вещи, я написала записку профессору."
     scene hallway
     narrator "Я оставила её на столе и вышла в коридор."
-    show bismarck bismarck_2 at center:
+    show bismarck bismarck_2: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Как только я направилась к лестнице на первый этаж, дверь одной из аудиторий открылась, и из неё вышел профессор Бисмарк с, судя по всему, магистрантом."
     narrator "Магистрант кланялся перед ним и, казалось, умолял профессора что-то сделать, но профессор не обращал на него внимания."
-    show bismarck bismarck_3 at center:
+    show bismarck bismarck_3: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Неожиданно профессор посмотрел на меня."
     narrator "Этот взгляд… О, как он напугал меня."
     narrator "Эти хищные глаза полыхали ярким огнём преисподней."
@@ -1158,10 +1357,14 @@ label a50:
     jump a53
 
 label a51:
-    show helen body_aa head_a at right
+    show helen body_aa head_a: # at right
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Честно говоря, мне не хотелось идти завтра в ИСЗФ, поэтому я сказала профессору, что занята."
-    show swan swan_18 at right:
+    show swan swan_18: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "Профессор резко изменился в лице."
     narrator "Прежняя лёгкая улыбка исчезла с его лица."
     narrator "Он нахмурился, и мне показалось, что он рассердился."
@@ -1196,23 +1399,31 @@ label a23:
     scene staff_room_2
     narrator "В комнате стоял профессор Свэн и ещё один человек. Но почему человек в мантии?"
     narrator "Стоп, там ещё кто-то… Боже, что это?"
-    show virus virus_4 at center:
+    show virus virus_4: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Это похоже на человека, но почему у него не видно лица? И почему у этого светится красным левый глаз?"
     narrator"Мне стало не по себе, особенно когда я услышала его механический, скрипучий голос, который вещал:"
     virus "— …я доволен, что с каждым разом вы вербуете всё больше и больше умных людей."
     virus "— Но меня беспокоит, что я начал чаще чувствовать взор моего брата на них."
-    show swan swan_17 at right:
+    show swan swan_17: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Извините, мой повелитель. Увы, но мы не чувствуем этого."
-    show virus virus_6 at left:
+    show virus virus_6: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     virus "— Это могу почувствовать только я, глупец!"
     virus "— Только я могу почувствовать взор моего брата."
     scene staff_room
     hide swan
-    show virus virus_9 at left:
+    show virus virus_9: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     narrator "Тут профессор Свэн и ещё один человек схватились за горло и начали задыхаться."
     narrator "Существо лишь стояло и смотрело на них своим красным глазом."
     narrator "Через секунду два человека уже лежали на земле."
@@ -1220,35 +1431,49 @@ label a23:
     narrator "Вдруг всё прекратилось."
     narrator "Профессор и культист перестали задыхаться."
     narrator "Они полежали на полу ещё минуту, после чего встали."
-    show virus virus_1 at left:
+    show virus virus_1: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     virus "— Вернёмся к нашему разговору."
     virus "— Свэн, ты говоришь, что привел новую кандидатуру?"
-    show swan swan_3 at right:
+    show swan swan_3: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Вы правы, мой повелитель. Она идеально подходит нам."
     hide swan
-    show virus virus_2 at left:
+    show virus virus_2: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     narrator "После этих слов существо закрыло глаз."
     narrator "Вдруг я почувствовала, что на меня кто-то смотрит."
     narrator "Я обернулась, но никого сзади не было."
     narrator "Я чувствовала, что что-то смотрело всё пристальней и пристальней." 
     narrator "Мне казалось, что оно видит меня насквозь."
     narrator "Казалось, оно читает мои мысли, видит мои воспоминания и смеется над моими секретами."
-    show virus virus_1 at left:
+    show virus virus_1: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     narrator "Это чувство прекратилось, когда существо открыло глаз."
     virus "— Ты прав, она идеальна. Но она не подходит нам."
-    show swan swan_16 at right:
+    show swan swan_16: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Почему? Она умна и достаточно хорошо разбирается в программировании."
     swan "— Мы должны попробовать завербовать её."
-    show virus virus_9 at left:
+    show virus virus_9: # at left:
         zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     virus "— Не тебе решать, смертный! Да, она умна и подходит нам, но я чувствую в ней что-то от него."
-    show swan swan_17 at right:
+    show swan swan_17: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Тогда что нам с ней делать?"
     virus "— Убейте её!"
     jump a24
@@ -1263,11 +1488,15 @@ label start_chess:
     
     if _return:
         narrator "Когда я разместила последнюю фигурку в нужном месте, за мной открылась потайная дверь."
-        show john head_b body_ac at left:
+        show john head_b body_ac: # at left:
             zoom 0.7
+            align (0.0, 0.6)
+            yoffset 140
         janet "— Неужели культист не врал?"
-        show janet head_d body_ac at right:
-            zoom 0.6
+        show janet head_d body_ac: # at right:
+            zoom 0.55
+            align (1.0, 0.6)
+            yoffset 140
         john "— Чего мы ждём? Пойдемте."
         hide john
         hide janet
@@ -1309,18 +1538,37 @@ label ant_puzzle_prob_success:
     narrator "Мы нашли всех муравьев в аудитории, однако на это ушло больше времени, чем хотелось бы."
     narrator "Джон расставил муравьев на рисунке, после чего они стали перемещаться между вершинами графа."
     narrator "Некоторое время мы наблюдали за тем, как траектории движения муравьёв становились всё более оптимальными, пока нас не прервал шёпот Джанет."
+    show janet head_c body_aa: # at right:
+            zoom 0.55
+            align (1.0, 0.75)
+            yoffset 140
     janet "— Вы тоже это слышите?"
     narrator "Отвлёкшись от наблюдения за движущимися фигурками муравьёв, я услышала приглушенный разговор культистов, звуки которого доносились из коридора."
     janet "— Чёрт! Мне кажется я слышу шаги..."
     narrator "Я на цыпочках подошла к двери и прислушалась."
     narrator "Было слышно, как где-то в коридоре несколько культистов шли и переговаривались между собой"
     narrator "Судя по звуку, они, к счастью для нас, пошли в противоположном направлении."
+    if(from_location == "flat"):
+        show helen body_pajamas_ad head_without_cap_c: # at center
+            align (0.5, 0.6)
+            yoffset 180
+    else:
+        show helen body_ad head_c: # at center
+            align (0.5, 0.6)
+            yoffset 180
     helen "— У нас мало времени. Нам нужно идти сейчас же."
     helen "— Джон, как там у тебя?"
     helen "— Муравьи нашли короткий путь по этим искаженным коридорам?"
+    show john head_c body_ad: # at left:
+        zoom 0.7
+        align (0.0, 0.6)
+        yoffset 140
     john "— Хм, муравьи довольно равномерно распределились по графу."
     john "— Есть только одна траектория, по которой от начальной до конечной точки ходит больше одного муравья..."
     john "— Она может оказаться неоптимальной, но, боюсь, другого выбора у нас нет."
+    hide john
+    hide helen
+    hide janet
     narrator "После этих слов Джон тихонько подошел к двери." 
     narrator "Сначала он прислушался к тому что происходит в коридоре, после чего аккуратно высунул голову и осмтрелся."
     narrator "Убедившись, что культистов поблизости нет, он жестом показал нам с Джанет, что можно идти."
@@ -1346,11 +1594,25 @@ label ant_puzzle_prob_success:
 
 label ant_puzzle_failure:
     narrator "К несчастью, у нас не получилось найти всех муравьёв в аудитории."
+    if(from_location == "flat"):
+        show helen body_pajamas_ad head_without_cap_c: # at center
+            align (0.0, 0.6)
+            yoffset 180
+    else:
+        show helen body_ad head_c: # at center
+            align (0.0, 0.6)
+            yoffset 180
     helen "— Похоже, нам придётся идти наобум..."
     narrator "После этих слов аудиторию наполнило неловкое молчание, которое через через пару минут прервал Джон"
+    show john head_c body_ad: # at right:
+        zoom 0.7
+        align (1.0, 0.6)
+        yoffset 140
     john "— Я смог запомнить один из путей к выходу."
     john "— Скорее всего он не оптимален, так как я нашёл его с помощью «жадного алгоритма»."
     john "— Но, к сожалению, выбора у нас нет."
+    hide john
+    hide helen
     narrator "Джон тихонько вышел из аудитории, осмотрелся, после чего жестом показал идти за ним."
     narrator "Мы вышли из аудитории и пошли вслед за Джоном."
     jump a61
@@ -1360,7 +1622,12 @@ label ant_puzzle_success:
     narrator "Джон расставил муравьев на рисунке, после чего они стали перемещаться между вершинами графа."
     narrator "Мы наблюдали за тем, как траектории движения муравьёв становились всё более оптимальными."
     narrator "Через некоторое время все муравьи не стали ходить от начальной до конечной точки маршрута по одной и той же траектории."
+    show john head_d body_ac: # at right:
+        zoom 0.7
+        align (0.5, 0.6)
+        yoffset 140
     john "— Это и есть наш оптимальный путь!"
+    hide john
     narrator "Каждый из нас внимательно изучил найденный муравьями путь и запомнил его, чтобы не потеряться, если кого-то из нас поймайют культисты."
     narrator "Мы осторожно покинули аудиторию и начали идти по маршруту."
     jump a58
