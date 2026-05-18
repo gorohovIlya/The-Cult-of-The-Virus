@@ -21,23 +21,37 @@ label a2:
     scene aud_149
     narrator "Я сидела на последнем занятии этого семестра. Все экзамены были сданы автоматом, остался всего лишь один зачёт, о сдаче которого я вообще не переживала."
     narrator "Я ждала своей очереди, чтобы показать решение задачи и получить заслуженную отметку."
-    show swan swan_11 at right:
+    show swan swan_11:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "Через пятнадцать минут профессор Билл Свэн, мой преподаватель по языку C++, подозвал меня."
-    show helen body_bag_aa head_a at left
+    show helen body_bag_aa head_a:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Уверенная в себе, я подошла к нему, начала показывать код, параллельно объясняя, что к чему."
-    show helen body_bag_ae head_h at left
+    show helen body_bag_ae head_h:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Он долго изучал мой код и блок-схему, задавал каверзные вопросы, но в конечном итоге сказал:"
     swan "— Давайте сюда зачётку. У вас зачёт."
-    show helen body_bag_ab head_b at left
+    show helen body_bag_ab head_b:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Я обрадовалась и отдала её профессору."
-    show helen body_bag_aa head_a at left
+    show helen body_bag_aa head_a:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Когда он возвращал её мне, он спросил:"
-    show swan swan_9 at right:
+    show swan swan_9:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Не могли бы вы завтра подойти в Институт солнечно-земной физики?"
     swan "— Ваш код мне очень понравился. Я бы хотел показать его моим магистрантам."
-    show helen body_bag_aa head_c at left
+    show helen body_bag_aa head_c:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Затем он посмотрел на меня, и что-то в его взгляде мне не понравилось. Я бы даже сказала, напугало."
     menu:
         "Согласиться":
@@ -46,16 +60,24 @@ label a2:
             jump a51
 
 label a4:
-    show swan swan_5 at right:
+    show swan swan_5:
         zoom 0.75
-    show helen body_bag_aa head_a at left
+        align (1.0, 0.6)
+        yoffset 140
+    show helen body_bag_aa head_a:
+        align (0.0, 0.6)
+        yoffset 180
     swan "— Чудно! Жду вас около 12:30 в 245 кабинете."
     swan "— Когда зайдёте в главное здание, скажите охране, что вы ко мне."
     swan "— Они вас пропустят, а если не пропустят, то позвоните мне по номеру 73-669, я приду и «съем» их."
-    show swan swan_19 at right:
+    show swan swan_19:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "После этих слов он засмеялся."
-    show helen body_bag_af head_d at left
+    show helen body_bag_af head_d:
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Признаться, я не поняла шутки, но из уважения к нему хихикнула."
     hide helen
     hide swan
@@ -85,11 +107,15 @@ label a8:
     narrator "Моё выступление длилось 20 минут. Когда я закончила, все магистранты зааплодировали. После этого они начали расходиться."
     scene bg_aud14_docs
     narrator "Когда последний магистрант покинул аудиторию, профессор радостно сказал:"
-    show swan swan_13 at center:
+    show swan swan_13:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     swan "— Вы меня поразили. Я и не думал, что у вас ещё и такие ораторские качества."
-    show swan swan_5 at center:
+    show swan swan_5: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     swan "— Предлагаю отметить это чашечкой настоящего индийского чая. Он очень вкусный. Что скажете?"
     menu:
         "Согласиться":
@@ -98,11 +124,15 @@ label a8:
             jump a9
 
 label a9:
-    show swan swan_18 at center:
+    show swan swan_18: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     swan "— Жаль, — проговорил он с ноткой, как мне показалось, гнева."
-    show swan swan_11 at center:
+    show swan swan_11: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     swan "— Что ж, тогда давайте я расскажу вам о том, какие фичи можно добавить в ваш код."
     hide swan
     narrator "И он начал говорить. Я слушала его и записывала. Некоторые идеи были, как по мне, абсурдны, до некоторых я могла додуматься и сама, но было несколько предложений, которые показались мне просто гениальными."
@@ -119,8 +149,10 @@ label a10:
     jump a12
 
 label a12:
-    show swan swan_11 at center:
+    show swan swan_11: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Через 20 минут профессору позвонили. Разговор был долгим, но наконец он сказал:"
     narrator "— Мне надо отойти на 10 минут. Подождите меня, пожалуйста, и мы продолжим."
     hide swan
@@ -173,21 +205,33 @@ label a16:
 label a17:
     scene bismarcks_aud
     narrator "Я решила толкнуть дверь, но не рассчитала силу и с громким звуком ввалилась в аудиторию, где, по всей видимости, проходил экзамен. Все взгляды в комнате сразу же устремились ко мне."
-    show bismarck bismarck_1 at right:
+    show bismarck bismarck_1: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     bismarck "— Вы что-то хотели, Хэлен?"
-    show helen body_ac head_c at left
+    show helen body_ac head_c: # at left
+        align (0.0, 0.6)
+        yoffset 180
     helen "— Извините, профессор! Я просто решила зайти поздороваться, а заодно и послушать анекдот, но я вижу, что вы заняты."
-    show bismarck bismarck_2 at right:
+    show bismarck bismarck_2: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     bismarck "— Да, я действительно занят. Давайте как-нибудь в другой раз."
-    show helen body_ae head_h at left
+    show helen body_ae head_h: # at left
+        align (0.0, 0.6)
+        yoffset 180
     narrator "Когда он это говорил, я обратила внимание, что на лицах всех людей в аудитории ярко выражена боль."
     narrator "Они буквально умоляли помочь им, но только чем?"
-    show helen body_aa head_a
+    show helen body_aa head_a:
+        align (0.0, 0.6)
+        yoffset 180
     helen "— Тогда я лучше пойду. До свидания, профессор."
-    show bismarck bismarck_1 at right:
+    show bismarck bismarck_1: #at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     bismarck "— До свидания."
     hide helen
     narrator "Когда я выходила из комнаты, я чувствовала холодный взгляд профессора Бисмарка."
@@ -208,16 +252,22 @@ label a19:
 label a20:
     scene staff_room
     narrator "В комнате стоял профессор Свэн и ещё один человек. Но почему человек в мантии?"
-    show virus virus_9 at center:
+    show virus virus_9: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Стоп, там ещё кто-то… Боже, что это?"
     narrator "Это похоже на человека, но почему у него не видно лица? И почему у этого светится красным левый глаз?"
     narrator "Мне стало не по себе, особенно когда я услышала его механический, скрипучий голос, который вещал:"
-    show virus virus_9 at left:
+    show virus virus_9: # at left:
         zoom 0.75
-    virus "— Не тебе решать, смертный! Да, она умна и подходит нам, но я чувствую в ней что-то от него."
-    show swan swan_15 at right:
+        align (0.0, 0.6)
+        yoffset 140
+    virus "— Не тебе решать, смертный! Да, она умна и подходит нам, но я чувствую в ней что-то от {i}него{/i}."
+    show swan swan_15: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     swan "— Тогда что нам с ней делать?"
     virus "— Убейте её!"
     jump a24
@@ -225,8 +275,10 @@ label a20:
 label a24:
     narrator "Это повергло меня в шок. Почему-то мне показалось, что они говорили обо мне. И от этого мне стало ещё хуже."
     narrator "Я решила бежать оттуда, но когда я отходила от двери, я случайно коснулась её, и она скрипнула."
-    show virus virus_7 at left:
+    show virus virus_7: # at left:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     virus "— Что это?"
     jump a25
 
@@ -253,11 +305,15 @@ label a27:
 
 label a28:
     narrator "Когда я положила ноутбук, в комнату вбежал профессор Свэн."
-    show swan swan_14 at center:
+    show swan swan_14: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     swan "— Куда собралась?!"
-    show swan swan_20 at center:
+    show swan swan_20: # at center:
         zoom 0.75
+        align (0.5, 0.6)
+        yoffset 140
     narrator "Он потянулся к клинку, который висел у него на поясе. Я начала пятиться назад, а он — подходить."
     narrator "Когда я коснулась спиной стены, я подумала, что мне конец. Профессор начал поднимать клинок в воздух."
     jump a29
@@ -304,7 +360,10 @@ label a34:
             jump a42
 
 label a35:
-    show helen head_a body_aa at left
+    show helen head_a body_aa: # at left:
+        zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     helen "— Да, всё нормально, просто устала."
     hide helen
     narrator "Друзья поняли, что вечер подошёл к концу."
@@ -328,10 +387,15 @@ label a36:
     jump a37
 
 label a37:
-    show lilian at right:
+    show lilian: # at right:
         zoom 0.75
+        align (1.0, 0.6)
+        yoffset 140
     narrator "Я быстро развернулась и увидела девушку."
-    show helen body_ad head_f at left
+    show helen body_ad head_f: # at left
+        zoom 0.75
+        align (0.0, 0.6)
+        yoffset 140
     helen "— Кто ты? Что тебе от меня нужно?"
     girl "— Не беспокойся, Хэлен. Я не причиню тебе зла."
     girl "Извини, что так грубо обошлась с тобой, но на то были причины."
