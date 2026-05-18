@@ -14,6 +14,7 @@ label start:
     jump a1
 
 label a1:
+    play music "audio/chill.mp3" fadein 0.5 fadeout 1.0
     scene university
     narrator "Был обычный, безоблачный майский день."
     narrator "Весенние солнечные лучи освещали учебную аудиторию, а за окном пели птицы."
@@ -171,13 +172,13 @@ label a12:
     hide swan
     narrator "И он ушёл." 
     narrator "..."
-    narrator "Прошло десять минут"
+    narrator "Прошло десять минут..."
     narrator "..."
-    narrator "Пятнадцать"
+    narrator "...Пятнадцать..."
     narrator "..." 
-    narrator "Двадцать"
+    narrator "...Двадцать..."
     narrator "..." 
-    narrator "Час." 
+    narrator "...Час." 
     narrator "Но профессор не возвращался."
     narrator "Мне становилось скучно."
     menu:
@@ -275,6 +276,7 @@ label a19:
     jump a20
 
 label a20:
+    play music "audio/virus.mp3" fadein 1.0 fadeout 1.0
     scene staff_room
     narrator "В комнате стоял профессор Свэн и ещё один человек. Но почему человек в мантии?"
     show virus virus_9: # at center:
@@ -309,6 +311,7 @@ label a24:
     jump a25
 
 label a25:
+    play music "audio/Simulacra.mp3" fadein 0.5 fadeout 0.5
     scene hallway
     narrator "Я бросилась прочь от этой поганой двери в аудиторию за своими вещами."
     scene bg_aud14_docs
@@ -377,6 +380,7 @@ label a32:
 
 label a33:
     narrator "Уснула я только под утро, но сон был тревожным. Поэтому я проспала всего три часа."
+    play music "audio/chill.mp3" fadein 2.0 fadeout 1.0
     narrator "Встав с кровати, я вспомнила, что мы с друзьями договорились сегодня собраться у меня."
     narrator "Я быстро переоделась, прибралась в квартире, разобрала баррикады и стала ждать друзей."
     narrator "Через час они были в квартире."
@@ -680,6 +684,7 @@ label a47:
     jump a48
 
 label a48:
+    play music "audio/pbw.mp3"
     scene world_between_worlds
     narrator "Очнулась я в сером безжизненном месте."
     narrator "Первая мысль была, что я умерла."
@@ -754,6 +759,7 @@ label a49:
 
 label a53:
     scene basement
+    play music "audio/water-dripping.mp3" fadein 0.5 fadeout 0.5
     narrator "Разбудил меня звук капающей откуда-то воды."
     narrator "Я открыла глаза и поняла, что нахожусь в тёмном помещении."
     narrator "Как я сюда попала?"
@@ -909,7 +915,7 @@ label a55:
         zoom 0.7
         align (0.5, 0.6)
         yoffset 140
-    john "— Отсюда невозможно сбеzoom 0.6жать."
+    john "— Отсюда невозможно сбежать."
     john "— Видишь ту лестницу? Она ведёт из подвала."
     john "— В конце лестницы есть дверь."
     john "— Но она железная и толстая, просто силой её не возьмёшь."
@@ -958,6 +964,7 @@ label a56:
     jump start_chess
 
 label a57:
+    play music "audio/glitch.mp3" fadein 0.5 fadeout 0.5
     scene dark_deformed_hallway
     narrator "Мы очутились в коридорах какого-то здания."
     narrator "Коридоры были максимально странными."
@@ -1006,6 +1013,7 @@ label a57:
     jump start_ant_puzzle
 
 label a58:
+    play music "audio/cat.mp3" fadein 1.0 fadeout 1.0
     scene dark_deformed_hallway
     show john body_af head_f: # at center:
         zoom 0.7
@@ -1157,6 +1165,7 @@ label a61:
     john "— Бегите дальше, выход должен быть скоро. Я задержу их."
     john "— Если вас найдет девушка, которую зовут Лилиана, то не бойтесь её."
     john "— Вы можете ей доверять. Она поможет вам."
+    play music "audio/emotional.mp3" fadein 1.0 fadeout 2.0
     hide john
     narrator "После этих слов Джон резко развернулся и направился прямо на культистов."
     narrator "Когда он добежал до них, он ударил одного, и тот рухнул на пол. Но он не успел увернуться от второго."
@@ -1277,7 +1286,7 @@ label a65:
     narrator "Он напоминал направленный граф со стрелками разного цвета: одни были зелёные, а другие красные."
     narrator "Вершины этого графа были чёрными."
     narrator "Лишь по краям были красные и одна зелёная точки." 
-    narrator "Чуть выше было написано: «Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо и вы найдете выход из лабиринта»."
+    narrator "Чуть выше было написано: {b}«Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо{/b} и вы найдете выход из лабиринта»."
     narrator "Интересно, что это значит?"
     jump a66
 
@@ -1396,6 +1405,7 @@ label a21:
     jump a23
 
 label a23:
+    play music "audio/virus.mp3" fadein 1.0 fadeout 1.0
     scene staff_room_2
     narrator "В комнате стоял профессор Свэн и ещё один человек. Но почему человек в мантии?"
     narrator "Стоп, там ещё кто-то… Боже, что это?"

@@ -363,11 +363,14 @@ translate english strings:
     new "Skipping"
 
     # Дополнительные строки мини-игры "Поиск пути"
-    old "Осталось времени 00:"
-    new "Time left 00:"
+    old "Осталось времени 00:[way_time_left]"
+    new "Time left 00:[way_time_left]"
 
-    old "  Шагов: [clicks_made]/6"
-    new "  Steps: [clicks_made]/6"
+    old "Осталось времени 00:0[way_time_left]"
+    new "Time left 00:0[way_time_left]"
+
+    old "  |  Шагов: [clicks_made]/6"
+    new "  |  Steps: [clicks_made]/6"
 
     old "Налево"
     new "Left"
@@ -427,15 +430,15 @@ translate english strings:
 
     # game/screens.rpy:323
     old "Об игре"
-    new "Об игре"
+    new "About"
 
     # game/screens.rpy:569
     old "Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
-    new "Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
+    new "Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]"
 
     # game/screens.rpy:604
     old "{} страница"
-    new "{} страница"
+    new "{} page"
 
     # game/screens.rpy:647
     old "{#file_time}%A, %d %B %Y, %H:%M"
@@ -443,7 +446,7 @@ translate english strings:
 
     # game/screens.rpy:647
     old "Пустой слот"
-    new "Пустой слот"
+    new "Empty slot"
 
     # game/screens.rpy:667
     old "<"
@@ -454,8 +457,8 @@ translate english strings:
     new "{#auto_page}А"
 
     # game/screens.rpy:674
-    old "{#quick_page}Б"
-    new "{#quick_page}Б"
+    old "{#quick_page}B"
+    new "{#quick_page}C"
 
     # game/screens.rpy:680
     old ">"
@@ -463,23 +466,23 @@ translate english strings:
 
     # game/screens.rpy:685
     old "Загрузить Sync"
-    new "Загрузить Sync"
+    new "Load Sync"
 
     # game/screens.rpy:689
     old "Скачать Sync"
-    new "Скачать Sync"
+    new "Install Sync"
 
     # game/screens.rpy:754
     old "Язык / Language"
-    new "Язык / Language"
+    new "Language / Язык"
 
     # game/screens.rpy:1025
     old "Прохождение диалогов, активация интерфейса."
-    new "Прохождение диалогов, активация интерфейса."
+    new "Passing dialogues, interface activation."
 
     # game/screens.rpy:1029
     old "Прохождение диалогов без возможности делать выбор."
-    new "Прохождение диалогов без возможности делать выбор."
+    new "Passing dialogues without choice."
 
     # game/screens.rpy:1036
     old "Esc"
@@ -487,7 +490,7 @@ translate english strings:
 
     # game/screens.rpy:1037
     old "Вход в игровое меню."
-    new "Вход в игровое меню."
+    new "Go to main menu."
 
     # game/screens.rpy:1040
     old "Ctrl"
@@ -495,7 +498,7 @@ translate english strings:
 
     # game/screens.rpy:1041
     old "Пропускает диалоги, пока зажат."
-    new "Пропускает диалоги, пока зажат."
+    new "Skips dialogues while is holded."
 
     # game/screens.rpy:1044
     old "Tab"
@@ -503,53 +506,53 @@ translate english strings:
 
     # game/screens.rpy:1045
     old "Включает режим пропуска."
-    new "Включает режим пропуска."
+    new "Enables skip mode."
 
     # game/screens.rpy:1049
     old "Откат назад по сюжету игры."
-    new "Откат назад по сюжету игры."
+    new "Rolls back the game story."
 
     # game/screens.rpy:1053
     old "Откатывает предыдущее действие вперёд."
-    new "Откатывает предыдущее действие вперёд."
+    new "Rolls forward the previous action."
 
     # game/screens.rpy:1061
     old "Делает снимок экрана."
-    new "Делает снимок экрана."
+    new "Takes a screenshot."
 
     # game/screens.rpy:1065
     old "Включает поддерживаемый {a=https://www.renpy.org/l/voicing}синтезатор речи{/a}."
-    new "Включает поддерживаемый {a=https://www.renpy.org/l/voicing}синтезатор речи{/a}."
+    new "Enables the supported {a=https://www.renpy.org/l/voicing}text-to-speech voice synthesizer{/a}."
 
     # game/screens.rpy:1069
     old "Открывает меню специальных возможностей."
-    new "Открывает меню специальных возможностей."
+    new "Opens the accessibility menu."
 
     # game/screens.rpy:1098
     old "Правый триггер\nA/Нижняя кнопка"
-    new "Правый триггер\nA/Нижняя кнопка"
+    new "Right Trigger\nA/Bottom Button"
 
     # game/screens.rpy:1102
     old "Левый Триггер\nЛевый Бампер"
-    new "Левый Триггер\nЛевый Бампер"
+    new "Left Trigger\nLeft Bumper"
 
     # game/screens.rpy:1110
     old "Крестовина, Стики"
-    new "Крестовина, Стики"
+    new "D-Pad, Sticks"
 
     # game/screens.rpy:1114
     old "Старт, Гид, B/Правая кнопка"
-    new "Старт, Гид, B/Правая кнопка"
+    new "Start, Guide, B/Right Button"
 
     # game/screens.rpy:1118
     old "Y/Верхняя кнопка"
-    new "Y/Верхняя кнопка"
+    new "Y/Top Button"
 
     # game/screens.rpy:1121
     old "Калибровка"
-    new "Калибровка"
+    new "Calibration"
 
     # game/screens.rpy:1546
     old "Меню"
-    new "Меню"
+    new "Menu"
 

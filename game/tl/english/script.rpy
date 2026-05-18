@@ -259,8 +259,8 @@ translate english a12_e3f07ecc:
 # game/script.rpy:161
 translate english a12_776e08a1:
 
-    # narrator "Прошло десять минут"
-    narrator "Ten minutes passed"
+    # narrator "Прошло десять минут..."
+    narrator "Ten minutes passed..."
 
 # game/script.rpy:162
 translate english a12_e3f07ecc_1:
@@ -271,8 +271,8 @@ translate english a12_e3f07ecc_1:
 # game/script.rpy:163
 translate english a12_a86e2280:
 
-    # narrator "Пятнадцать"
-    narrator "Fifteen"
+    # narrator "...Пятнадцать..."
+    narrator "...Fifteen..."
 
 # game/script.rpy:164
 translate english a12_e3f07ecc_2:
@@ -283,8 +283,8 @@ translate english a12_e3f07ecc_2:
 # game/script.rpy:165
 translate english a12_7047d579:
 
-    # narrator "Двадцать"
-    narrator "Twenty"
+    # narrator "...Двадцать..."
+    narrator "...Twenty..."
 
 # game/script.rpy:166
 translate english a12_e3f07ecc_3:
@@ -295,8 +295,8 @@ translate english a12_e3f07ecc_3:
 # game/script.rpy:167
 translate english a12_dd9f1f8f:
 
-    # narrator "Час."
-    narrator "An hour."
+    # narrator "...Час."
+    narrator "...An hour."
 
 # game/script.rpy:168
 translate english a12_ea4ac2a5:
@@ -4203,3 +4203,40 @@ translate english ant_puzzle_success_cc1b0049:
 
     # narrator "Через некоторое время все муравьи не стали ходить от начальной до конечной точки маршрута по одной и той же траектории."
     narrator "After a while, all the ants began to walk from the starting to the ending point of the route along the exact same trajectory."
+# TODO: Translation updated at 2026-05-18 23:34
+
+# game/script.rpy:175
+translate english a12_b4b863fa:
+
+    # narrator "Прошло десять минут..."
+    narrator "Ten minutes passed..."
+
+# game/script.rpy:177
+translate english a12_8e7d25ea:
+
+    # narrator "...Пятнадцать..."
+    narrator "...Fifteen..."
+
+# game/script.rpy:179
+translate english a12_5658c609:
+
+    # narrator "...Двадцать..."
+    narrator "...Twenty..."
+
+# game/script.rpy:181
+translate english a12_3ec32856:
+
+    # narrator "...Час."
+    narrator "...An hour."
+
+# game/script.rpy:1199
+translate english a62_2901da54:
+
+    # lilian "Кстати, а где сам Джон?"
+    lilian "By the way, where is John?"
+
+# game/script.rpy:1286
+translate english a65_ead1d897:
+
+    # narrator "Чуть выше было написано: {b}«Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо{/b} и вы найдете выход из лабиринта»."
+    narrator "A bit higher was written: {b}'Left, Straight, Left, Right, Right at a 45-degree angle, Straight'{/b} and you'll find exit."
