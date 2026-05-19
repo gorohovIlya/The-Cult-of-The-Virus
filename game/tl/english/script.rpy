@@ -4240,3 +4240,35 @@ translate english a65_ead1d897:
 
     # narrator "Чуть выше было написано: {b}«Налево, Прямо, Налево, Направо, Направо под углом в 45 градусов, Прямо{/b} и вы найдете выход из лабиринта»."
     narrator "A bit higher was written: {b}'Left, Straight, Left, Right, Right at a 45-degree angle, Straight'{/b} and you'll find exit."
+# TODO: Translation updated at 2026-05-19 01:24
+
+# game/script.rpy:1646
+translate english credits_7c30364e:
+
+    # "Над Игрой работали:"
+    "The game was created by:"
+
+# game/script.rpy:1648
+translate english credits_d3f2164b:
+
+    # "Илья Горохов\n Сергей Плескунов\n Марья Савельева\n Мария Хенох"
+    "Ilya Gorokhov\n Sergey Pleskunov\n Marya Savelieva\n Maria Henoh"
+
+# game/script.rpy:1653
+translate english credits_8cbbea2f:
+
+    # "При создании игры использовалась музыка:"
+    "Music used in the game:"
+
+# game/script.rpy:1655
+translate english credits_f6081334:
+
+    # "Scott Buckley - Simulacra\n Scott Buckley - Incantation\n Scott Buckley - Echoes\n Roa - Stay a Little\n Johny Grimes - Dreamy Cat\n"
+    "Scott Buckley - Simulacra\nScott Buckley - Incantation\nScott Buckley - Echoes\nRoa - Stay a Little\nJohny Grimes - Dreamy Cat\n"
+
+# game/script.rpy:1661
+translate english credits_cc6f0f96:
+
+    # "Большое спасибо за проявленный интерес к нашей игре!"
+    "Thank you so much for your interest in our game!"
+

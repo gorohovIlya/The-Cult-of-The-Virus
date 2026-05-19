@@ -583,7 +583,7 @@ style about_label_text:
 ## как они почти одинаковые, оба реализованы по правилам третьего экрана —
 ## file_slots.
 ##
-## https://www.renpy.org/doc/html/screen_special.html#save 
+## https://www.renpy.org/doc/html/screen_special.html#save
 
 screen save():
 
@@ -748,14 +748,14 @@ screen preferences():
                         label _("Режим экрана")
                         textbutton _("Оконный") action Preference("display", "window")
                         textbutton _("Полный") action Preference("display", "fullscreen")
-                    
+
                     vbox:
                         style_prefix "radio"
                         label _("Язык / Language")
-                        
+
                         # None возвращает игру к исходному языку (в вашем случае к русскому)
-                        textbutton "Русский" action Language(None) 
-                        
+                        textbutton "Русский" action Language(None)
+
                         # "en" переключает игру на папку локализации tl/en
                         textbutton "English" action Language("english")
 
@@ -1637,7 +1637,7 @@ screen ant_algorithm_puzzle():
                         [Hide("ant_algorithm_puzzle"), Jump("ant_puzzle_failure")])
     frame:
         align (0.5, 0.1)
-        
+
         background "#000000ee"
         padding (40, 40)
         xysize (1200, 120)
@@ -1659,10 +1659,10 @@ screen ant_algorithm_puzzle():
             imagebutton:
                 idle ant_img_idle
                 hover ant_img_hover
-                
+
                 xpos ant_pos[0]
                 ypos ant_pos[1]
-                
+
                 action Function(ant_clicked, ant_name)
 
 screen find_the_correct_way_puzzle():
@@ -1673,7 +1673,7 @@ screen find_the_correct_way_puzzle():
                         [Hide("find_the_correct_way_puzzle"), Jump("a47")])
     frame:
         align (0.5, 0.1)       # Центрирование по горизонтали и вертикали
-        
+
         background "#000000ee"
         padding (40, 40)
         xysize (800, 120)
@@ -1691,17 +1691,17 @@ screen find_the_correct_way_puzzle():
     hbox:
         align (0.5, 0.8)
         spacing 25
-                
+
         for idx, (name, lbl) in enumerate(all_directions.items()):
             button:
-                xsize 270 
+                xsize 270
                 ysize 120
                 background "#2e681c"
                 hover_background "#3f7d2d"
-                sensitive (clicks_made < 6) 
+                sensitive (clicks_made < 6)
                 action Function(button_clicked, name)
 
-                text lbl align (0.5, 0.5) color "#fff" size 20 bold True   
+                text lbl align (0.5, 0.5) color "#fff" size 20 bold True
 
 screen chess_board_view(mgr):
     modal True
@@ -1717,7 +1717,7 @@ screen chess_board_view(mgr):
         grid 8 8:
             xsize 720 ysize 720
             spacing 0
-            
+
             for y in range(7, -1, -1):
                 for x in range(8):
                     $ current_sq = chess.square(x, y)
@@ -1731,13 +1731,13 @@ screen chess_board_view(mgr):
                         padding (0, 0)
                         margin (0, 0)
                         action Function(mgr.select_square, x, y)
-                        
+
                         if is_sel:
                             add Solid("#44ff4444") xsize 90 ysize 90
-                        
+
                         if piece_name:
                             add f"images/chess_puzzle/{piece_name}.svg":
-                                xsize 70 ysize 70 
+                                xsize 70 ysize 70
                                 align (0.5, 0.5)
                         elif is_target:
                             add Solid("#1c631486") xsize 20 ysize 20 align(0.5, 0.5)
@@ -1745,31 +1745,31 @@ screen chess_board_view(mgr):
     vbox:
         xpos 0.85 yalign 0.5
         spacing 15
-        
+
         if mgr.is_white_turn:
             text _("Ход: БЕЛЫЕ") size 24 color "#fff"
         else:
             text _("Ход: ЧЕРНЫЕ") size 24 color "#fff"
-            
-        text _("Ходов: ") + f"{mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
-        
-        if mgr.is_success:   
+
+        text _("Moves: ") + f"{mgr.moves_made}/{mgr.moves_limit}" size 18 color "#ccc"
+
+        if mgr.is_success:
             text _("МАТ!") color "#0f0" size 40
             textbutton _("Далее") action Return(True)
-        elif mgr.is_failure: 
+        elif mgr.is_failure:
             text _("ПРОВАЛ") color "#f00" size 30
             textbutton _("Заново") action Return(False)
 
 screen git_puzzle():
     modal True
     add Solid("#370d2b") # Темный фон
-    
+
     # Главный контейнер
     draggroup:
         id "git_draggroup"
-        
+
         for i in range(4):
-            $ slot_y = 150 + i * 100 
+            $ slot_y = 150 + i * 100
 
             drag:
                 drag_name "desc_{}".format(i)
@@ -1781,24 +1781,24 @@ screen git_puzzle():
                     xsize 600 ysize 80
                     background Frame(Solid("#370d2b"), 4, 4)
                     padding (5, 5)
-                    text "{b}helen@place-between-worlds:~{/b}" align (0.5, 0.5) color "#379b09" size 30 
+                    text "{b}helen@place-between-worlds:~{/b}" align (0.5, 0.5) color "#379b09" size 30
 
             drag:
-                drag_name "slot_{}".format(i) 
+                drag_name "slot_{}".format(i)
                 droppable True
                 draggable False
                 xpos 625
                 ypos slot_y
-                
+
                 # Визуальное оформление пустого слота
                 frame:
                     xsize 440 ysize 80
                     background Frame(Solid("#9e4887"), 4, 4)
                     padding (5, 5)
-                    text "Команда [i]" align (0.5, 0.5) color "#ccc" size 30
+                    text "command [i]" align (0.5, 0.5) color "#ccc" size 30
 
         for index, item in enumerate(all_items):
-            
+
             if item in player_results:
                 $ slot_idx = player_results.index(item)
                 $ my_x = 605 + 30
@@ -1816,14 +1816,14 @@ screen git_puzzle():
                 dragged item_dragged
                 xpos my_x
                 ypos my_y
-                
+
                 # Внешний вид команды
                 frame:
                     xsize 420 ysize 60
                     background Frame(Solid("#6a2f5a"), 4, 4)
                     hover_background Solid("#672556")
                     padding (5, 5)
-                    
+
                     text item:
                         align (0.5, 0.5)
                         color "#ffffff"
@@ -1836,12 +1836,12 @@ screen git_puzzle():
             xysize (240, 60)
             background Frame(Solid("#27ae60"), 6, 6)
             hover_background Frame(Solid("#2ecc71"), 6, 6)
-            
+
             if player_results == win_order:
                 action Jump("git_puzzle_success")
             else:
                 action Show("git_puzzle_failure_msg")
-            
+
             text "Enter" align (0.5, 0.5) color "#fff" size 22 bold True
 
 screen git_puzzle_failure_msg():

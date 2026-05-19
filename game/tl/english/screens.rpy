@@ -556,3 +556,15 @@ translate english strings:
     old "Меню"
     new "Menu"
 
+# TODO: Translation updated at 2026-05-19 01:24
+
+translate english strings:
+
+    # game/screens.rpy:674
+    old "{#quick_page}Б"
+    new ""
+
+    # game/screens.rpy:1754
+    old "Moves: "
+    new ""
+

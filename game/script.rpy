@@ -551,7 +551,7 @@ label a41:
     narrator "После этих слов она накинула капюшон своего худи и направилась к выходу из переулка."
     narrator "Вздохнув, я последовала за ней."
     narrator "КОНЕЦ ПЕРВОЙ ГЛАВЫ"
-    return
+    jump credits
 
 label a42:
     show helen head_g body_af: # at center
@@ -675,7 +675,7 @@ label a46:
     narrator "После этих слов она направилась к входной двери."
     narrator "Вдохнув, я последовала за ней."
     narrator "КОНЕЦ ПЕРВОЙ ГЛАВЫ"
-    return
+    jump credits
 
 label a47:
     narrator "Я бежала так быстро, как могла, но коридоры всё нарастали и нарастали."
@@ -1150,7 +1150,7 @@ label a60:
     hide john
     hide lilian
     narrator "КОНЕЦ ПЕРВОЙ ГЛАВЫ."
-    return
+    jump credits
 
 label a61:
     scene dark_deformed_hallway
@@ -1271,7 +1271,7 @@ label a63:
     narrator "Когда я немного приблизилась к ней, я увидела, что она плачет…" 
     hide lilian
     narrator "КОНЕЦ ПЕРВОЙ ГЛАВЫ."
-    return
+    jump credits
 
 label a64:
     narrator "Я решила остаться и осмотреть аудиторию."
@@ -1642,3 +1642,21 @@ label ant_puzzle_success:
     narrator "Мы осторожно покинули аудиторию и начали идти по маршруту."
     jump a58
 
+label credits:
+    "Над Игрой работали:"
+
+    "Илья Горохов\n
+    Сергей Плескунов\n
+    Марья Савельева\n
+    Мария Хенох"
+
+    "При создании игры использовалась музыка:"
+
+    "Scott Buckley - Simulacra\n
+    Scott Buckley - Incantation\n
+    Scott Buckley - Echoes\n
+    Roa - Stay a Little\n
+    Johny Grimes - Dreamy Cat\n"
+
+    "Большое спасибо за проявленный интерес к нашей игре!"
+    return
