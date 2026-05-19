@@ -1,5 +1,5 @@
 default way_time_left = 60
-default ants_time_left = 180
+default ants_time_left = 90
 default clicks_made = 0
 default state = 0
 default ant_time_color = '#fff'
@@ -1540,7 +1540,7 @@ label start_find_way_puzzle:
 
 label start_ant_puzzle:
     scene aud_distorted
-    $ ants_time_left = 180
+    $ ants_time_left = 90
     $ setup_ant_puzzle()
     call screen ant_algorithm_puzzle
 

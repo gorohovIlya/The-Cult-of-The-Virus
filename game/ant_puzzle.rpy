@@ -18,15 +18,15 @@ init python:
 
     def check_win():
         if len(ants_found) == num_ants:
-            if 120 <= store.ants_time_left <= 180:
+            if 60 <= store.ants_time_left <= 90:
                 renpy.jump('ant_puzzle_success')
-            elif 60 <= store.ants_time_left < 120:
+            elif 30 <= store.ants_time_left < 60:
                 store.state = 1
                 renpy.jump('ant_puzzle_prob_success')
-            elif 30 <= store.ants_time_left < 60:
+            elif 15 <= store.ants_time_left < 30:
                 store.state = 2
                 renpy.jump('ant_puzzle_prob_success')
-            elif 10 <= store.ants_time_left < 30:
+            elif 5 <= store.ants_time_left < 15:
                 store.state = 3
                 renpy.jump('ant_puzzle_prob_success')
             else:
@@ -39,11 +39,11 @@ init python:
 
     def get_time_color():
         result = ''
-        if 120 <= store.ants_time_left <= 180:
+        if 60 <= store.ants_time_left <= 90:
             result = '#00ff11'
-        elif 60 <= store.ants_time_left < 120:
-            result = '#eeff00'
         elif 30 <= store.ants_time_left < 60:
+            result = '#eeff00'
+        elif 15 <= store.ants_time_left < 30:
             result = '#ff6f00'
         else:
             result = '#ff0000'
